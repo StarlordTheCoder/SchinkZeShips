@@ -1,4 +1,4 @@
-﻿namespace SchinkZeShips.Core
+﻿namespace SchinkZeShips.Server
 {
     public class Player
     {

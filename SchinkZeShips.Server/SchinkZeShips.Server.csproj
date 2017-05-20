@@ -60,32 +60,29 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="SchinkZeShip.svc" />
+    <Content Include="SchinkZeShips.svc" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SchinkZeShip.svc.cs">
-      <DependentUpon>SchinkZeShip.svc</DependentUpon>
+    <Compile Include="Game.cs" />
+    <Compile Include="Player.cs" />
+    <Compile Include="SchinkZeShips.svc.cs">
+      <DependentUpon>SchinkZeShips.svc</DependentUpon>
     </Compile>
-    <Compile Include="ISchinkZeShip.cs" />
+    <Compile Include="ISchinkZeShips.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Properties\PublishProfiles\SchinkZeShips - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SchinkZeShips.Core\SchinkZeShips.Core.csproj">
-      <Project>{077764DC-5A73-451E-81C4-918579FC986A}</Project>
-      <Name>SchinkZeShips.Core</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

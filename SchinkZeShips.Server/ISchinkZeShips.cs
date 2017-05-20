@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.ServiceModel;
-using SchinkZeShips.Core;
 
 namespace SchinkZeShips.Server
 {
 	[ServiceContract]
-	public interface ISchinkZeShip
+	public interface ISchinkZeShips
 	{
 		[OperationContract]
 		List<Game> GetAllGames();

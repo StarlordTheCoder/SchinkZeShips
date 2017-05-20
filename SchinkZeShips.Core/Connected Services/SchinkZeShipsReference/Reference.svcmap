@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="e6f28a69-3b4e-469d-ac16-bf6fbe2fb868" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>true</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.Generic.List`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>false</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://schinkzeships.azurewebsites.net/SchinkZeShips.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="SchinkZeShips.xsd" MetadataType="Schema" ID="a59fceb8-1810-4fe1-bde0-b4622eb6cc7f" SourceId="1" SourceUrl="http://schinkzeships.azurewebsites.net/SchinkZeShips.svc?xsd=xsd1" />
+    <MetadataFile FileName="SchinkZeShips1.xsd" MetadataType="Schema" ID="75e28b1d-0f8c-4a65-82d2-a40863567522" SourceId="1" SourceUrl="http://schinkzeships.azurewebsites.net/SchinkZeShips.svc?xsd=xsd0" />
+    <MetadataFile FileName="SchinkZeShips2.xsd" MetadataType="Schema" ID="96c47d50-b501-4282-ba8b-205519fda8ea" SourceId="1" SourceUrl="http://schinkzeships.azurewebsites.net/SchinkZeShips.svc?xsd=xsd2" />
+    <MetadataFile FileName="SchinkZeShips1.wsdl" MetadataType="Wsdl" ID="cbd20e15-2b52-445c-b709-35d3e9d22165" SourceId="1" SourceUrl="http://schinkzeships.azurewebsites.net/SchinkZeShips.svc?wsdl" />
+    <MetadataFile FileName="SchinkZeShips.disco" MetadataType="Disco" ID="18b7dd27-71ad-4fab-bb76-6d97ffc9ab31" SourceId="1" SourceUrl="http://schinkzeships.azurewebsites.net/SchinkZeShips.svc?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

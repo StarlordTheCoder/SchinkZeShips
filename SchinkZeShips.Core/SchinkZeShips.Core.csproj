@@ -37,9 +37,47 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Game.cs" />
-    <Compile Include="Player.cs" />
+    <Compile Include="Connected Services\SchinkZeShipsReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="GameLogicService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SchinkZeShipsReference\SchinkZeShips.Core.SchinkZeShipsReference.Game.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SchinkZeShipsReference\SchinkZeShips.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\SchinkZeShipsReference\SchinkZeShips1.wsdl" />
+    <None Include="Connected Services\SchinkZeShipsReference\SchinkZeShips1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\SchinkZeShipsReference\SchinkZeShips2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\ServiceReferences.Designer.ClientConfig" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\SchinkZeShipsReference\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SchinkZeShipsReference\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SchinkZeShipsReference\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SchinkZeShipsReference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SchinkZeShipsReference\SchinkZeShips.disco" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
 </Project>

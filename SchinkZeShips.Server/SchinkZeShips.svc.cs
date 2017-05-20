@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using SchinkZeShips.Core;
 
 namespace SchinkZeShips.Server
 {
-	public class SchinkZeShip : ISchinkZeShip
+	public class SchinkZeShips : ISchinkZeShips
 	{
 		public List<Game> GetAllGames()
 		{
