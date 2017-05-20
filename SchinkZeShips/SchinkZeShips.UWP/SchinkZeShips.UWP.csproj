@@ -134,6 +134,12 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\SchinkZeShips.Core\SchinkZeShips.Core.csproj">
+      <Project>{077764dc-5a73-451e-81c4-918579fc986a}</Project>
+      <Name>SchinkZeShips.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="..\SchinkZeShips\SchinkZeShips.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

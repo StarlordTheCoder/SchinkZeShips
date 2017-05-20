@@ -140,6 +140,12 @@
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\SchinkZeShips.Core\SchinkZeShips.Core.csproj">
+      <Project>{077764dc-5a73-451e-81c4-918579fc986a}</Project>
+      <Name>SchinkZeShips.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="..\SchinkZeShips\SchinkZeShips.projitems" Label="Shared" Condition="Exists('..\SchinkZeShips\SchinkZeShips.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
