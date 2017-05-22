@@ -9,18 +9,18 @@ namespace SchinkZeShips.UITests
 	[TestFixture(Platform.Android)]
 	public class Tests
 	{
+		[SetUp]
+		public void BeforeEachTest()
+		{
+			_app = AppInitializer.StartApp(_platform);
+		}
+
 		private IApp _app;
 		private readonly Platform _platform;
 
 		public Tests(Platform platform)
 		{
 			_platform = platform;
-		}
-
-		[SetUp]
-		public void BeforeEachTest()
-		{
-			_app = AppInitializer.StartApp(_platform);
 		}
 
 		[Test]
@@ -38,4 +38,3 @@ namespace SchinkZeShips.UITests
 		}
 	}
 }
-

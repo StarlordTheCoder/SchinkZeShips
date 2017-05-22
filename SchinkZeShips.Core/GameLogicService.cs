@@ -20,13 +20,9 @@ namespace SchinkZeShips.Core
 			void LoadAllGamesHandler(object sender, GetAllGamesCompletedEventArgs args)
 			{
 				if (args.Error != null)
-				{
 					loadAllGames.SetException(args.Error);
-				}
 				else
-				{
 					loadAllGames.SetResult(args.Result);
-				}
 			}
 
 			_client.GetAllGamesCompleted += LoadAllGamesHandler;

@@ -7,12 +7,10 @@ namespace SchinkZeShips.UITests
 		public static IApp StartApp(Platform platform)
 		{
 			if (platform == Platform.Android)
-			{
 				return ConfigureApp
 					.Android
 					.InstalledApp("ch.tbz.schinkzeships")
 					.StartApp();
-			}
 
 			return ConfigureApp
 				.iOS
@@ -20,4 +18,3 @@ namespace SchinkZeShips.UITests
 		}
 	}
 }
-
