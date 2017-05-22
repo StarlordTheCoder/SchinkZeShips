@@ -4,7 +4,8 @@
              x:Class="SchinkZeShips.MainPage">
 
 	<Label x:Name="MainLabel"
-			Text="Game count: ?" 
+           Text="Game count: ?" 
            VerticalOptions="Center" 
-           HorizontalOptions="Center" />
+           HorizontalOptions="Center"
+           AutomationId="GameCountLabel"/>
 </ContentPage>
