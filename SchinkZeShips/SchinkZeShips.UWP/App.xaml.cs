@@ -6,7 +6,7 @@ using Windows.UI.Xaml.Navigation;
 using Xamarin.Forms;
 using Frame = Windows.UI.Xaml.Controls.Frame;
 
-namespace SchinkZeShips.UWP
+namespace SchinkZeShips
 {
 	/// <summary>
 	///     Provides application-specific behavior to supplement the default Application class.

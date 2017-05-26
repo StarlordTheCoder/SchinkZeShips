@@ -1,12 +1,12 @@
 ﻿namespace SchinkZeShips
 {
-	public partial class App
+	public partial class SharedApp
 	{
-		public App()
+		public SharedApp()
 		{
 			InitializeComponent();
 
-			MainPage = new MainPage();
+			MainPage = new StartView();
 		}
 
 		protected override void OnStart()

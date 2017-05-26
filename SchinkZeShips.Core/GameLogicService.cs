@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using SchinkZeShips.Core.SchinkZeShipsReference;
+using SchinkZeShips.Core.Connected_Services.SchinkZeShipsReference;
 
 namespace SchinkZeShips.Core
 {

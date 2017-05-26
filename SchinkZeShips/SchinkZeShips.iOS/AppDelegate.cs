@@ -3,7 +3,7 @@ using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
-namespace SchinkZeShips.iOS
+namespace SchinkZeShips
 {
 	// ReSharper disable once UnusedMember.Global
 	// ReSharper disable once PartialTypeWithSinglePart
@@ -24,7 +24,7 @@ namespace SchinkZeShips.iOS
 		public override bool FinishedLaunching(UIApplication app, NSDictionary options)
 		{
 			Forms.Init();
-			LoadApplication(new App());
+			LoadApplication(new SharedApp());
 
 			return base.FinishedLaunching(app, options);
 		}

@@ -1,6 +1,6 @@
 ﻿using UIKit;
 
-namespace SchinkZeShips.iOS
+namespace SchinkZeShips
 {
 	public static class Application
 	{

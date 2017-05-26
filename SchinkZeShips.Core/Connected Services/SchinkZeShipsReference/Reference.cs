@@ -8,25 +8,24 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SchinkZeShips.Core.SchinkZeShipsReference {
-    using System.Runtime.Serialization;
-    
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
+using System.Runtime.Serialization;
+
+namespace SchinkZeShips.Core.Connected_Services.SchinkZeShipsReference {
+	[System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Game", Namespace="http://schemas.datacontract.org/2004/07/SchinkZeShips.Server")]
+    [DataContract(Name="Game", Namespace="http://schemas.datacontract.org/2004/07/SchinkZeShips.Server")]
     public partial class Game : object, System.ComponentModel.INotifyPropertyChanged {
         
-        private SchinkZeShips.Core.SchinkZeShipsReference.Player GameCreatorField;
+        private Player GameCreatorField;
         
-        private SchinkZeShips.Core.SchinkZeShipsReference.Player GameParticipantField;
+        private Player GameParticipantField;
         
         private string IdField;
         
-        private SchinkZeShips.Core.SchinkZeShipsReference.GameState RunningGameStateField;
+        private GameState RunningGameStateField;
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public SchinkZeShips.Core.SchinkZeShipsReference.Player GameCreator {
+        [DataMember()]
+        public Player GameCreator {
             get {
                 return this.GameCreatorField;
             }
@@ -38,8 +37,8 @@ namespace SchinkZeShips.Core.SchinkZeShipsReference {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public SchinkZeShips.Core.SchinkZeShipsReference.Player GameParticipant {
+        [DataMember()]
+        public Player GameParticipant {
             get {
                 return this.GameParticipantField;
             }
@@ -51,7 +50,7 @@ namespace SchinkZeShips.Core.SchinkZeShipsReference {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
+        [DataMember()]
         public string Id {
             get {
                 return this.IdField;
@@ -64,8 +63,8 @@ namespace SchinkZeShips.Core.SchinkZeShipsReference {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public SchinkZeShips.Core.SchinkZeShipsReference.GameState RunningGameState {
+        [DataMember()]
+        public GameState RunningGameState {
             get {
                 return this.RunningGameStateField;
             }
@@ -89,14 +88,14 @@ namespace SchinkZeShips.Core.SchinkZeShipsReference {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Player", Namespace="http://schemas.datacontract.org/2004/07/SchinkZeShips.Server")]
+    [DataContract(Name="Player", Namespace="http://schemas.datacontract.org/2004/07/SchinkZeShips.Server")]
     public partial class Player : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string IdField;
         
         private string UsernameField;
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
+        [DataMember()]
         public string Id {
             get {
                 return this.IdField;
@@ -109,7 +108,7 @@ namespace SchinkZeShips.Core.SchinkZeShipsReference {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
+        [DataMember()]
         public string Username {
             get {
                 return this.UsernameField;
@@ -134,17 +133,17 @@ namespace SchinkZeShips.Core.SchinkZeShipsReference {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="GameState", Namespace="http://schemas.datacontract.org/2004/07/SchinkZeShips.Server")]
+    [DataContract(Name="GameState", Namespace="http://schemas.datacontract.org/2004/07/SchinkZeShips.Server")]
     public partial class GameState : object, System.ComponentModel.INotifyPropertyChanged {
         
-        private SchinkZeShips.Core.SchinkZeShipsReference.Player CurrentPlayerField;
+        private Player CurrentPlayerField;
         
-        private SchinkZeShips.Core.SchinkZeShipsReference.PlayingFieldState PlayingFieldCreatorField;
+        private PlayingFieldState PlayingFieldCreatorField;
         
-        private SchinkZeShips.Core.SchinkZeShipsReference.PlayingFieldState PlayingFieldParticipantField;
+        private PlayingFieldState PlayingFieldParticipantField;
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public SchinkZeShips.Core.SchinkZeShipsReference.Player CurrentPlayer {
+        [DataMember()]
+        public Player CurrentPlayer {
             get {
                 return this.CurrentPlayerField;
             }
@@ -156,8 +155,8 @@ namespace SchinkZeShips.Core.SchinkZeShipsReference {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public SchinkZeShips.Core.SchinkZeShipsReference.PlayingFieldState PlayingFieldCreator {
+        [DataMember()]
+        public PlayingFieldState PlayingFieldCreator {
             get {
                 return this.PlayingFieldCreatorField;
             }
@@ -169,8 +168,8 @@ namespace SchinkZeShips.Core.SchinkZeShipsReference {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public SchinkZeShips.Core.SchinkZeShipsReference.PlayingFieldState PlayingFieldParticipant {
+        [DataMember()]
+        public PlayingFieldState PlayingFieldParticipant {
             get {
                 return this.PlayingFieldParticipantField;
             }
@@ -194,13 +193,13 @@ namespace SchinkZeShips.Core.SchinkZeShipsReference {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="PlayingFieldState", Namespace="http://schemas.datacontract.org/2004/07/SchinkZeShips.Server")]
+    [DataContract(Name="PlayingFieldState", Namespace="http://schemas.datacontract.org/2004/07/SchinkZeShips.Server")]
     public partial class PlayingFieldState : object, System.ComponentModel.INotifyPropertyChanged {
         
-        private System.Collections.Generic.List<SchinkZeShips.Core.SchinkZeShipsReference.CellState> CellsField;
+        private System.Collections.Generic.List<CellState> CellsField;
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<SchinkZeShips.Core.SchinkZeShipsReference.CellState> Cells {
+        [DataMember()]
+        public System.Collections.Generic.List<CellState> Cells {
             get {
                 return this.CellsField;
             }
@@ -224,14 +223,14 @@ namespace SchinkZeShips.Core.SchinkZeShipsReference {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="CellState", Namespace="http://schemas.datacontract.org/2004/07/SchinkZeShips.Server")]
+    [DataContract(Name="CellState", Namespace="http://schemas.datacontract.org/2004/07/SchinkZeShips.Server")]
     public partial class CellState : object, System.ComponentModel.INotifyPropertyChanged {
         
         private bool HasShipField;
         
         private bool WasShotField;
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
+        [DataMember()]
         public bool HasShip {
             get {
                 return this.HasShipField;
@@ -244,7 +243,7 @@ namespace SchinkZeShips.Core.SchinkZeShipsReference {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
+        [DataMember()]
         public bool WasShot {
             get {
                 return this.WasShotField;
@@ -274,20 +273,20 @@ namespace SchinkZeShips.Core.SchinkZeShipsReference {
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/ISchinkZeShips/GetAllOpenGames", ReplyAction="http://tempuri.org/ISchinkZeShips/GetAllOpenGamesResponse")]
         System.IAsyncResult BeginGetAllOpenGames(System.AsyncCallback callback, object asyncState);
         
-        System.Collections.Generic.List<SchinkZeShips.Core.SchinkZeShipsReference.Game> EndGetAllOpenGames(System.IAsyncResult result);
+        System.Collections.Generic.List<Game> EndGetAllOpenGames(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/ISchinkZeShips/CreateGame", ReplyAction="http://tempuri.org/ISchinkZeShips/CreateGameResponse")]
-        System.IAsyncResult BeginCreateGame(SchinkZeShips.Core.SchinkZeShipsReference.Player creator, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginCreateGame(Player creator, System.AsyncCallback callback, object asyncState);
         
-        SchinkZeShips.Core.SchinkZeShipsReference.Game EndCreateGame(System.IAsyncResult result);
+        Game EndCreateGame(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/ISchinkZeShips/GetCurrentGame", ReplyAction="http://tempuri.org/ISchinkZeShips/GetCurrentGameResponse")]
         System.IAsyncResult BeginGetCurrentGame(string playerId, System.AsyncCallback callback, object asyncState);
         
-        SchinkZeShips.Core.SchinkZeShipsReference.Game EndGetCurrentGame(System.IAsyncResult result);
+        Game EndGetCurrentGame(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/ISchinkZeShips/JoinGame", ReplyAction="http://tempuri.org/ISchinkZeShips/JoinGameResponse")]
-        System.IAsyncResult BeginJoinGame(string gameIdToJoin, SchinkZeShips.Core.SchinkZeShipsReference.Player player, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginJoinGame(string gameIdToJoin, Player player, System.AsyncCallback callback, object asyncState);
         
         void EndJoinGame(System.IAsyncResult result);
         
@@ -298,7 +297,7 @@ namespace SchinkZeShips.Core.SchinkZeShipsReference {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface ISchinkZeShipsChannel : SchinkZeShips.Core.SchinkZeShipsReference.ISchinkZeShips, System.ServiceModel.IClientChannel {
+    public interface ISchinkZeShipsChannel : ISchinkZeShips, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -312,10 +311,10 @@ namespace SchinkZeShips.Core.SchinkZeShipsReference {
             this.results = results;
         }
         
-        public System.Collections.Generic.List<SchinkZeShips.Core.SchinkZeShipsReference.Game> Result {
+        public System.Collections.Generic.List<Game> Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((System.Collections.Generic.List<SchinkZeShips.Core.SchinkZeShipsReference.Game>)(this.results[0]));
+                return ((System.Collections.Generic.List<Game>)(this.results[0]));
             }
         }
     }
@@ -331,10 +330,10 @@ namespace SchinkZeShips.Core.SchinkZeShipsReference {
             this.results = results;
         }
         
-        public SchinkZeShips.Core.SchinkZeShipsReference.Game Result {
+        public Game Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((SchinkZeShips.Core.SchinkZeShipsReference.Game)(this.results[0]));
+                return ((Game)(this.results[0]));
             }
         }
     }
@@ -350,17 +349,17 @@ namespace SchinkZeShips.Core.SchinkZeShipsReference {
             this.results = results;
         }
         
-        public SchinkZeShips.Core.SchinkZeShipsReference.Game Result {
+        public Game Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((SchinkZeShips.Core.SchinkZeShipsReference.Game)(this.results[0]));
+                return ((Game)(this.results[0]));
             }
         }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class SchinkZeShipsClient : System.ServiceModel.ClientBase<SchinkZeShips.Core.SchinkZeShipsReference.ISchinkZeShips>, SchinkZeShips.Core.SchinkZeShipsReference.ISchinkZeShips {
+    public partial class SchinkZeShipsClient : System.ServiceModel.ClientBase<ISchinkZeShips>, ISchinkZeShips {
         
         private BeginOperationDelegate onBeginGetAllOpenGamesDelegate;
         
@@ -457,21 +456,21 @@ namespace SchinkZeShips.Core.SchinkZeShipsReference {
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> CloseCompleted;
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.IAsyncResult SchinkZeShips.Core.SchinkZeShipsReference.ISchinkZeShips.BeginGetAllOpenGames(System.AsyncCallback callback, object asyncState) {
+        System.IAsyncResult ISchinkZeShips.BeginGetAllOpenGames(System.AsyncCallback callback, object asyncState) {
             return base.Channel.BeginGetAllOpenGames(callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Collections.Generic.List<SchinkZeShips.Core.SchinkZeShipsReference.Game> SchinkZeShips.Core.SchinkZeShipsReference.ISchinkZeShips.EndGetAllOpenGames(System.IAsyncResult result) {
+        System.Collections.Generic.List<Game> ISchinkZeShips.EndGetAllOpenGames(System.IAsyncResult result) {
             return base.Channel.EndGetAllOpenGames(result);
         }
         
         private System.IAsyncResult OnBeginGetAllOpenGames(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            return ((SchinkZeShips.Core.SchinkZeShipsReference.ISchinkZeShips)(this)).BeginGetAllOpenGames(callback, asyncState);
+            return ((ISchinkZeShips)(this)).BeginGetAllOpenGames(callback, asyncState);
         }
         
         private object[] OnEndGetAllOpenGames(System.IAsyncResult result) {
-            System.Collections.Generic.List<SchinkZeShips.Core.SchinkZeShipsReference.Game> retVal = ((SchinkZeShips.Core.SchinkZeShipsReference.ISchinkZeShips)(this)).EndGetAllOpenGames(result);
+            System.Collections.Generic.List<Game> retVal = ((ISchinkZeShips)(this)).EndGetAllOpenGames(result);
             return new object[] {
                     retVal};
         }
@@ -501,22 +500,22 @@ namespace SchinkZeShips.Core.SchinkZeShipsReference {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.IAsyncResult SchinkZeShips.Core.SchinkZeShipsReference.ISchinkZeShips.BeginCreateGame(SchinkZeShips.Core.SchinkZeShipsReference.Player creator, System.AsyncCallback callback, object asyncState) {
+        System.IAsyncResult ISchinkZeShips.BeginCreateGame(Player creator, System.AsyncCallback callback, object asyncState) {
             return base.Channel.BeginCreateGame(creator, callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SchinkZeShips.Core.SchinkZeShipsReference.Game SchinkZeShips.Core.SchinkZeShipsReference.ISchinkZeShips.EndCreateGame(System.IAsyncResult result) {
+        Game ISchinkZeShips.EndCreateGame(System.IAsyncResult result) {
             return base.Channel.EndCreateGame(result);
         }
         
         private System.IAsyncResult OnBeginCreateGame(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            SchinkZeShips.Core.SchinkZeShipsReference.Player creator = ((SchinkZeShips.Core.SchinkZeShipsReference.Player)(inValues[0]));
-            return ((SchinkZeShips.Core.SchinkZeShipsReference.ISchinkZeShips)(this)).BeginCreateGame(creator, callback, asyncState);
+            Player creator = ((Player)(inValues[0]));
+            return ((ISchinkZeShips)(this)).BeginCreateGame(creator, callback, asyncState);
         }
         
         private object[] OnEndCreateGame(System.IAsyncResult result) {
-            SchinkZeShips.Core.SchinkZeShipsReference.Game retVal = ((SchinkZeShips.Core.SchinkZeShipsReference.ISchinkZeShips)(this)).EndCreateGame(result);
+            Game retVal = ((ISchinkZeShips)(this)).EndCreateGame(result);
             return new object[] {
                     retVal};
         }
@@ -528,11 +527,11 @@ namespace SchinkZeShips.Core.SchinkZeShipsReference {
             }
         }
         
-        public void CreateGameAsync(SchinkZeShips.Core.SchinkZeShipsReference.Player creator) {
+        public void CreateGameAsync(Player creator) {
             this.CreateGameAsync(creator, null);
         }
         
-        public void CreateGameAsync(SchinkZeShips.Core.SchinkZeShipsReference.Player creator, object userState) {
+        public void CreateGameAsync(Player creator, object userState) {
             if ((this.onBeginCreateGameDelegate == null)) {
                 this.onBeginCreateGameDelegate = new BeginOperationDelegate(this.OnBeginCreateGame);
             }
@@ -547,22 +546,22 @@ namespace SchinkZeShips.Core.SchinkZeShipsReference {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.IAsyncResult SchinkZeShips.Core.SchinkZeShipsReference.ISchinkZeShips.BeginGetCurrentGame(string playerId, System.AsyncCallback callback, object asyncState) {
+        System.IAsyncResult ISchinkZeShips.BeginGetCurrentGame(string playerId, System.AsyncCallback callback, object asyncState) {
             return base.Channel.BeginGetCurrentGame(playerId, callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SchinkZeShips.Core.SchinkZeShipsReference.Game SchinkZeShips.Core.SchinkZeShipsReference.ISchinkZeShips.EndGetCurrentGame(System.IAsyncResult result) {
+        Game ISchinkZeShips.EndGetCurrentGame(System.IAsyncResult result) {
             return base.Channel.EndGetCurrentGame(result);
         }
         
         private System.IAsyncResult OnBeginGetCurrentGame(object[] inValues, System.AsyncCallback callback, object asyncState) {
             string playerId = ((string)(inValues[0]));
-            return ((SchinkZeShips.Core.SchinkZeShipsReference.ISchinkZeShips)(this)).BeginGetCurrentGame(playerId, callback, asyncState);
+            return ((ISchinkZeShips)(this)).BeginGetCurrentGame(playerId, callback, asyncState);
         }
         
         private object[] OnEndGetCurrentGame(System.IAsyncResult result) {
-            SchinkZeShips.Core.SchinkZeShipsReference.Game retVal = ((SchinkZeShips.Core.SchinkZeShipsReference.ISchinkZeShips)(this)).EndGetCurrentGame(result);
+            Game retVal = ((ISchinkZeShips)(this)).EndGetCurrentGame(result);
             return new object[] {
                     retVal};
         }
@@ -593,23 +592,23 @@ namespace SchinkZeShips.Core.SchinkZeShipsReference {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.IAsyncResult SchinkZeShips.Core.SchinkZeShipsReference.ISchinkZeShips.BeginJoinGame(string gameIdToJoin, SchinkZeShips.Core.SchinkZeShipsReference.Player player, System.AsyncCallback callback, object asyncState) {
+        System.IAsyncResult ISchinkZeShips.BeginJoinGame(string gameIdToJoin, Player player, System.AsyncCallback callback, object asyncState) {
             return base.Channel.BeginJoinGame(gameIdToJoin, player, callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        void SchinkZeShips.Core.SchinkZeShipsReference.ISchinkZeShips.EndJoinGame(System.IAsyncResult result) {
+        void ISchinkZeShips.EndJoinGame(System.IAsyncResult result) {
             base.Channel.EndJoinGame(result);
         }
         
         private System.IAsyncResult OnBeginJoinGame(object[] inValues, System.AsyncCallback callback, object asyncState) {
             string gameIdToJoin = ((string)(inValues[0]));
-            SchinkZeShips.Core.SchinkZeShipsReference.Player player = ((SchinkZeShips.Core.SchinkZeShipsReference.Player)(inValues[1]));
-            return ((SchinkZeShips.Core.SchinkZeShipsReference.ISchinkZeShips)(this)).BeginJoinGame(gameIdToJoin, player, callback, asyncState);
+            Player player = ((Player)(inValues[1]));
+            return ((ISchinkZeShips)(this)).BeginJoinGame(gameIdToJoin, player, callback, asyncState);
         }
         
         private object[] OnEndJoinGame(System.IAsyncResult result) {
-            ((SchinkZeShips.Core.SchinkZeShipsReference.ISchinkZeShips)(this)).EndJoinGame(result);
+            ((ISchinkZeShips)(this)).EndJoinGame(result);
             return null;
         }
         
@@ -620,11 +619,11 @@ namespace SchinkZeShips.Core.SchinkZeShipsReference {
             }
         }
         
-        public void JoinGameAsync(string gameIdToJoin, SchinkZeShips.Core.SchinkZeShipsReference.Player player) {
+        public void JoinGameAsync(string gameIdToJoin, Player player) {
             this.JoinGameAsync(gameIdToJoin, player, null);
         }
         
-        public void JoinGameAsync(string gameIdToJoin, SchinkZeShips.Core.SchinkZeShipsReference.Player player, object userState) {
+        public void JoinGameAsync(string gameIdToJoin, Player player, object userState) {
             if ((this.onBeginJoinGameDelegate == null)) {
                 this.onBeginJoinGameDelegate = new BeginOperationDelegate(this.OnBeginJoinGame);
             }
@@ -640,23 +639,23 @@ namespace SchinkZeShips.Core.SchinkZeShipsReference {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.IAsyncResult SchinkZeShips.Core.SchinkZeShipsReference.ISchinkZeShips.BeginRemoveFromGame(string gameId, string playerId, System.AsyncCallback callback, object asyncState) {
+        System.IAsyncResult ISchinkZeShips.BeginRemoveFromGame(string gameId, string playerId, System.AsyncCallback callback, object asyncState) {
             return base.Channel.BeginRemoveFromGame(gameId, playerId, callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        void SchinkZeShips.Core.SchinkZeShipsReference.ISchinkZeShips.EndRemoveFromGame(System.IAsyncResult result) {
+        void ISchinkZeShips.EndRemoveFromGame(System.IAsyncResult result) {
             base.Channel.EndRemoveFromGame(result);
         }
         
         private System.IAsyncResult OnBeginRemoveFromGame(object[] inValues, System.AsyncCallback callback, object asyncState) {
             string gameId = ((string)(inValues[0]));
             string playerId = ((string)(inValues[1]));
-            return ((SchinkZeShips.Core.SchinkZeShipsReference.ISchinkZeShips)(this)).BeginRemoveFromGame(gameId, playerId, callback, asyncState);
+            return ((ISchinkZeShips)(this)).BeginRemoveFromGame(gameId, playerId, callback, asyncState);
         }
         
         private object[] OnEndRemoveFromGame(System.IAsyncResult result) {
-            ((SchinkZeShips.Core.SchinkZeShipsReference.ISchinkZeShips)(this)).EndRemoveFromGame(result);
+            ((ISchinkZeShips)(this)).EndRemoveFromGame(result);
             return null;
         }
         
@@ -752,7 +751,7 @@ namespace SchinkZeShips.Core.SchinkZeShipsReference {
             base.InvokeAsync(this.onBeginCloseDelegate, null, this.onEndCloseDelegate, this.onCloseCompletedDelegate, userState);
         }
         
-        protected override SchinkZeShips.Core.SchinkZeShipsReference.ISchinkZeShips CreateChannel() {
+        protected override ISchinkZeShips CreateChannel() {
             return new SchinkZeShipsClientChannel(this);
         }
         
@@ -783,9 +782,9 @@ namespace SchinkZeShips.Core.SchinkZeShipsReference {
             throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
         }
         
-        private class SchinkZeShipsClientChannel : ChannelBase<SchinkZeShips.Core.SchinkZeShipsReference.ISchinkZeShips>, SchinkZeShips.Core.SchinkZeShipsReference.ISchinkZeShips {
+        private class SchinkZeShipsClientChannel : ChannelBase<ISchinkZeShips>, ISchinkZeShips {
             
-            public SchinkZeShipsClientChannel(System.ServiceModel.ClientBase<SchinkZeShips.Core.SchinkZeShipsReference.ISchinkZeShips> client) : 
+            public SchinkZeShipsClientChannel(System.ServiceModel.ClientBase<ISchinkZeShips> client) : 
                     base(client) {
             }
             
@@ -795,22 +794,22 @@ namespace SchinkZeShips.Core.SchinkZeShipsReference {
                 return _result;
             }
             
-            public System.Collections.Generic.List<SchinkZeShips.Core.SchinkZeShipsReference.Game> EndGetAllOpenGames(System.IAsyncResult result) {
+            public System.Collections.Generic.List<Game> EndGetAllOpenGames(System.IAsyncResult result) {
                 object[] _args = new object[0];
-                System.Collections.Generic.List<SchinkZeShips.Core.SchinkZeShipsReference.Game> _result = ((System.Collections.Generic.List<SchinkZeShips.Core.SchinkZeShipsReference.Game>)(base.EndInvoke("GetAllOpenGames", _args, result)));
+                System.Collections.Generic.List<Game> _result = ((System.Collections.Generic.List<Game>)(base.EndInvoke("GetAllOpenGames", _args, result)));
                 return _result;
             }
             
-            public System.IAsyncResult BeginCreateGame(SchinkZeShips.Core.SchinkZeShipsReference.Player creator, System.AsyncCallback callback, object asyncState) {
+            public System.IAsyncResult BeginCreateGame(Player creator, System.AsyncCallback callback, object asyncState) {
                 object[] _args = new object[1];
                 _args[0] = creator;
                 System.IAsyncResult _result = base.BeginInvoke("CreateGame", _args, callback, asyncState);
                 return _result;
             }
             
-            public SchinkZeShips.Core.SchinkZeShipsReference.Game EndCreateGame(System.IAsyncResult result) {
+            public Game EndCreateGame(System.IAsyncResult result) {
                 object[] _args = new object[0];
-                SchinkZeShips.Core.SchinkZeShipsReference.Game _result = ((SchinkZeShips.Core.SchinkZeShipsReference.Game)(base.EndInvoke("CreateGame", _args, result)));
+                Game _result = ((Game)(base.EndInvoke("CreateGame", _args, result)));
                 return _result;
             }
             
@@ -821,13 +820,13 @@ namespace SchinkZeShips.Core.SchinkZeShipsReference {
                 return _result;
             }
             
-            public SchinkZeShips.Core.SchinkZeShipsReference.Game EndGetCurrentGame(System.IAsyncResult result) {
+            public Game EndGetCurrentGame(System.IAsyncResult result) {
                 object[] _args = new object[0];
-                SchinkZeShips.Core.SchinkZeShipsReference.Game _result = ((SchinkZeShips.Core.SchinkZeShipsReference.Game)(base.EndInvoke("GetCurrentGame", _args, result)));
+                Game _result = ((Game)(base.EndInvoke("GetCurrentGame", _args, result)));
                 return _result;
             }
             
-            public System.IAsyncResult BeginJoinGame(string gameIdToJoin, SchinkZeShips.Core.SchinkZeShipsReference.Player player, System.AsyncCallback callback, object asyncState) {
+            public System.IAsyncResult BeginJoinGame(string gameIdToJoin, Player player, System.AsyncCallback callback, object asyncState) {
                 object[] _args = new object[2];
                 _args[0] = gameIdToJoin;
                 _args[1] = player;

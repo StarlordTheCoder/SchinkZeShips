@@ -7,8 +7,8 @@
     <ProjectGuid>{C40C0408-8562-482F-88AD-55E7E648007F}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SchinkZeShips.UWP</RootNamespace>
-    <AssemblyName>SchinkZeShips.UWP</AssemblyName>
+    <RootNamespace>SchinkZeShips</RootNamespace>
+    <AssemblyName>SchinkZeShips</AssemblyName>
     <DefaultLanguage>de-CH</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.15063.0</TargetPlatformVersion>

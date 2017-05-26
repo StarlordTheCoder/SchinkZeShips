@@ -4,7 +4,7 @@ using Android.OS;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
-namespace SchinkZeShips.Droid
+namespace SchinkZeShips
 {
 	[Activity(Label = "SchinkZeShips", Icon = "@drawable/icon", Theme = "@style/MainTheme", MainLauncher = true,
 		ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
@@ -18,7 +18,7 @@ namespace SchinkZeShips.Droid
 			base.OnCreate(bundle);
 
 			Forms.Init(this, bundle);
-			LoadApplication(new App());
+			LoadApplication(new SharedApp());
 		}
 	}
 }
