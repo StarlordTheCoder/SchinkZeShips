@@ -13,6 +13,12 @@ namespace SchinkZeShips.Server
 		Game CreateGame(Player creator);
 
 		[OperationContract]
+		Game GetCurrentGame(Player player);
+
+		[OperationContract]
 		void JoinGame(Game gameToJoin, Player participant);
+
+		[OperationContract]
+		void RemoveFromGame(Game game, Player player);
 	}
 }
