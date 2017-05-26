@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System;
+using System.Runtime.Serialization;
 
 namespace SchinkZeShips.Server
 {
@@ -6,7 +7,7 @@ namespace SchinkZeShips.Server
 	public class Game
 	{
 		[DataMember]
-		public string Id { get; set; }
+		public string Id { get; set; } = Guid.NewGuid().ToString();
 
 		[DataMember]
 		public Player GameCreator { get; set; }
@@ -21,12 +22,19 @@ namespace SchinkZeShips.Server
 		{
 			var other = obj as Game;
 
-			return other != null && other.Id == Id;
+			return other != null && 
+				other.Id == Id &&
+				Equals(other.GameCreator, GameCreator) &&
+				Equals(other.GameParticipant, GameParticipant) &&
+				Equals(other.RunningGameState, RunningGameState);
 		}
 
 		public override int GetHashCode()
 		{
-			return Id.GetHashCode();
+			unchecked
+			{
+				return Id.GetHashCode() ^ GameCreator.GetHashCode() ^ GameParticipant.GetHashCode() ^ RunningGameState.GetHashCode();
+			}
 		}
 	}
 }

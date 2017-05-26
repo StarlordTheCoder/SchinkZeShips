@@ -7,18 +7,18 @@ namespace SchinkZeShips.Server
 	public interface ISchinkZeShips
 	{
 		[OperationContract]
-		List<Game> GetAllGames();
+		List<Game> GetAllOpenGames();
 
 		[OperationContract]
 		Game CreateGame(Player creator);
 
 		[OperationContract]
-		Game GetCurrentGame(Player player);
+		Game GetCurrentGame(string playerId);
 
 		[OperationContract]
-		void JoinGame(Game gameToJoin, Player participant);
+		void JoinGame(string gameIdToJoin, Player player);
 
 		[OperationContract]
-		void RemoveFromGame(Game game, Player player);
+		void RemoveFromGame(string gameId, string playerId);
 	}
 }

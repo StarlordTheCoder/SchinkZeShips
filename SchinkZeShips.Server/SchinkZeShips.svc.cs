@@ -7,13 +7,13 @@ namespace SchinkZeShips.Server
 	[ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Single)]
 	public class SchinkZeShips : ISchinkZeShips
 	{
-		private static List<Game> Games { get; }
+		private List<Game> Games { get; } = new List<Game>();
 
-		public List<Game> GetAllGames() => Games;
+		public List<Game> GetAllOpenGames() => Games.Where(g => g.GameParticipant == null).ToList();
 
 		public Game CreateGame(Player creator)
 		{
-			if(GetCurrentGame(creator) != null)
+			if(GetCurrentGame(creator.Id) != null)
 			{
 				throw new FaultException("Sie sind bereits teil einer Runde");
 			}
@@ -28,57 +28,66 @@ namespace SchinkZeShips.Server
 			return game;
 		}
 
-		public void JoinGame(Game gameToJoin, Player participant)
+		public void JoinGame(string gameIdToJoin, Player player)
 		{
-			var gameInstance = Games.FirstOrDefault(gi => Equals(gi, gameToJoin));
+			var game = Games.FirstOrDefault(g => Equals(g.Id, gameIdToJoin));
 
-			if (gameInstance == null)
+			if (game == null)
 			{
 				throw new FaultException("Runde wurde nicht gefunden");
 			}
 
-			if (gameInstance.RunningGameState != null)
+			if (game.RunningGameState != null)
 			{
 				throw new FaultException("Runde wurde bereits gestartet");
 			}
 
-			if (gameInstance.GameParticipant != null)
+			if (game.GameParticipant != null)
 			{
 				throw new FaultException("Runde bereits voll");
 			}
 
-			if (GetCurrentGame(participant) != null)
+			if (GetCurrentGame(player.Id) != null)
 			{
 				throw new FaultException("Sie sind bereits teil einer Runde");
 			}
 
-			gameInstance.GameParticipant = participant;
+			game.GameParticipant = player;
 		}
 
-		public Game GetCurrentGame(Player player) => Games.FirstOrDefault(g => Equals(g.GameCreator, player) || Equals(g.GameParticipant, player));
+		public Game GetCurrentGame(string playerId) => Games.FirstOrDefault(g => 
+			Equals(g.GameCreator.Id, playerId) ||
+			(g.GameParticipant != null && Equals(g.GameParticipant.Id, playerId)));
 
-		public void RemoveFromGame(Game game, Player player)
+		public void RemoveFromGame(string gameId, string playerId)
 		{
-			var gameInstance = Games.FirstOrDefault(gi => Equals(gi, game));
+			var game = Games.FirstOrDefault(g => Equals(g.Id, gameId));
 
-			if(gameInstance == null)
+			if(game == null)
 			{
 				throw new FaultException("Runde wurde nicht gefunden");
 			}
 
-			if (gameInstance.RunningGameState != null)
+			if (game.RunningGameState != null)
 			{
 				throw new FaultException("Runde wurde bereits gestartet");
 			}
 
-			if (Equals(gameInstance.GameCreator, player))
+			if (Equals(game.GameCreator.Id, playerId))
 			{
-				gameInstance.GameCreator = gameInstance.GameParticipant;
-				gameInstance.GameParticipant = null;
+				if(game.GameParticipant != null)
+				{
+					game.GameCreator = game.GameParticipant;
+					game.GameParticipant = null;
+				}
+				else
+				{
+					Games.Remove(game);
+				}
 			}
-			else if(Equals(gameInstance.GameCreator, player))
+			else if(Equals(game.GameCreator.Id, playerId))
 			{
-				gameInstance.GameParticipant = null;
+				game.GameParticipant = null;
 			}
 			else
 			{

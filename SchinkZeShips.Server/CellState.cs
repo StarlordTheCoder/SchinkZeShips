@@ -10,5 +10,22 @@ namespace SchinkZeShips.Server
 
 		[DataMember]
 		public bool WasShot { get; set; }
+
+		public override bool Equals(object obj)
+		{
+			var other = obj as CellState;
+
+			return other != null &&
+				other.HasShip == HasShip &&
+				other.WasShot == WasShot;
+		}
+
+		public override int GetHashCode()
+		{
+			unchecked
+			{
+				return HasShip.GetHashCode() ^ WasShot.GetHashCode();
+			}
+		}
 	}
 }
