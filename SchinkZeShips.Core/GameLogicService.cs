@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using SchinkZeShips.Core.Connected_Services.SchinkZeShipsReference;
 
@@ -17,15 +18,17 @@ namespace SchinkZeShips.Core
 		{
 			var loadAllGames = new TaskCompletionSource<List<Game>>();
 
-			void LoadAllGamesHandler(object sender, GetAllOpenGamesCompletedEventArgs args)
+			EventHandler<GetAllOpenGamesCompletedEventArgs> loadAllGamesHandler = null;
+			loadAllGamesHandler = (sender, args) =>
 			{
+				_client.GetAllOpenGamesCompleted -= loadAllGamesHandler;
 				if (args.Error != null)
 					loadAllGames.SetException(args.Error);
 				else
 					loadAllGames.SetResult(args.Result);
-			}
+			};
 
-			_client.GetAllOpenGamesCompleted += LoadAllGamesHandler;
+			_client.GetAllOpenGamesCompleted += loadAllGamesHandler;
 			_client.GetAllOpenGamesAsync();
 
 			return await loadAllGames.Task;

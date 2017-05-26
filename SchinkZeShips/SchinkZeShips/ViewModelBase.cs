@@ -23,7 +23,7 @@ namespace SchinkZeShips
 
 		private int Workers
 		{
-			get => _workers;
+			get { return _workers; }
 			set
 			{
 				_workers = value;
