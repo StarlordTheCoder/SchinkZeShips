@@ -17,7 +17,7 @@ namespace SchinkZeShips.Core
 		{
 			var loadAllGames = new TaskCompletionSource<List<Game>>();
 
-			void LoadAllGamesHandler(object sender, GetAllGamesCompletedEventArgs args)
+			void LoadAllGamesHandler(object sender, GetAllOpenGamesCompletedEventArgs args)
 			{
 				if (args.Error != null)
 					loadAllGames.SetException(args.Error);
@@ -25,8 +25,8 @@ namespace SchinkZeShips.Core
 					loadAllGames.SetResult(args.Result);
 			}
 
-			_client.GetAllGamesCompleted += LoadAllGamesHandler;
-			_client.GetAllGamesAsync();
+			_client.GetAllOpenGamesCompleted += LoadAllGamesHandler;
+			_client.GetAllOpenGamesAsync();
 
 			return await loadAllGames.Task;
 		}

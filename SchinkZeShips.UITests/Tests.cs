@@ -32,7 +32,7 @@ namespace SchinkZeShips.UITests
 
 			var games = await server.GetAllGames();
 
-			_app.WaitForElement(e => e.Marked("GameCountLabel").Text($"Game count: {games.Count}"));
+			_app.WaitForElement(e => e.Marked("GameCountLabel").Text($"Game count: {games.Count}"), "Failed to display games count", TimeSpan.FromMinutes(1));
 
 			_app.Back();
 		}

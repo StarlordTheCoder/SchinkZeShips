@@ -10,13 +10,43 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="GameCreator" nillable="true" type="tns:Player" />
       <xs:element minOccurs="0" name="GameParticipant" nillable="true" type="tns:Player" />
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RunningGameState" nillable="true" type="tns:GameState" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Game" nillable="true" type="tns:Game" />
   <xs:complexType name="Player">
     <xs:sequence>
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Username" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Player" nillable="true" type="tns:Player" />
+  <xs:complexType name="GameState">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CurrentPlayer" nillable="true" type="tns:Player" />
+      <xs:element minOccurs="0" name="PlayingFieldCreator" nillable="true" type="tns:PlayingFieldState" />
+      <xs:element minOccurs="0" name="PlayingFieldParticipant" nillable="true" type="tns:PlayingFieldState" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GameState" nillable="true" type="tns:GameState" />
+  <xs:complexType name="PlayingFieldState">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Cells" nillable="true" type="tns:ArrayOfCellState" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PlayingFieldState" nillable="true" type="tns:PlayingFieldState" />
+  <xs:complexType name="ArrayOfCellState">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CellState" nillable="true" type="tns:CellState" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCellState" nillable="true" type="tns:ArrayOfCellState" />
+  <xs:complexType name="CellState">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="HasShip" type="xs:boolean" />
+      <xs:element minOccurs="0" name="WasShot" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CellState" nillable="true" type="tns:CellState" />
 </xs:schema>

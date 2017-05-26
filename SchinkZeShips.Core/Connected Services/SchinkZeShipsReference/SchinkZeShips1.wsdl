@@ -32,11 +32,11 @@
       <xsd:import schemaLocation="http://schinkzeships.azurewebsites.net/SchinkZeShips.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/SchinkZeShips.Server" />
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="ISchinkZeShips_GetAllGames_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetAllGames" />
+  <wsdl:message name="ISchinkZeShips_GetAllOpenGames_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllOpenGames" />
   </wsdl:message>
-  <wsdl:message name="ISchinkZeShips_GetAllGames_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetAllGamesResponse" />
+  <wsdl:message name="ISchinkZeShips_GetAllOpenGames_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllOpenGamesResponse" />
   </wsdl:message>
   <wsdl:message name="ISchinkZeShips_CreateGame_InputMessage">
     <wsdl:part name="parameters" element="tns:CreateGame" />
@@ -44,30 +44,50 @@
   <wsdl:message name="ISchinkZeShips_CreateGame_OutputMessage">
     <wsdl:part name="parameters" element="tns:CreateGameResponse" />
   </wsdl:message>
+  <wsdl:message name="ISchinkZeShips_GetCurrentGame_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCurrentGame" />
+  </wsdl:message>
+  <wsdl:message name="ISchinkZeShips_GetCurrentGame_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCurrentGameResponse" />
+  </wsdl:message>
   <wsdl:message name="ISchinkZeShips_JoinGame_InputMessage">
     <wsdl:part name="parameters" element="tns:JoinGame" />
   </wsdl:message>
   <wsdl:message name="ISchinkZeShips_JoinGame_OutputMessage">
     <wsdl:part name="parameters" element="tns:JoinGameResponse" />
   </wsdl:message>
+  <wsdl:message name="ISchinkZeShips_RemoveFromGame_InputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveFromGame" />
+  </wsdl:message>
+  <wsdl:message name="ISchinkZeShips_RemoveFromGame_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveFromGameResponse" />
+  </wsdl:message>
   <wsdl:portType name="ISchinkZeShips">
-    <wsdl:operation name="GetAllGames">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISchinkZeShips/GetAllGames" message="tns:ISchinkZeShips_GetAllGames_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISchinkZeShips/GetAllGamesResponse" message="tns:ISchinkZeShips_GetAllGames_OutputMessage" />
+    <wsdl:operation name="GetAllOpenGames">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISchinkZeShips/GetAllOpenGames" message="tns:ISchinkZeShips_GetAllOpenGames_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISchinkZeShips/GetAllOpenGamesResponse" message="tns:ISchinkZeShips_GetAllOpenGames_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="CreateGame">
       <wsdl:input wsaw:Action="http://tempuri.org/ISchinkZeShips/CreateGame" message="tns:ISchinkZeShips_CreateGame_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISchinkZeShips/CreateGameResponse" message="tns:ISchinkZeShips_CreateGame_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetCurrentGame">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISchinkZeShips/GetCurrentGame" message="tns:ISchinkZeShips_GetCurrentGame_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISchinkZeShips/GetCurrentGameResponse" message="tns:ISchinkZeShips_GetCurrentGame_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="JoinGame">
       <wsdl:input wsaw:Action="http://tempuri.org/ISchinkZeShips/JoinGame" message="tns:ISchinkZeShips_JoinGame_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISchinkZeShips/JoinGameResponse" message="tns:ISchinkZeShips_JoinGame_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="RemoveFromGame">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISchinkZeShips/RemoveFromGame" message="tns:ISchinkZeShips_RemoveFromGame_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISchinkZeShips/RemoveFromGameResponse" message="tns:ISchinkZeShips_RemoveFromGame_OutputMessage" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ISchinkZeShips" type="tns:ISchinkZeShips">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="GetAllGames">
-      <soap:operation soapAction="http://tempuri.org/ISchinkZeShips/GetAllGames" style="document" />
+    <wsdl:operation name="GetAllOpenGames">
+      <soap:operation soapAction="http://tempuri.org/ISchinkZeShips/GetAllOpenGames" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -84,8 +104,26 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetCurrentGame">
+      <soap:operation soapAction="http://tempuri.org/ISchinkZeShips/GetCurrentGame" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="JoinGame">
       <soap:operation soapAction="http://tempuri.org/ISchinkZeShips/JoinGame" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveFromGame">
+      <soap:operation soapAction="http://tempuri.org/ISchinkZeShips/RemoveFromGame" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -97,8 +135,8 @@
   <wsdl:binding name="BasicHttpsBinding_ISchinkZeShips" type="tns:ISchinkZeShips">
     <wsp:PolicyReference URI="#BasicHttpsBinding_ISchinkZeShips_policy" />
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="GetAllGames">
-      <soap:operation soapAction="http://tempuri.org/ISchinkZeShips/GetAllGames" style="document" />
+    <wsdl:operation name="GetAllOpenGames">
+      <soap:operation soapAction="http://tempuri.org/ISchinkZeShips/GetAllOpenGames" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -115,8 +153,26 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetCurrentGame">
+      <soap:operation soapAction="http://tempuri.org/ISchinkZeShips/GetCurrentGame" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="JoinGame">
       <soap:operation soapAction="http://tempuri.org/ISchinkZeShips/JoinGame" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveFromGame">
+      <soap:operation soapAction="http://tempuri.org/ISchinkZeShips/RemoveFromGame" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
