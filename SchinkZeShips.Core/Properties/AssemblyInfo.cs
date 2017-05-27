@@ -12,7 +12,7 @@ using System.Resources;
 [assembly: AssemblyCopyright("Copyright © 2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-[assembly: NeutralResourcesLanguage("en")]
+[assembly: NeutralResourcesLanguage("de-CH")]
 
 // Version information for an assembly consists of the following four values:
 //
