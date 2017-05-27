@@ -19,7 +19,7 @@ namespace SchinkZeShips.Android
 			base.OnCreate(bundle);
 
 			Forms.Init(this, bundle);
-			LoadApplication(new SharedApp());
+			LoadApplication(new App());
 		}
 	}
 }

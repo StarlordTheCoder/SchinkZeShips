@@ -25,7 +25,7 @@ namespace SchinkZeShips.iOS
 		public override bool FinishedLaunching(UIApplication app, NSDictionary options)
 		{
 			Forms.Init();
-			LoadApplication(new SharedApp());
+			LoadApplication(new App());
 
 			return base.FinishedLaunching(app, options);
 		}

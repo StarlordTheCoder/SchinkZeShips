@@ -4,9 +4,9 @@ using Microsoft.Azure.Mobile.Crashes;
 
 namespace SchinkZeShips.Core
 {
-	public partial class SharedApp
+	public partial class App
 	{
-		public SharedApp()
+		public App()
 		{
 			InitializeComponent();
 
