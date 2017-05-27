@@ -1,8 +1,7 @@
 ﻿using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 using SchinkZeShips.Core.Connected_Services.SchinkZeShipsReference;
 
-namespace SchinkZeShips
+namespace SchinkZeShips.Core
 {
 	public class StartViewModel : ViewModelBase
 	{

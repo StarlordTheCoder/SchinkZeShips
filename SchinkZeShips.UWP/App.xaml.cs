@@ -6,12 +6,12 @@ using Windows.UI.Xaml.Navigation;
 using Xamarin.Forms;
 using Frame = Windows.UI.Xaml.Controls.Frame;
 
-namespace SchinkZeShips
+namespace SchinkZeShips.UWP
 {
 	/// <summary>
 	///     Provides application-specific behavior to supplement the default Application class.
 	/// </summary>
-	sealed partial class App
+	public sealed partial class App
 	{
 		/// <summary>
 		///     Initializes the singleton application object.  This is the first line of authored code

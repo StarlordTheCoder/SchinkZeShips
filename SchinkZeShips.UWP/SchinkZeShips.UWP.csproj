@@ -7,8 +7,8 @@
     <ProjectGuid>{C40C0408-8562-482F-88AD-55E7E648007F}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SchinkZeShips</RootNamespace>
-    <AssemblyName>SchinkZeShips</AssemblyName>
+    <RootNamespace>SchinkZeShips.UWP</RootNamespace>
+    <AssemblyName>SchinkZeShips.UWP</AssemblyName>
     <DefaultLanguage>de-CH</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.15063.0</TargetPlatformVersion>
@@ -141,12 +141,11 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\SchinkZeShips.Core\SchinkZeShips.Core.csproj">
+    <ProjectReference Include="..\SchinkZeShips.Core\SchinkZeShips.Core.csproj">
       <Project>{077764dc-5a73-451e-81c4-918579fc986a}</Project>
       <Name>SchinkZeShips.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="..\SchinkZeShips\SchinkZeShips.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

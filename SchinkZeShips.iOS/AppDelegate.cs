@@ -1,9 +1,10 @@
 ﻿using Foundation;
+using SchinkZeShips.Core;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
-namespace SchinkZeShips
+namespace SchinkZeShips.iOS
 {
 	// ReSharper disable once UnusedMember.Global
 	// ReSharper disable once PartialTypeWithSinglePart

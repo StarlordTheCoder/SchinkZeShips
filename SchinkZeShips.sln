@@ -3,13 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SchinkZeShips", "SchinkZeShips\SchinkZeShips\SchinkZeShips.shproj", "{C4BE225A-5D1B-4D9D-AB38-20DD9AB3AF15}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchinkZeShips.Android", "SchinkZeShips.Android\SchinkZeShips.Android.csproj", "{9F9ADADB-EF04-492F-99DF-4EC2E8970F2E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchinkZeShips.Android", "SchinkZeShips\SchinkZeShips.Android\SchinkZeShips.Android.csproj", "{9F9ADADB-EF04-492F-99DF-4EC2E8970F2E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchinkZeShips.iOS", "SchinkZeShips.iOS\SchinkZeShips.iOS.csproj", "{9FE52DCD-9FED-460D-929A-CDABBF780744}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchinkZeShips.iOS", "SchinkZeShips\SchinkZeShips.iOS\SchinkZeShips.iOS.csproj", "{9FE52DCD-9FED-460D-929A-CDABBF780744}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchinkZeShips.UWP", "SchinkZeShips\SchinkZeShips.UWP\SchinkZeShips.UWP.csproj", "{C40C0408-8562-482F-88AD-55E7E648007F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchinkZeShips.UWP", "SchinkZeShips.UWP\SchinkZeShips.UWP.csproj", "{C40C0408-8562-482F-88AD-55E7E648007F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchinkZeShips.Server", "SchinkZeShips.Server\SchinkZeShips.Server.csproj", "{D802AD76-CF6E-4A4C-AD56-024BFA8165BA}"
 EndProject
@@ -20,12 +18,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchinkZeShips.Tests", "SchinkZeShips.Tests\SchinkZeShips.Tests.csproj", "{EFE2D7F7-4BBB-4DEB-AAB8-2E88604DD862}"
 EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		SchinkZeShips\SchinkZeShips\SchinkZeShips.projitems*{9f9adadb-ef04-492f-99df-4ec2e8970f2e}*SharedItemsImports = 4
-		SchinkZeShips\SchinkZeShips\SchinkZeShips.projitems*{9fe52dcd-9fed-460d-929a-cdabbf780744}*SharedItemsImports = 4
-		SchinkZeShips\SchinkZeShips\SchinkZeShips.projitems*{c40c0408-8562-482f-88ad-55e7e648007f}*SharedItemsImports = 4
-		SchinkZeShips\SchinkZeShips\SchinkZeShips.projitems*{c4be225a-5d1b-4d9d-ab38-20dd9ab3af15}*SharedItemsImports = 13
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU
 		Ad-Hoc|ARM = Ad-Hoc|ARM

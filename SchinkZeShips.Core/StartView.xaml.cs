@@ -1,4 +1,4 @@
-﻿namespace SchinkZeShips
+﻿namespace SchinkZeShips.Core
 {
 	public partial class StartView
 	{

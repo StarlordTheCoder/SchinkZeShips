@@ -2,10 +2,10 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using SchinkZeShips.Core;
+
 // ReSharper disable ExplicitCallerInfoArgument
 
-namespace SchinkZeShips
+namespace SchinkZeShips.Core
 {
 	public class ViewModelBase : INotifyPropertyChanged
 	{

@@ -2,12 +2,12 @@
 
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:schinkZeShips="clr-namespace:SchinkZeShips;assembly=SchinkZeShips"
-             x:Class="SchinkZeShips.StartView"
+             xmlns:core="clr-namespace:SchinkZeShips.Core;assembly=SchinkZeShips.Core"
+             x:Class="SchinkZeShips.Core.StartView"
              IsBusy="{Binding IsBusy}"
              Title="SchinkZeShips">
 	<ContentPage.BindingContext>
-		<schinkZeShips:StartViewModel />
+		<core:StartViewModel />
 	</ContentPage.BindingContext>
 
 	<Grid>

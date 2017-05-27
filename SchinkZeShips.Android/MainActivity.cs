@@ -1,10 +1,11 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using SchinkZeShips.Core;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
-namespace SchinkZeShips
+namespace SchinkZeShips.Android
 {
 	[Activity(Label = "SchinkZeShips", Icon = "@drawable/icon", Theme = "@style/MainTheme", MainLauncher = true,
 		ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]

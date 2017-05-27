@@ -2,7 +2,7 @@
 using Microsoft.Azure.Mobile.Analytics;
 using Microsoft.Azure.Mobile.Crashes;
 
-namespace SchinkZeShips
+namespace SchinkZeShips.Core
 {
 	public partial class SharedApp
 	{
@@ -13,6 +13,7 @@ namespace SchinkZeShips
 			MainPage = new StartView();
 		}
 
+		/// <inheritdoc />
 		protected override void OnStart()
 		{
 			// Handle when your app starts
@@ -22,11 +23,13 @@ namespace SchinkZeShips
 				typeof(Analytics), typeof(Crashes));
 		}
 
+		/// <inheritdoc />
 		protected override void OnSleep()
 		{
 			// Handle when your app sleeps
 		}
 
+		/// <inheritdoc />
 		protected override void OnResume()
 		{
 			// Handle when your app resumes
