@@ -107,5 +107,28 @@ namespace SchinkZeShips.Tests.Server
 			var openGamesAfterJoin = _service.GetAllOpenGames();
 			Assert.That(openGamesAfterJoin, Is.Empty);
 		}
+
+		[Test]
+		public void UpdateCurrentGame()
+		{
+			//Arrange
+			var creator = new Player();
+
+			var game = _service.CreateGame(creator);
+			var game2 = new Game();
+
+			// Act & Assert
+			var currentGame = _service.GetCurrentGame(creator.Id);
+			currentGame.RunningGameState = new GameState();
+			currentGame.RunningGameState.PlayingFieldCreator = new PlayingFieldState();
+			currentGame.RunningGameState.PlayingFieldCreator.Cells[0] = new CellState();
+			currentGame.RunningGameState.PlayingFieldCreator.Cells[0].HasShip = true;
+
+			_service.UpdateCurrentGame(currentGame.Id, currentGame.RunningGameState);
+			Assert.That(_service.GetCurrentGame(creator.Id).RunningGameState.PlayingFieldCreator.Cells[0].HasShip, Is.EqualTo(true));
+
+			Assert.That(() => _service.UpdateCurrentGame(game2.Id, game2.RunningGameState), Throws.Exception);
+		}
+
 	}
 }
