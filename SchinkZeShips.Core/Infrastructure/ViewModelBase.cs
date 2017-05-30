@@ -32,5 +32,8 @@ namespace SchinkZeShips.Core.Infrastructure
 			MessagingCenter.Send(instance, NavigationPushView, page);
 		}
 
+		public virtual void OnAppearing() { }
+		public virtual void OnDisappearing() { }
+
 	}
 }

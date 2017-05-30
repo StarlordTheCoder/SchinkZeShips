@@ -11,7 +11,7 @@ namespace SchinkZeShips.Core
 		{
 			InitializeComponent();
 
-			MainPage = new NavigationPage(new StartView());
+			MainPage = new NavigationPage(new GameLobby.StartView());
 		}
 
 		/// <inheritdoc />

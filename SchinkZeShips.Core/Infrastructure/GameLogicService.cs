@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using SchinkZeShips.Core.Infrastructure;
 using SchinkZeShips.Core.SchinkZeShipsReference;
 
-namespace SchinkZeShips.Core
+namespace SchinkZeShips.Core.Infrastructure
 {
 	public class GameLogicService
 	{
@@ -35,6 +34,25 @@ namespace SchinkZeShips.Core
 			return await loadAllGames.Task;
 		}
 
+		public async Task<Game> GetCurrentGame()
+		{
+			var getCurrentGame = new TaskCompletionSource<Game>();
+
+			EventHandler<GetCurrentGameCompletedEventArgs> getCurrentGameHandler = null;
+			getCurrentGameHandler = (sender, args) =>
+			{
+				_client.GetCurrentGameCompleted -= getCurrentGameHandler;
+				if (args.Error != null)
+					getCurrentGame.SetException(args.Error);
+				else
+					getCurrentGame.SetResult(args.Result);
+			};
+
+			_client.GetCurrentGameCompleted += getCurrentGameHandler;
+			_client.GetCurrentGameAsync(Settings.Instance.Guid.ToString());
+
+			return await getCurrentGame.Task;
+		}
 
 		public async Task<Game> CreateGame(string gameName)
 		{

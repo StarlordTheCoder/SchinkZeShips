@@ -3,10 +3,11 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:core="clr-namespace:SchinkZeShips.Core;assembly=SchinkZeShips.Core"
-             x:Class="SchinkZeShips.Core.StartView"
+             xmlns:gameLobby="clr-namespace:SchinkZeShips.Core.GameLobby;assembly=SchinkZeShips.Core"
+             x:Class="SchinkZeShips.Core.GameLobby.StartView"
              Title="Startseite">
 	<ContentPage.BindingContext>
-		<core:StartViewModel />
+		<gameLobby:StartViewModel />
 	</ContentPage.BindingContext>
 
 	<StackLayout Spacing="20" Padding="20" VerticalOptions="Center">

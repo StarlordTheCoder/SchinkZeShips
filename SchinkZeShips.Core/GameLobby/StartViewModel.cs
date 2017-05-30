@@ -3,14 +3,32 @@ using Acr.UserDialogs;
 using SchinkZeShips.Core.Infrastructure;
 using Xamarin.Forms;
 
-namespace SchinkZeShips.Core
+namespace SchinkZeShips.Core.GameLobby
 {
 	public class StartViewModel : ViewModelBase
 	{
 		public StartViewModel()
 		{
-			CreateGameCommand = new Command(CreateGame);
-			SearchGameCommand = new Command(SearchGame);
+			CreateGameCommand = new Command(CreateGame, () => !string.IsNullOrEmpty(Settings.Username));
+			SearchGameCommand = new Command(SearchGame, () => !string.IsNullOrEmpty(Settings.Username));
+		}
+
+		private void Settings_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+		{
+			CreateGameCommand.ChangeCanExecute();
+			SearchGameCommand.ChangeCanExecute();
+		}
+
+		public override void OnAppearing()
+		{
+			base.OnAppearing();
+			Settings.PropertyChanged += Settings_PropertyChanged;
+		}
+
+		public override void OnDisappearing()
+		{
+			base.OnDisappearing();
+			Settings.PropertyChanged -= Settings_PropertyChanged;
 		}
 
 		public Command CreateGameCommand { get; }
@@ -31,8 +49,7 @@ namespace SchinkZeShips.Core
 				{
 					var game = await Service.CreateGame(result.Text);
 
-					//TODO CreateGameView
-					PushView(this, new StartView());
+					PushView(this, new GameLobbyView());
 				}
 				catch (HttpRequestException)
 				{

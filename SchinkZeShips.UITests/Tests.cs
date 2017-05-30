@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using NUnit.Framework;
-using SchinkZeShips.Core;
+using SchinkZeShips.Core.Infrastructure;
 using Xamarin.UITest;
 
 namespace SchinkZeShips.UITests

@@ -44,7 +44,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="GameLogicService.cs" />
+    <Compile Include="GameLobby\GameLobbyView.xaml.cs">
+      <DependentUpon>GameLobbyView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GameLobby\GameLobbyViewModel.cs" />
+    <Compile Include="Infrastructure\GameLogicService.cs" />
     <Compile Include="Infrastructure\EventsHelper.cs" />
     <Compile Include="Infrastructure\NotifyPropertyChangedBase.cs" />
     <Compile Include="Infrastructure\Settings.cs" />
@@ -52,10 +56,10 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="StartView.xaml.cs">
+    <Compile Include="GameLobby\StartView.xaml.cs">
       <DependentUpon>StartView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="StartViewModel.cs" />
+    <Compile Include="GameLobby\StartViewModel.cs" />
     <Compile Include="Infrastructure\ViewModelBase.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -101,7 +105,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="StartView.xaml">
+    <EmbeddedResource Include="GameLobby\StartView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>
       </SubType>
@@ -141,6 +145,13 @@
     <Reference Include="Xamarin.Forms.Xaml, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Xamarin.Forms.2.3.4.247\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.Xaml.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="GameLobby\GameLobbyView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>
+      </SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.3.4.247\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.3.4.247\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />

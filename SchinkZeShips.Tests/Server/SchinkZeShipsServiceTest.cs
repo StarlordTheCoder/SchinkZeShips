@@ -28,7 +28,7 @@ namespace SchinkZeShips.Tests.Server
 			var creator = new Player();
 			var participant = new Player();
 
-			var game = _service.CreateGame(creator);
+			var game = _service.CreateGame(creator, "Foo");
 			_service.JoinGame(game.Id, participant);
 			game.GameParticipant = participant;
 
@@ -44,15 +44,15 @@ namespace SchinkZeShips.Tests.Server
 			var creator = new Player();
 			var participant = new Player();
 
-			var game = _service.CreateGame(creator);
+			var game = _service.CreateGame(creator, "Foo");
 			_service.JoinGame(game.Id, participant);
 			game.GameParticipant = participant;
 
 			// Act & Assert
-			Assert.That(() => _service.CreateGame(creator), Throws.Exception);
-			Assert.That(() => _service.CreateGame(participant), Throws.Exception);
+			Assert.That(() => _service.CreateGame(creator, "Bar"), Throws.Exception);
+			Assert.That(() => _service.CreateGame(participant, "Bar"), Throws.Exception);
 
-			var newGame = _service.CreateGame(new Player());
+			var newGame = _service.CreateGame(new Player(), "Banana");
 			Assert.That(() => _service.JoinGame(newGame.Id, creator), Throws.Exception);
 			Assert.That(() => _service.JoinGame(newGame.Id, participant), Throws.Exception);
 		}
@@ -74,7 +74,7 @@ namespace SchinkZeShips.Tests.Server
 			var originalCreator = new Player();
 			var originalParticipant = new Player();
 
-			var game = _service.CreateGame(originalCreator);
+			var game = _service.CreateGame(originalCreator, "Foo");
 			_service.JoinGame(game.Id, originalParticipant);
 			game.GameParticipant = originalParticipant;
 
@@ -95,7 +95,7 @@ namespace SchinkZeShips.Tests.Server
 			var creator = new Player();
 			var participant = new Player();
 
-			var game = _service.CreateGame(creator);
+			var game = _service.CreateGame(creator, "Foo");
 
 			// Act & Assert
 			var openGamesBeforeJoin = _service.GetAllOpenGames();
@@ -114,12 +114,12 @@ namespace SchinkZeShips.Tests.Server
 			//Arrange
 			var creator = new Player();
 
-			var game = _service.CreateGame(creator);
+			var game = _service.CreateGame(creator, "Foo");
 			var game2 = new Game();
 
 			// Act & Assert
 			var currentGame = _service.GetCurrentGame(creator.Id);
-			currentGame.RunningGameState = new GameState()
+			currentGame.RunningGameState = new GameState
 			{
 				PlayingFieldCreator = new PlayingFieldState()
 			};

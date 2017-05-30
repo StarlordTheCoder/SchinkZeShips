@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:gameLobby="clr-namespace:SchinkZeShips.Core.GameLobby;assembly=SchinkZeShips.Core"
+             x:Class="SchinkZeShips.Core.GameLobby.GameLobbyView"
+             Title="{Binding CurrentGame.Name}">
+	<ContentPage.BindingContext>
+		<gameLobby:GameLobbyViewModel />
+	</ContentPage.BindingContext>
+
+	<StackLayout Spacing="20" Padding="20" VerticalOptions="Center">
+		<Label Text="{Binding CurrentGame.GameCreator.Username}"/>
+		<Label Text="{Binding CurrentGame.GameParticipant.Username}"/>
+
+		<Button Text="Spiel starten"
+		        HorizontalOptions="Center"
+		        VerticalOptions="CenterAndExpand"
+		        AutomationId="CreateGameButton"
+				Command="{Binding StartGameCommand} "/>
+		<Button Text="Spiel verlassen"
+		        HorizontalOptions="Center"
+		        VerticalOptions="CenterAndExpand"
+		        AutomationId="SearchGameButton"
+		        Command="{Binding LeaveGameCommand}" />
+	</StackLayout>
+</ContentPage>
