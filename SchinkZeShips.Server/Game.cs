@@ -10,6 +10,9 @@ namespace SchinkZeShips.Server
 		public string Id { get; set; } = Guid.NewGuid().ToString();
 
 		[DataMember]
+		public string Name { get; set; }
+
+		[DataMember]
 		public Player GameCreator { get; set; }
 
 		[DataMember]

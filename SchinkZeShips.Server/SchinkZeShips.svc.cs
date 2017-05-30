@@ -12,7 +12,7 @@ namespace SchinkZeShips.Server
 
         public List<Game> GetAllOpenGames() => Games.Where(g => g.GameParticipant == null).ToList();
 
-        public Game CreateGame(Player creator)
+        public Game CreateGame(Player creator, string gameName)
         {
             if (GetCurrentGame(creator.Id) != null)
             {
@@ -21,7 +21,8 @@ namespace SchinkZeShips.Server
 
             var game = new Game
             {
-                GameCreator = creator
+                GameCreator = creator,
+                Name = gameName
             };
 
             Games.Add(game);

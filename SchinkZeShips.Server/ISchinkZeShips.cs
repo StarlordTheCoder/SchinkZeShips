@@ -10,7 +10,7 @@ namespace SchinkZeShips.Server
 		List<Game> GetAllOpenGames();
 
 		[OperationContract]
-		Game CreateGame(Player creator);
+		Game CreateGame(Player creator, string gameName);
 
 		[OperationContract]
 		Game GetCurrentGame(string playerId);
