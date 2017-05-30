@@ -7,7 +7,7 @@ namespace SchinkZeShips.Server
 	public class PlayingFieldState
 	{
 		[DataMember]
-		public CellState[] Cells { get; set; } = new CellState[100];
+		public CellState[] Cells { get; set; } = Enumerable.Repeat(new CellState(), 100).ToArray();
 
 		public override bool Equals(object obj)
 		{
