@@ -44,9 +44,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="GameLobby\SearchLobbyView.xaml.cs">
+      <DependentUpon>SearchLobbyView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GameLobby\GameLobbyView.xaml.cs">
       <DependentUpon>GameLobbyView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GameLobby\SearchLobbyViewModel.cs" />
     <Compile Include="GameLobby\GameLobbyViewModel.cs" />
     <Compile Include="Infrastructure\GameLogicService.cs" />
     <Compile Include="Infrastructure\EventsHelper.cs" />
@@ -148,6 +152,13 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="GameLobby\GameLobbyView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>
+      </SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="GameLobby\SearchLobbyView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>
       </SubType>

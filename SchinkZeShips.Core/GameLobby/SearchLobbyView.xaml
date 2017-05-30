@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:gameLobby="clr-namespace:SchinkZeShips.Core.GameLobby;assembly=SchinkZeShips.Core"
+             x:Class="SchinkZeShips.Core.GameLobby.SearchLobbyView"
+             Title="Suche Spiel">
+	<ContentPage.BindingContext>
+		<gameLobby:SearchLobbyViewModel />
+	</ContentPage.BindingContext>
+
+	<StackLayout Spacing="20" Padding="20" VerticalOptions="Center">
+		<Button Text="Aktualisieren"
+		        HorizontalOptions="StartAndExpand"
+		        VerticalOptions="StartAndExpand"
+		        AutomationId="RefreshButton"
+		        Command="{Binding LoadGamesCommand} "/>
+		<ListView IsPullToRefreshEnabled="True" RefreshCommand="{Binding LoadGamesCommand}" ItemsSource="{Binding Games}" ItemTapped="ListView_OnItemTapped" >
+			<ListView.HeaderTemplate>
+				<DataTemplate>
+					<SearchBar Text="{Binding GameFilter}"/>
+				</DataTemplate>
+			</ListView.HeaderTemplate>
+			<ListView.ItemTemplate>
+				<DataTemplate>
+					<TextCell Text="{Binding Name}" />
+				</DataTemplate>
+			</ListView.ItemTemplate>
+		</ListView>
+	</StackLayout>
+</ContentPage>

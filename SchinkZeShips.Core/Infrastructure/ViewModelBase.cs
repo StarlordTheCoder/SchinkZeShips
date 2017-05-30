@@ -32,6 +32,18 @@ namespace SchinkZeShips.Core.Infrastructure
 			MessagingCenter.Send(instance, NavigationPushView, page);
 		}
 
+		/// <summary>
+		///     Changes the main page of the application
+		/// </summary>
+		/// <param name="page">The page to display</param>
+		protected static void PushViewModal(Page page)
+		{
+			Device.BeginInvokeOnMainThread(() =>
+			{
+				Application.Current.MainPage = page;
+			});
+		}
+
 		public virtual void OnAppearing() { }
 		public virtual void OnDisappearing() { }
 

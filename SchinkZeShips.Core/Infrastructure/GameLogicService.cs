@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using SchinkZeShips.Core.SchinkZeShipsReference;
 
@@ -76,6 +77,30 @@ namespace SchinkZeShips.Core.Infrastructure
 			}, gameName);
 
 			return await loadAllGames.Task;
+		}
+
+		public async Task JoinGame(string gameId)
+		{
+			var joinGame = new TaskCompletionSource<object>();
+
+			EventHandler<AsyncCompletedEventArgs> joinGameHandler = null;
+			joinGameHandler = (sender, args) =>
+			{
+				_client.JoinGameCompleted -= joinGameHandler;
+				if (args.Error != null)
+					joinGame.SetException(args.Error);
+				else
+					joinGame.SetResult(null);
+			};
+
+			_client.JoinGameCompleted += joinGameHandler;
+			_client.JoinGameAsync(gameId, new Player
+			{
+				Id = Settings.Instance.Guid.ToString(),
+				Username = Settings.Instance.Username
+			});
+
+			await joinGame.Task;
 		}
 	}
 }

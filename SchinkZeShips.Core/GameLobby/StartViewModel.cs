@@ -38,7 +38,7 @@ namespace SchinkZeShips.Core.GameLobby
 
 		public async void CreateGame()
 		{
-			var result = await UserDialogs.Instance.PromptAsync($"Spiel von {Settings.Username}", okText: "Spiel erstellen", placeholder: "Spielname");
+			var result = await UserDialogs.Instance.PromptAsync($"Spielname eingeben", okText: "Spiel erstellen", cancelText: "Abbrechen", placeholder: "Spielname");
 
 			if (result.Ok)
 			{
@@ -49,7 +49,7 @@ namespace SchinkZeShips.Core.GameLobby
 				{
 					var game = await Service.CreateGame(result.Text);
 
-					PushView(this, new GameLobbyView());
+					PushViewModal(new GameLobbyView());
 				}
 				catch (HttpRequestException)
 				{
@@ -64,8 +64,7 @@ namespace SchinkZeShips.Core.GameLobby
 
 		public void SearchGame()
 		{
-			//TODO SearchGameView
-			PushView(this, new StartView());
+			PushView(this, new SearchLobbyView());
 		}
 	}
 }

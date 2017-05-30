@@ -16,12 +16,12 @@
 		<Button Text="Spiel starten"
 		        HorizontalOptions="Center"
 		        VerticalOptions="CenterAndExpand"
-		        AutomationId="CreateGameButton"
+		        AutomationId="StartGameButton"
 				Command="{Binding StartGameCommand} "/>
 		<Button Text="Spiel verlassen"
-		        HorizontalOptions="Center"
-		        VerticalOptions="CenterAndExpand"
-		        AutomationId="SearchGameButton"
+		        HorizontalOptions="StartAndExpand"
+		        VerticalOptions="EndAndExpand"
+		        AutomationId="LeaveGameButton"
 		        Command="{Binding LeaveGameCommand}" />
 	</StackLayout>
 </ContentPage>
