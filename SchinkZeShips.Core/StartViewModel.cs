@@ -1,4 +1,7 @@
 ﻿using System.Collections.ObjectModel;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Acr.UserDialogs;
 using SchinkZeShips.Core.Connected_Services.SchinkZeShipsReference;
 
 namespace SchinkZeShips.Core
@@ -15,12 +18,23 @@ namespace SchinkZeShips.Core
 
 		public async void LoadGamesFromServer()
 		{
-			await RunAsyncOperation(async () =>
+			var dialog = CreateLoadingDialog("Lade alle Spiele");
+			dialog.Show();
+			await Task.Delay(10000);
+			try
 			{
 				var games = await Service.GetAllGames();
 				Games.Clear();
 				games.AddRange(games);
-			});
+			}
+			catch (HttpRequestException)
+			{
+				UserDialogs.Instance.Alert("Fehler beim Verbinden mit dem Server!");
+			}
+			finally
+			{
+				dialog.Hide();
+			}
 		}
 	}
 }

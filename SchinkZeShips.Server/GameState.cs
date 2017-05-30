@@ -26,10 +26,7 @@ namespace SchinkZeShips.Server
 
 		public override int GetHashCode()
 		{
-			unchecked
-			{
-				return CurrentPlayer.GetHashCode() ^ PlayingFieldCreator.GetHashCode() ^ PlayingFieldCreator.GetHashCode();
-			}
+			return CurrentPlayer.GetHashCode() ^ PlayingFieldCreator.GetHashCode() ^ PlayingFieldCreator.GetHashCode();
 		}
 	}
 }

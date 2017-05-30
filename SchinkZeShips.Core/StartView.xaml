@@ -4,31 +4,33 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:core="clr-namespace:SchinkZeShips.Core;assembly=SchinkZeShips.Core"
              x:Class="SchinkZeShips.Core.StartView"
-             IsBusy="{Binding IsBusy}"
              Title="SchinkZeShips">
 	<ContentPage.BindingContext>
 		<core:StartViewModel />
 	</ContentPage.BindingContext>
 
-	<Grid>
+	<AbsoluteLayout>
+		<AbsoluteLayout.Padding>
+			<OnPlatform x:TypeArguments="Thickness">
+				<On Platform="iOS" Value="2,0,2,0" />
+				<On Platform="Android" Value="2" />
+				<On Platform="WinPhone" Value="0" />
+			</OnPlatform>
+		</AbsoluteLayout.Padding>
 		<StackLayout Spacing="20" Padding="20"
-					 VerticalOptions="Center"
-					 IsEnabled="{Binding IsNotBusy}">
+		             AbsoluteLayout.LayoutFlags="All"
+		             AbsoluteLayout.LayoutBounds="0,1,1,1">
 			<Label Text="{Binding MainLabelText}"
 			       HorizontalOptions="Center"
 			       AutomationId="GameCountLabel" />
 			<Button Text="Spiel erstellen"
 			        HorizontalOptions="Center"
 			        VerticalOptions="CenterAndExpand"
-			        AutomationId="CreateGameButton"
-					IsEnabled="{Binding IsNotBusy}" />
+			        AutomationId="CreateGameButton" />
 			<Button Text="Spiel Suchen"
 			        HorizontalOptions="Center"
 			        VerticalOptions="CenterAndExpand"
-			        AutomationId="SearchGameButton"
-			        IsEnabled="{Binding IsNotBusy}" />
+			        AutomationId="SearchGameButton" />
 		</StackLayout>
-
-		<ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" VerticalOptions="Center" HorizontalOptions="Center"/>
-	</Grid>
+	</AbsoluteLayout>
 </ContentPage>

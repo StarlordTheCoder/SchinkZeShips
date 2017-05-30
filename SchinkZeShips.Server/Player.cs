@@ -21,10 +21,7 @@ namespace SchinkZeShips.Server
 
 		public override int GetHashCode()
 		{
-			unchecked
-			{
-				return Id.GetHashCode() ^ Username.GetHashCode();
-			}
+			return Id.GetHashCode() ^ Username.GetHashCode();
 		}
 	}
 }

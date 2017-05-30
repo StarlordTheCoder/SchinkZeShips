@@ -14,7 +14,7 @@ namespace SchinkZeShips.Server
 			var other = obj as PlayingFieldState;
 
 			return other != null &&
-				Enumerable.SequenceEqual(other.Cells, Cells);
+				other.Cells.SequenceEqual(Cells);
 		}
 
 		public override int GetHashCode()
