@@ -44,6 +44,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="GameLogic\ValidateBoard.cs" />
     <Compile Include="GameLobby\SearchLobbyView.xaml.cs">
       <DependentUpon>SearchLobbyView.xaml</DependentUpon>
     </Compile>
