@@ -17,6 +17,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/SchinkZeShips.Server" minOccurs="0" name="creator" nillable="true" type="q2:Player" />
+        <xs:element minOccurs="0" name="gameName" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -63,6 +64,19 @@
     </xs:complexType>
   </xs:element>
   <xs:element name="RemoveFromGameResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateCurrentGame">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="gameId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/SchinkZeShips.Server" minOccurs="0" name="gameState" nillable="true" type="q6:GameState" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateCurrentGameResponse">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>

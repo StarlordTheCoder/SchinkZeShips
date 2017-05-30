@@ -11,6 +11,7 @@
       <xs:element minOccurs="0" name="GameCreator" nillable="true" type="tns:Player" />
       <xs:element minOccurs="0" name="GameParticipant" nillable="true" type="tns:Player" />
       <xs:element minOccurs="0" name="Id" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="RunningGameState" nillable="true" type="tns:GameState" />
     </xs:sequence>
   </xs:complexType>

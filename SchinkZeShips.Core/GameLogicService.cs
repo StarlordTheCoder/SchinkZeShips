@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using SchinkZeShips.Core.Connected_Services.SchinkZeShipsReference;
 using SchinkZeShips.Core.Infrastructure;
+using SchinkZeShips.Core.SchinkZeShipsReference;
 
 namespace SchinkZeShips.Core
 {
@@ -55,7 +55,7 @@ namespace SchinkZeShips.Core
 			{
 				Id = Settings.Instance.Guid.ToString(),
 				Username = Settings.Instance.Username
-			});
+			}, gameName);
 
 			return await loadAllGames.Task;
 		}
