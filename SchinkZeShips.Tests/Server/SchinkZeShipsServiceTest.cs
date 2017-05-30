@@ -119,9 +119,10 @@ namespace SchinkZeShips.Tests.Server
 
 			// Act & Assert
 			var currentGame = _service.GetCurrentGame(creator.Id);
-			currentGame.RunningGameState = new GameState();
-			currentGame.RunningGameState.PlayingFieldCreator = new PlayingFieldState();
-			currentGame.RunningGameState.PlayingFieldCreator.Cells[0] = new CellState();
+			currentGame.RunningGameState = new GameState()
+			{
+				PlayingFieldCreator = new PlayingFieldState()
+			};
 			currentGame.RunningGameState.PlayingFieldCreator.Cells[0].HasShip = true;
 
 			_service.UpdateCurrentGame(currentGame.Id, currentGame.RunningGameState);
