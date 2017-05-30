@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using SchinkZeShips.Core.Connected_Services.SchinkZeShipsReference;
+using SchinkZeShips.Core.Infrastructure;
 
 namespace SchinkZeShips.Core
 {
@@ -30,6 +31,31 @@ namespace SchinkZeShips.Core
 
 			_client.GetAllOpenGamesCompleted += loadAllGamesHandler;
 			_client.GetAllOpenGamesAsync();
+
+			return await loadAllGames.Task;
+		}
+
+
+		public async Task<Game> CreateGame(string gameName)
+		{
+			var loadAllGames = new TaskCompletionSource<Game>();
+
+			EventHandler<CreateGameCompletedEventArgs> createGameHandler = null;
+			createGameHandler = (sender, args) =>
+			{
+				_client.CreateGameCompleted -= createGameHandler;
+				if (args.Error != null)
+					loadAllGames.SetException(args.Error);
+				else
+					loadAllGames.SetResult(args.Result);
+			};
+
+			_client.CreateGameCompleted += createGameHandler;
+			_client.CreateGameAsync(new Player
+			{
+				Id = Settings.Instance.Guid.ToString(),
+				Username = Settings.Instance.Username
+			});
 
 			return await loadAllGames.Task;
 		}

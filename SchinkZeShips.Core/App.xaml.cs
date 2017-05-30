@@ -1,6 +1,7 @@
 ﻿using Microsoft.Azure.Mobile;
 using Microsoft.Azure.Mobile.Analytics;
 using Microsoft.Azure.Mobile.Crashes;
+using Xamarin.Forms;
 
 namespace SchinkZeShips.Core
 {
@@ -10,7 +11,7 @@ namespace SchinkZeShips.Core
 		{
 			InitializeComponent();
 
-			MainPage = new StartView();
+			MainPage = new NavigationPage(new StartView());
 		}
 
 		/// <inheritdoc />

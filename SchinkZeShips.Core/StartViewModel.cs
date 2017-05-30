@@ -1,8 +1,7 @@
-﻿using System.Collections.ObjectModel;
-using System.Net.Http;
-using System.Threading.Tasks;
+﻿using System.Net.Http;
 using Acr.UserDialogs;
-using SchinkZeShips.Core.Connected_Services.SchinkZeShipsReference;
+using SchinkZeShips.Core.Infrastructure;
+using Xamarin.Forms;
 
 namespace SchinkZeShips.Core
 {
@@ -10,31 +9,46 @@ namespace SchinkZeShips.Core
 	{
 		public StartViewModel()
 		{
-			LoadGamesFromServer();
+			CreateGameCommand = new Command(CreateGame);
+			SearchGameCommand = new Command(SearchGame);
 		}
 
-		public ObservableCollection<Game> Games { get; } = new ObservableCollection<Game>();
-		public string MainLabelText => $"Game count: {Games.Count}";
+		public Command CreateGameCommand { get; }
+		public Command SearchGameCommand { get; }
 
-		public async void LoadGamesFromServer()
+		public Settings Settings { get; } = Settings.Instance;
+
+		public async void CreateGame()
 		{
-			var dialog = CreateLoadingDialog("Lade alle Spiele");
-			dialog.Show();
-			await Task.Delay(10000);
-			try
+			var result = await UserDialogs.Instance.PromptAsync($"Spiel von {Settings.Username}", okText: "Spiel erstellen", placeholder: "Spielname");
+
+			if (result.Ok)
 			{
-				var games = await Service.GetAllGames();
-				Games.Clear();
-				games.AddRange(games);
+				var dialog = CreateLoadingDialog("Erstelle Spiel");
+				dialog.Show();
+
+				try
+				{
+					var game = await Service.CreateGame(result.Text);
+
+					//TODO CreateGameView
+					PushView(this, new StartView());
+				}
+				catch (HttpRequestException)
+				{
+					UserDialogs.Instance.Alert("Fehler beim Verbinden mit dem Server!");
+				}
+				finally
+				{
+					dialog.Hide();
+				}
 			}
-			catch (HttpRequestException)
-			{
-				UserDialogs.Instance.Alert("Fehler beim Verbinden mit dem Server!");
-			}
-			finally
-			{
-				dialog.Hide();
-			}
+		}
+
+		public void SearchGame()
+		{
+			//TODO SearchGameView
+			PushView(this, new StartView());
 		}
 	}
 }

@@ -4,33 +4,24 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:core="clr-namespace:SchinkZeShips.Core;assembly=SchinkZeShips.Core"
              x:Class="SchinkZeShips.Core.StartView"
-             Title="SchinkZeShips">
+             Title="Startseite">
 	<ContentPage.BindingContext>
 		<core:StartViewModel />
 	</ContentPage.BindingContext>
 
-	<AbsoluteLayout>
-		<AbsoluteLayout.Padding>
-			<OnPlatform x:TypeArguments="Thickness">
-				<On Platform="iOS" Value="2,0,2,0" />
-				<On Platform="Android" Value="2" />
-				<On Platform="WinPhone" Value="0" />
-			</OnPlatform>
-		</AbsoluteLayout.Padding>
-		<StackLayout Spacing="20" Padding="20"
-		             AbsoluteLayout.LayoutFlags="All"
-		             AbsoluteLayout.LayoutBounds="0,1,1,1">
-			<Label Text="{Binding MainLabelText}"
-			       HorizontalOptions="Center"
-			       AutomationId="GameCountLabel" />
-			<Button Text="Spiel erstellen"
-			        HorizontalOptions="Center"
-			        VerticalOptions="CenterAndExpand"
-			        AutomationId="CreateGameButton" />
-			<Button Text="Spiel Suchen"
-			        HorizontalOptions="Center"
-			        VerticalOptions="CenterAndExpand"
-			        AutomationId="SearchGameButton" />
-		</StackLayout>
-	</AbsoluteLayout>
+	<StackLayout Spacing="20" Padding="20" VerticalOptions="Center">
+		<Entry Placeholder="Benutzername" Text="{Binding Settings.Username}"
+		       HorizontalOptions="Center"
+		       AutomationId="GameCountLabel" />
+		<Button Text="Spiel erstellen"
+		        HorizontalOptions="Center"
+		        VerticalOptions="CenterAndExpand"
+		        AutomationId="CreateGameButton"
+				Command="{Binding CreateGameCommand} "/>
+		<Button Text="Spiel Suchen"
+		        HorizontalOptions="Center"
+		        VerticalOptions="CenterAndExpand"
+		        AutomationId="SearchGameButton"
+		        Command="{Binding SearchGameCommand}" />
+	</StackLayout>
 </ContentPage>
