@@ -22,7 +22,7 @@ namespace SchinkZeShips.Server
 		{
 			var other = obj as Game;
 
-			return other != null && 
+			return other != null &&
 				other.Id == Id &&
 				Equals(other.GameCreator, GameCreator) &&
 				Equals(other.GameParticipant, GameParticipant) &&
