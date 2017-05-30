@@ -96,15 +96,16 @@ namespace SchinkZeShips.Server
 			}
 		}
 
-		public void UpdateCurrentGame(Game currentGame)
+		public void UpdateCurrentGame(string gameId, GameState gameState)
 		{
-			if (Games.FindIndex(g => Equals(g.Id, currentGame.Id)) == -1)
+			var index = Games.FindIndex(g => Equals(g.Id, gameId));
+			if (index == -1)
 			{
 				throw new FaultException("Spiel existiert nicht");
 			}
 			else
 			{
-				Games[Games.FindIndex(g => Equals(g.Id, currentGame.Id))] = currentGame;
+				Games[index].RunningGameState = gameState;
 			}
 		}
 	}

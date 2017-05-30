@@ -22,6 +22,6 @@ namespace SchinkZeShips.Server
 		void RemoveFromGame(string gameId, string playerId);
 
 		[OperationContract]
-		void UpdateCurrentGame(Game currentGame);
+		void UpdateCurrentGame(string gameId, GameState gameState);
 	}
 }
