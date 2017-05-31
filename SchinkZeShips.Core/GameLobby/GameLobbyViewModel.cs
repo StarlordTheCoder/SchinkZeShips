@@ -23,7 +23,7 @@ namespace SchinkZeShips.Core.GameLobby
 
 		public Game CurrentGame
 		{
-			get => _currentGame;
+			get { return _currentGame; }
 			set
 			{
 				_currentGame = value;
@@ -35,7 +35,7 @@ namespace SchinkZeShips.Core.GameLobby
 
 		private bool OnViewVisible
 		{
-			get => _onViewVisible;
+			get { return _onViewVisible; }
 			set
 			{
 				_onViewVisible = value;
@@ -119,17 +119,6 @@ namespace SchinkZeShips.Core.GameLobby
 			{
 				dialog.Hide();
 			}
-		}
-
-		private bool CanStartGame()
-		{
-			if (CurrentGame == null) return false;
-
-			var isLobbyCreator = Equals(CurrentGame.GameCreator.Id, Settings.Instance.Guid.ToString());
-
-			var lobbyFull = CurrentGame.GameParticipant != null;
-
-			return isLobbyCreator && lobbyFull;
 		}
 	}
 }

@@ -20,7 +20,7 @@ namespace SchinkZeShips.Core.GameLobby
 
 		public string GameFilter
 		{
-			get => _gameFilter;
+			get { return _gameFilter; }
 			set
 			{
 				if (Equals(_gameFilter, value)) return;
