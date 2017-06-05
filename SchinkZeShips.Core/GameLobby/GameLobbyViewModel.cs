@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Http;
 using Acr.UserDialogs;
+using SchinkZeShips.Core.ExtensionMethods;
 using SchinkZeShips.Core.Infrastructure;
 using SchinkZeShips.Core.SchinkZeShipsReference;
 using Xamarin.Forms;
@@ -16,9 +17,56 @@ namespace SchinkZeShips.Core.GameLobby
 
 		public GameLobbyViewModel()
 		{
-			StartGameCommand = new Command(StartGame, () => IsLobbyLeader && HasParticipant);
-			//LeaveGameCommand = new Command(LeaveGame);
-			//KickParticipantCommand = new Command(KickParticipant, () => IsLobbyLeader && HasParticipant);
+			StartGameCommand = new Command(StartGameAsync, () => IsLobbyLeader && HasParticipant);
+			LeaveGameCommand = new Command(LeaveGameAsync);
+			KickParticipantCommand = new Command(KickParticipantAsync, () => HasParticipant);
+		}
+
+		private async void KickParticipantAsync()
+		{
+			if (!IsLobbyLeader)
+			{
+				LeaveGameAsync();
+				return;
+			}
+
+			var dialog = CreateLoadingDialog($"Entferne {CurrentGame.GameParticipant.Username} vom Spiel");
+			dialog.Show();
+
+			try
+			{
+				await Service.RemoveFromGame(CurrentGame.Id, CurrentGame.GameParticipant.Id);
+			}
+			catch (HttpRequestException)
+			{
+				UserDialogs.Instance.AlertNoConnection();
+			}
+			finally
+			{
+				dialog.Hide();
+			}
+		}
+
+		private async void LeaveGameAsync()
+		{
+			var dialog = CreateLoadingDialog("Verlasse Spiel");
+			dialog.Show();
+
+			try
+			{
+				await Service.RemoveFromGame(CurrentGame.Id, Settings.Instance.UserId);
+
+				//TODO ConfigureLayoutView
+				PushView(this, new StartView());
+			}
+			catch (HttpRequestException)
+			{
+				UserDialogs.Instance.AlertNoConnection();
+			}
+			finally
+			{
+				dialog.Hide();
+			}
 		}
 
 		public Game CurrentGame
@@ -49,7 +97,7 @@ namespace SchinkZeShips.Core.GameLobby
 		public Command KickParticipantCommand { get; }
 
 		private bool IsLobbyLeader => CurrentGame != null &&
-		                              Equals(CurrentGame.GameCreator.Id, Settings.Instance.Guid.ToString());
+		                              Equals(CurrentGame.GameCreator.Id, Settings.Instance.UserId);
 
 		private bool HasParticipant => CurrentGame?.GameParticipant != null;
 
@@ -73,11 +121,11 @@ namespace SchinkZeShips.Core.GameLobby
 				_timerRunning = false;
 				return false;
 			}
-			OnTimerElapsedAsync();
+			UpdateGamestateAsync();
 			return true;
 		}
 
-		private async void OnTimerElapsedAsync()
+		private async void UpdateGamestateAsync()
 		{
 			var ownGame = await Service.GetCurrentGame();
 
@@ -98,7 +146,7 @@ namespace SchinkZeShips.Core.GameLobby
 			CurrentGame = ownGame;
 		}
 
-		public async void StartGame()
+		public async void StartGameAsync()
 		{
 			var dialog = CreateLoadingDialog("Starte Spiel");
 			dialog.Show();
@@ -113,7 +161,7 @@ namespace SchinkZeShips.Core.GameLobby
 			}
 			catch (HttpRequestException)
 			{
-				UserDialogs.Instance.Alert("Fehler beim Verbinden mit dem Server!");
+				UserDialogs.Instance.AlertNoConnection();
 			}
 			finally
 			{

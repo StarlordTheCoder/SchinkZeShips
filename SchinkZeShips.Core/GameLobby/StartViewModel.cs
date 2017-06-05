@@ -1,5 +1,6 @@
 ﻿using System.Net.Http;
 using Acr.UserDialogs;
+using SchinkZeShips.Core.ExtensionMethods;
 using SchinkZeShips.Core.Infrastructure;
 using Xamarin.Forms;
 
@@ -47,13 +48,14 @@ namespace SchinkZeShips.Core.GameLobby
 
 				try
 				{
+					//TODO Remove game return value? Use it?
 					var game = await Service.CreateGame(result.Text);
 
 					PushViewModal(new GameLobbyView());
 				}
 				catch (HttpRequestException)
 				{
-					UserDialogs.Instance.Alert("Fehler beim Verbinden mit dem Server!");
+					UserDialogs.Instance.AlertNoConnection();
 				}
 				finally
 				{

@@ -50,7 +50,7 @@ namespace SchinkZeShips.Core.Infrastructure
 			};
 
 			_client.GetCurrentGameCompleted += getCurrentGameHandler;
-			_client.GetCurrentGameAsync(Settings.Instance.Guid.ToString());
+			_client.GetCurrentGameAsync(Settings.Instance.UserId);
 
 			return await getCurrentGame.Task;
 		}
@@ -72,7 +72,7 @@ namespace SchinkZeShips.Core.Infrastructure
 			_client.CreateGameCompleted += createGameHandler;
 			_client.CreateGameAsync(new Player
 			{
-				Id = Settings.Instance.Guid.ToString(),
+				Id = Settings.Instance.UserId,
 				Username = Settings.Instance.Username
 			}, gameName);
 
@@ -96,11 +96,31 @@ namespace SchinkZeShips.Core.Infrastructure
 			_client.JoinGameCompleted += joinGameHandler;
 			_client.JoinGameAsync(gameId, new Player
 			{
-				Id = Settings.Instance.Guid.ToString(),
+				Id = Settings.Instance.UserId,
 				Username = Settings.Instance.Username
 			});
 
 			await joinGame.Task;
+		}
+
+		public async Task RemoveFromGame(string gameId, string playerId)
+		{
+			var removeFromGame = new TaskCompletionSource<object>();
+
+			EventHandler<AsyncCompletedEventArgs> removeFromGameHandler = null;
+			removeFromGameHandler = (sender, args) =>
+			{
+				_client.RemoveFromGameCompleted -= removeFromGameHandler;
+				if (args.Error != null)
+					removeFromGame.SetException(args.Error);
+				else
+					removeFromGame.SetResult(null);
+			};
+
+			_client.RemoveFromGameCompleted += removeFromGameHandler;
+			_client.RemoveFromGameAsync(gameId, playerId);
+
+			await removeFromGame.Task;
 		}
 	}
 }

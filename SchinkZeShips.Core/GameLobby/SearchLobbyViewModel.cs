@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using Acr.UserDialogs;
+using SchinkZeShips.Core.ExtensionMethods;
 using SchinkZeShips.Core.Infrastructure;
 using SchinkZeShips.Core.SchinkZeShipsReference;
 using Xamarin.Forms;
@@ -48,7 +49,7 @@ namespace SchinkZeShips.Core.GameLobby
 			}
 			catch (HttpRequestException)
 			{
-				UserDialogs.Instance.Alert("Fehler beim Verbinden mit dem Server!");
+				UserDialogs.Instance.AlertNoConnection();
 			}
 			finally
 			{
@@ -69,7 +70,7 @@ namespace SchinkZeShips.Core.GameLobby
 			}
 			catch (HttpRequestException)
 			{
-				UserDialogs.Instance.Alert("Fehler beim Verbinden mit dem Server!");
+				UserDialogs.Instance.AlertNoConnection();
 			}
 			finally
 			{

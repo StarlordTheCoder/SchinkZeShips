@@ -51,7 +51,10 @@ namespace SchinkZeShips.Core.Infrastructure
 			{
 				AppSettings.AddOrUpdateValue(GuidKey, value);
 				OnPropertyChanged();
+				OnPropertyChanged(nameof(UserId));
 			}
 		}
+
+		public string UserId => Guid.ToString();
 	}
 }
