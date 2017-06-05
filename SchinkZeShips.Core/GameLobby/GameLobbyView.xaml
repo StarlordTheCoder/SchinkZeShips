@@ -10,8 +10,25 @@
 	</ContentPage.BindingContext>
 
 	<StackLayout Spacing="20" Padding="20" VerticalOptions="Center">
-		<Label Text="{Binding CurrentGame.GameCreator.Username}"/>
-		<Label Text="{Binding CurrentGame.GameParticipant.Username}"/>
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="Auto"/>
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*"/>
+				<RowDefinition Height="*"/>
+			</Grid.RowDefinitions>
+			<Label Grid.Row="0" Grid.Column="0" Text="TODO Star Icon" />
+			<Label Grid.Row="0" Grid.Column="1" Text="{Binding CurrentGame.GameCreator.Username}"/>
+
+			<Label Grid.Row="1" Grid.Column="1" Text="{Binding CurrentGame.GameParticipant.Username}"/>
+			<Button Grid.Row="1" Grid.Column="2"
+			                    Text="TODO X Icon"
+			                    AutomationId="KickParticipantButton"
+			                    Command="{Binding KickParticipantCommand} "/>
+		</Grid>
 
 		<Button Text="Spiel starten"
 		        HorizontalOptions="Center"

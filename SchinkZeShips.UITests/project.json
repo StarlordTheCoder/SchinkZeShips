@@ -1,0 +1,13 @@
+﻿{
+  "dependencies": {
+    "NUnit": "3.7.0",
+    "NUnit3TestAdapter": "3.7.0",
+    "Xamarin.UITest": "2.0.9"
+  },
+  "frameworks": {
+    "net462": {}
+  },
+  "runtimes": {
+    "win": {}
+  }
+}
