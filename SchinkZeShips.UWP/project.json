@@ -10,6 +10,9 @@
   "frameworks": {
     "uap10.0": {}
   },
+  "supports": {
+    "uwp.10.0.app": {}
+  },
   "runtimes": {
     "win10-arm": {},
     "win10-arm-aot": {},
