@@ -17,6 +17,8 @@ namespace SchinkZeShips.Core.Infrastructure
 
 		#region Setting Constants
 
+		public const string UiTestsGuid = "a070d89f-28c0-442a-989c-66aa7c24d206";
+
 		private const string UsernameKey = "username";
 		private static readonly string UsernameDefault = string.Empty;
 		private static Settings _instance;
@@ -24,15 +26,6 @@ namespace SchinkZeShips.Core.Infrastructure
 		private const string GuidKey = "guid";
 
 		#endregion
-
-		private Settings()
-		{
-			if (!AppSettings.Contains(GuidKey))
-			{
-				Guid = Guid.NewGuid();
-			}
-		}
-
 
 		public string Username
 		{
@@ -44,6 +37,12 @@ namespace SchinkZeShips.Core.Infrastructure
 			}
 		}
 
+		// To ensure same behaviour every run UITESTS use a static UserId
+#if UITESTS
+		public Guid Guid => Guid.Parse(UiTestsGuid);
+
+		public string UserId => UiTestsGuid;
+#else
 		public Guid Guid
 		{
 			get { return AppSettings.GetValueOrDefault<Guid>(GuidKey); }
@@ -51,10 +50,21 @@ namespace SchinkZeShips.Core.Infrastructure
 			{
 				AppSettings.AddOrUpdateValue(GuidKey, value);
 				OnPropertyChanged();
+				// ReSharper disable once ExplicitCallerInfoArgument
 				OnPropertyChanged(nameof(UserId));
 			}
 		}
 
 		public string UserId => Guid.ToString();
+
+		private Settings()
+		{
+			if (!AppSettings.Contains(GuidKey))
+			{
+				Guid = Guid.NewGuid();
+			}
+		}
+#endif
+
 	}
 }
