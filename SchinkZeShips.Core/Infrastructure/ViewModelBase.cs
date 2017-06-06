@@ -25,20 +25,21 @@ namespace SchinkZeShips.Core.Infrastructure
 		/// <typeparam name="TViewModel">The type of the viewmodel</typeparam>
 		/// <param name="instance">The instance of the viewmodel</param>
 		/// <param name="page">The page to navigate to</param>
-		protected static void PushView<TViewModel>(TViewModel instance, Page page) where TViewModel : class
+		protected static void PushView<TViewModel>(TViewModel instance, ContentPage page) where TViewModel : class
 		{
-			MessagingCenter.Send(instance, NavigationPushView, page);
+			MessagingCenter.Send(instance, NavigationPushView, new NavigationPage(page));
 		}
 
 		/// <summary>
-		///     Changes the main page of the application
+		///     Changes the main page of the application, disabling navigation
+		///     Wraps the provided page inside a navigation page
 		/// </summary>
 		/// <param name="page">The page to display</param>
-		protected static void PushViewModal(Page page)
+		protected static void PushViewModal(ContentPage page)
 		{
 			Device.BeginInvokeOnMainThread(() =>
 			{
-				Application.Current.MainPage = page;
+				Application.Current.MainPage = new NavigationPage(page);
 			});
 		}
 

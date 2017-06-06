@@ -59,7 +59,7 @@ namespace SchinkZeShips.Core.GameLobby
 				await Service.RemoveFromGame(CurrentGame.Id, Settings.Instance.UserId);
 
 				dialog.Hide();
-				PushViewModal(new NavigationPage(new StartView()));
+				PushViewModal(new StartView());
 			}
 			catch (HttpRequestException)
 			{
@@ -144,7 +144,7 @@ namespace SchinkZeShips.Core.GameLobby
 
 			if (ownGame == null)
 			{
-				PushViewModal(new NavigationPage(new StartView()));
+				PushViewModal(new StartView());
 				await UserDialogs.Instance.AlertAsync("Sie sind nicht mehr Teil eines Spieles!");
 				return;
 			}
@@ -172,7 +172,7 @@ namespace SchinkZeShips.Core.GameLobby
 				dialog.Hide();
 
 				//TODO ConfigureLayoutView
-				PushViewModal(new NavigationPage(new StartView()));
+				PushViewModal(new StartView());
 			}
 			catch (HttpRequestException)
 			{
