@@ -26,7 +26,7 @@ namespace SchinkZeShips.Core.GameLobby
 
 				if (game != null)
 				{
-					PushView(this, new GameLobbyView(game));
+					PushViewModal(new GameLobbyView(game));
 				}
 			}
 			catch (HttpRequestException)

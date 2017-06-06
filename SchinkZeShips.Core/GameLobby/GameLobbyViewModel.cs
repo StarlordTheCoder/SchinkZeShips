@@ -56,8 +56,7 @@ namespace SchinkZeShips.Core.GameLobby
 			{
 				await Service.RemoveFromGame(CurrentGame.Id, Settings.Instance.UserId);
 
-				//TODO ConfigureLayoutView
-				PushView(this, new StartView());
+				PushViewModal(new NavigationPage(new StartView()));
 			}
 			catch (HttpRequestException)
 			{
@@ -76,6 +75,8 @@ namespace SchinkZeShips.Core.GameLobby
 			{
 				_currentGame = value;
 				OnPropertyChanged();
+				OnPropertyChanged(nameof(IsLobbyLeader));
+				OnPropertyChanged(nameof(HasParticipant));
 				StartGameCommand.ChangeCanExecute();
 				KickParticipantCommand.ChangeCanExecute();
 			}
@@ -96,7 +97,7 @@ namespace SchinkZeShips.Core.GameLobby
 		public Command LeaveGameCommand { get; }
 		public Command KickParticipantCommand { get; }
 
-		private bool IsLobbyLeader => CurrentGame != null &&
+		public bool IsLobbyLeader => CurrentGame != null &&
 		                              Equals(CurrentGame.GameCreator.Id, Settings.Instance.UserId);
 
 		private bool HasParticipant => CurrentGame?.GameParticipant != null;
@@ -131,7 +132,7 @@ namespace SchinkZeShips.Core.GameLobby
 
 			if (ownGame == null)
 			{
-				PushViewModal(new StartView());
+				PushViewModal(new NavigationPage(new StartView()));
 				await UserDialogs.Instance.AlertAsync("Sie sind nicht mehr Teil eines Spieles!");
 				return;
 			}
@@ -157,7 +158,7 @@ namespace SchinkZeShips.Core.GameLobby
 				//await Service.UpdateGame();
 
 				//TODO ConfigureLayoutView
-				PushView(this, new StartView());
+				PushViewModal(new NavigationPage(new StartView()));
 			}
 			catch (HttpRequestException)
 			{

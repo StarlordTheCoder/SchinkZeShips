@@ -1,6 +1,7 @@
 ﻿using Microsoft.Azure.Mobile;
 using Microsoft.Azure.Mobile.Analytics;
 using Microsoft.Azure.Mobile.Crashes;
+using SchinkZeShips.Core.GameLobby;
 using Xamarin.Forms;
 
 namespace SchinkZeShips.Core
@@ -11,7 +12,7 @@ namespace SchinkZeShips.Core
 		{
 			InitializeComponent();
 
-			MainPage = new NavigationPage(new GameLobby.StartView());
+			MainPage = new NavigationPage(new StartView());
 		}
 
 		/// <inheritdoc />
