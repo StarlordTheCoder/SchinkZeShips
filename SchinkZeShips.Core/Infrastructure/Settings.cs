@@ -1,6 +1,7 @@
 ﻿using System;
 using Plugin.Settings;
 using Plugin.Settings.Abstractions;
+using SchinkZeShips.Core.SchinkZeShipsReference;
 
 namespace SchinkZeShips.Core.Infrastructure
 {
@@ -26,6 +27,12 @@ namespace SchinkZeShips.Core.Infrastructure
 		private const string GuidKey = "guid";
 
 		#endregion
+
+		public Player Player => new Player
+		{
+			Id = UserId,
+			Username = Username
+		};
 
 		public string Username
 		{

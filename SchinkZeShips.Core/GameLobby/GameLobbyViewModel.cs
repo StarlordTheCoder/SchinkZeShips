@@ -131,8 +131,8 @@ namespace SchinkZeShips.Core.GameLobby
 
 			if (ownGame == null)
 			{
+				PushViewModal(new StartView());
 				await UserDialogs.Instance.AlertAsync("Sie sind nicht mehr Teil eines Spieles!");
-				//TODO Push start View
 				return;
 			}
 

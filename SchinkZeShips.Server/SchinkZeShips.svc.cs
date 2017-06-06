@@ -87,7 +87,7 @@ namespace SchinkZeShips.Server
 					Games.Remove(game);
 				}
 			}
-			else if (Equals(game.GameCreator.Id, playerId))
+			else if (Equals(game.GameParticipant.Id, playerId))
 			{
 				game.GameParticipant = null;
 			}

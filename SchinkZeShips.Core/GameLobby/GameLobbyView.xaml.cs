@@ -1,12 +1,15 @@
 ﻿using SchinkZeShips.Core.Infrastructure;
+using SchinkZeShips.Core.SchinkZeShipsReference;
 
 namespace SchinkZeShips.Core.GameLobby
 {
 	public partial class GameLobbyView
 	{
-		public GameLobbyView()
+		public GameLobbyView(Game game)
 		{
 			InitializeComponent();
+
+			((GameLobbyViewModel) BindingContext).CurrentGame = game;
 		}
 
 		protected override void OnAppearing()

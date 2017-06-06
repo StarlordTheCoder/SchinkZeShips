@@ -70,11 +70,7 @@ namespace SchinkZeShips.Core.Infrastructure
 			};
 
 			_client.CreateGameCompleted += createGameHandler;
-			_client.CreateGameAsync(new Player
-			{
-				Id = Settings.Instance.UserId,
-				Username = Settings.Instance.Username
-			}, gameName);
+			_client.CreateGameAsync(Settings.Instance.Player, gameName);
 
 			return await loadAllGames.Task;
 		}
@@ -94,11 +90,7 @@ namespace SchinkZeShips.Core.Infrastructure
 			};
 
 			_client.JoinGameCompleted += joinGameHandler;
-			_client.JoinGameAsync(gameId, new Player
-			{
-				Id = Settings.Instance.UserId,
-				Username = Settings.Instance.Username
-			});
+			_client.JoinGameAsync(gameId, Settings.Instance.Player);
 
 			await joinGame.Task;
 		}

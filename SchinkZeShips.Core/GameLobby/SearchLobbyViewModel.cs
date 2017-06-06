@@ -66,7 +66,9 @@ namespace SchinkZeShips.Core.GameLobby
 			{
 				await Service.JoinGame(game.Id);
 
-				PushViewModal(new GameLobbyView());
+				game.GameParticipant = Settings.Instance.Player;
+
+				PushViewModal(new GameLobbyView(game));
 			}
 			catch (HttpRequestException)
 			{

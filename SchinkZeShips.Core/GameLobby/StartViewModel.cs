@@ -12,6 +12,31 @@ namespace SchinkZeShips.Core.GameLobby
 		{
 			CreateGameCommand = new Command(CreateGame, () => !string.IsNullOrEmpty(Settings.Username));
 			SearchGameCommand = new Command(SearchGame, () => !string.IsNullOrEmpty(Settings.Username));
+			TestIfAlreadyInGameAsync();
+		}
+
+		private async void TestIfAlreadyInGameAsync()
+		{
+			var dialog = CreateLoadingDialog("Überprüfe Spielzustand");
+			dialog.Show();
+
+			try
+			{
+				var game = await Service.GetCurrentGame();
+
+				if (game != null)
+				{
+					PushView(this, new GameLobbyView(game));
+				}
+			}
+			catch (HttpRequestException)
+			{
+				UserDialogs.Instance.AlertNoConnection();
+			}
+			finally
+			{
+				dialog.Hide();
+			}
 		}
 
 		private void Settings_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -48,10 +73,9 @@ namespace SchinkZeShips.Core.GameLobby
 
 				try
 				{
-					//TODO Remove game return value? Use it?
 					var game = await Service.CreateGame(result.Text);
 
-					PushViewModal(new GameLobbyView());
+					PushViewModal(new GameLobbyView(game));
 				}
 				catch (HttpRequestException)
 				{
