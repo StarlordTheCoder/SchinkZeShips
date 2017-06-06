@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Acr.UserDialogs;
@@ -11,7 +13,8 @@ namespace SchinkZeShips.Core.GameLobby
 {
 	public class SearchLobbyViewModel : ViewModelBase
 	{
-		private string _gameFilter;
+		private string _gameFilter = string.Empty;
+		private bool _isLoadingGames;
 
 		public SearchLobbyViewModel()
 		{
@@ -27,6 +30,18 @@ namespace SchinkZeShips.Core.GameLobby
 				if (Equals(_gameFilter, value)) return;
 				_gameFilter = value;
 				OnPropertyChanged();
+				ApplyFilter();
+			}
+		}
+
+		public bool IsLoadingGames
+		{
+			get { return _isLoadingGames; }
+			set
+			{
+				if (Equals(_isLoadingGames, value)) return;
+				_isLoadingGames = value;
+				OnPropertyChanged();
 			}
 		}
 
@@ -34,8 +49,11 @@ namespace SchinkZeShips.Core.GameLobby
 
 		public Command LoadGamesCommand { get; }
 
+		private IList<Game> _allGames = new List<Game>();
+
 		private async void LoadGames()
 		{
+			IsLoadingGames = true;
 			var dialog = CreateLoadingDialog("Lade Spiele");
 			dialog.Show();
 
@@ -43,9 +61,9 @@ namespace SchinkZeShips.Core.GameLobby
 			{
 				var games = await Service.GetAllGames();
 
-				Games.Clear();
-				foreach (var game in games)
-					Games.Add(game);
+				_allGames = games;
+
+				ApplyFilter();
 			}
 			catch (HttpRequestException)
 			{
@@ -54,7 +72,21 @@ namespace SchinkZeShips.Core.GameLobby
 			finally
 			{
 				dialog.Hide();
+				IsLoadingGames = false;
 			}
+		}
+
+		private void ApplyFilter()
+		{
+			Games.Clear();
+
+			var filteredGames = string.IsNullOrEmpty(GameFilter)
+				? _allGames
+				: _allGames.Where(g => g.Name.ContainsIgnoreCase(GameFilter) ||
+				                       g.GameCreator.Username.ContainsIgnoreCase(GameFilter));
+
+			foreach (var game in filteredGames)
+				Games.Add(game);
 		}
 
 		public async Task JoinGame(Game game)

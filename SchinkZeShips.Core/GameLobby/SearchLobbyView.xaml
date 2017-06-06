@@ -10,15 +10,16 @@
 	</ContentPage.BindingContext>
 
 	<StackLayout Spacing="20" Padding="20" VerticalOptions="Center">
-		<Button Text="Aktualisieren"
-		        HorizontalOptions="StartAndExpand"
-		        VerticalOptions="StartAndExpand"
-		        AutomationId="RefreshButton"
-		        Command="{Binding LoadGamesCommand} "/>
-		<ListView IsPullToRefreshEnabled="True" RefreshCommand="{Binding LoadGamesCommand}" ItemsSource="{Binding Games}" ItemTapped="ListView_OnItemTapped" >
+		<SearchBar Text="{Binding GameFilter}"
+		           HorizontalOptions="FillAndExpand"
+		           VerticalOptions="StartAndExpand"
+		           AutomationId="GameFilterSearchBar" />
+		<ListView IsPullToRefreshEnabled="True" IsRefreshing="{Binding IsLoadingGames}"
+		          RefreshCommand="{Binding LoadGamesCommand}" ItemsSource="{Binding Games}"
+		          ItemTapped="ListView_OnItemTapped">
 			<ListView.HeaderTemplate>
 				<DataTemplate>
-					<SearchBar Text="{Binding GameFilter}"/>
+					<SearchBar Text="{Binding GameFilter}" />
 				</DataTemplate>
 			</ListView.HeaderTemplate>
 			<ListView.ItemTemplate>
@@ -27,5 +28,10 @@
 				</DataTemplate>
 			</ListView.ItemTemplate>
 		</ListView>
+		<Button Text="Aktualisieren"
+		        HorizontalOptions="FillAndExpand"
+		        VerticalOptions="EndAndExpand"
+		        AutomationId="RefreshButton"
+		        Command="{Binding LoadGamesCommand} " />
 	</StackLayout>
 </ContentPage>
