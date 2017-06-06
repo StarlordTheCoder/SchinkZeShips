@@ -26,6 +26,7 @@ namespace SchinkZeShips.Core.GameLobby
 
 				if (game != null)
 				{
+					dialog.Hide();
 					PushViewModal(new GameLobbyView(game));
 				}
 			}
@@ -35,7 +36,7 @@ namespace SchinkZeShips.Core.GameLobby
 			}
 			finally
 			{
-				dialog.Hide();
+				if (dialog.IsShowing) dialog.Hide();
 			}
 		}
 
@@ -64,7 +65,7 @@ namespace SchinkZeShips.Core.GameLobby
 
 		public async void CreateGame()
 		{
-			var result = await UserDialogs.Instance.PromptAsync($"Spielname eingeben", okText: "Spiel erstellen", cancelText: "Abbrechen", placeholder: "Spielname");
+			var result = await UserDialogs.Instance.PromptAsync("Spielname eingeben", okText: "Spiel erstellen", cancelText: "Abbrechen", placeholder: "Spielname");
 
 			if (result.Ok)
 			{
@@ -75,6 +76,8 @@ namespace SchinkZeShips.Core.GameLobby
 				{
 					var game = await Service.CreateGame(result.Text);
 
+					dialog.Hide();
+
 					PushViewModal(new GameLobbyView(game));
 				}
 				catch (HttpRequestException)
@@ -83,7 +86,7 @@ namespace SchinkZeShips.Core.GameLobby
 				}
 				finally
 				{
-					dialog.Hide();
+					if (dialog.IsShowing) dialog.Hide();
 				}
 			}
 		}

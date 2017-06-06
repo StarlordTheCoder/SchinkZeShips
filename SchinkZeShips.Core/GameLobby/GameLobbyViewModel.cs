@@ -14,12 +14,13 @@ namespace SchinkZeShips.Core.GameLobby
 		private Game _currentGame;
 		private bool _onViewVisible;
 		private bool _timerRunning;
+		private bool _leftGame;
 
 		public GameLobbyViewModel()
 		{
 			StartGameCommand = new Command(StartGameAsync, () => IsLobbyLeader && HasParticipant);
 			LeaveGameCommand = new Command(LeaveGameAsync);
-			KickParticipantCommand = new Command(KickParticipantAsync, () => HasParticipant);
+			KickParticipantCommand = new Command(KickParticipantAsync, () => CanKickParticipant);
 		}
 
 		private async void KickParticipantAsync()
@@ -49,6 +50,7 @@ namespace SchinkZeShips.Core.GameLobby
 
 		private async void LeaveGameAsync()
 		{
+			_leftGame = true;
 			var dialog = CreateLoadingDialog("Verlasse Spiel");
 			dialog.Show();
 
@@ -56,15 +58,17 @@ namespace SchinkZeShips.Core.GameLobby
 			{
 				await Service.RemoveFromGame(CurrentGame.Id, Settings.Instance.UserId);
 
+				dialog.Hide();
 				PushViewModal(new NavigationPage(new StartView()));
 			}
 			catch (HttpRequestException)
 			{
 				UserDialogs.Instance.AlertNoConnection();
+				_leftGame = false;
 			}
 			finally
 			{
-				dialog.Hide();
+				if (dialog.IsShowing) dialog.Hide();
 			}
 		}
 
@@ -77,6 +81,7 @@ namespace SchinkZeShips.Core.GameLobby
 				OnPropertyChanged();
 				OnPropertyChanged(nameof(IsLobbyLeader));
 				OnPropertyChanged(nameof(HasParticipant));
+				OnPropertyChanged(nameof(CanKickParticipant));
 				StartGameCommand.ChangeCanExecute();
 				KickParticipantCommand.ChangeCanExecute();
 			}
@@ -100,7 +105,9 @@ namespace SchinkZeShips.Core.GameLobby
 		public bool IsLobbyLeader => CurrentGame != null &&
 		                              Equals(CurrentGame.GameCreator.Id, Settings.Instance.UserId);
 
-		private bool HasParticipant => CurrentGame?.GameParticipant != null;
+		public bool HasParticipant => CurrentGame?.GameParticipant != null;
+
+		public bool CanKickParticipant => HasParticipant && IsLobbyLeader;
 
 		public override void OnAppearing()
 		{
@@ -128,6 +135,11 @@ namespace SchinkZeShips.Core.GameLobby
 
 		private async void UpdateGamestateAsync()
 		{
+			if (_leftGame)
+			{
+				return;
+			}
+
 			var ownGame = await Service.GetCurrentGame();
 
 			if (ownGame == null)
@@ -157,6 +169,8 @@ namespace SchinkZeShips.Core.GameLobby
 				//TODO Update game to have RunningGameState
 				//await Service.UpdateGame();
 
+				dialog.Hide();
+
 				//TODO ConfigureLayoutView
 				PushViewModal(new NavigationPage(new StartView()));
 			}
@@ -166,7 +180,7 @@ namespace SchinkZeShips.Core.GameLobby
 			}
 			finally
 			{
-				dialog.Hide();
+				if (dialog.IsShowing) dialog.Hide();
 			}
 		}
 	}

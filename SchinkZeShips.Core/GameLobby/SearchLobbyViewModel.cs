@@ -100,6 +100,8 @@ namespace SchinkZeShips.Core.GameLobby
 
 				game.GameParticipant = Settings.Instance.Player;
 
+				dialog.Hide();
+
 				PushViewModal(new GameLobbyView(game));
 			}
 			catch (HttpRequestException)
@@ -108,7 +110,7 @@ namespace SchinkZeShips.Core.GameLobby
 			}
 			finally
 			{
-				dialog.Hide();
+				if (dialog.IsShowing) dialog.Hide();
 			}
 		}
 	}
