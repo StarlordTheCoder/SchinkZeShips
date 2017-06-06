@@ -1,33 +1,29 @@
 ﻿using SchinkZeShips.Core.Infrastructure;
 using SchinkZeShips.Core.SchinkZeShipsReference;
-using Xamarin.Forms;
 
-namespace SchinkZeShips.Core.GameLobby
+namespace SchinkZeShips.Core.GameLogic
 {
-	public partial class SearchLobbyView
+	public partial class ConfigureBoardView
 	{
-		public SearchLobbyView()
+		public ConfigureBoardView(Game game)
 		{
 			InitializeComponent();
+
+			((ConfigureBoardViewModel) BindingContext).CurrentGame = game;
 		}
 
 		protected override void OnAppearing()
 		{
-			this.Subscribe<SearchLobbyViewModel>();
+			this.Subscribe<ConfigureBoardViewModel>();
 			(BindingContext as ViewModelBase)?.OnAppearing();
 			base.OnAppearing();
 		}
 
 		protected override void OnDisappearing()
 		{
-			this.Unsubscribe<SearchLobbyViewModel>();
+			this.Unsubscribe<ConfigureBoardViewModel>();
 			(BindingContext as ViewModelBase)?.OnDisappearing();
 			base.OnDisappearing();
-		}
-
-		private async void ListView_OnItemTapped(object sender, ItemTappedEventArgs e)
-		{
-			await ((SearchLobbyViewModel) BindingContext).JoinGame((Game)e.Item);
 		}
 	}
 }

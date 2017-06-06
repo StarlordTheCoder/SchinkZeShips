@@ -11,11 +11,10 @@ namespace SchinkZeShips.Core.Infrastructure
 		///     Subscribes all events
 		/// </summary>
 		/// <typeparam name="TViewModel">The type of the viewmodel</typeparam>
-		/// <typeparam name="TView">The type of the view</typeparam>
 		/// <param name="instance">The instance of the viewmodel</param>
-		public static void Subscribe<TViewModel, TView>(this TView instance) where TView : Page where TViewModel : ViewModelBase
+		public static void Subscribe<TViewModel>(this ContentPage instance) where TViewModel : ViewModelBase
 		{
-			MessagingCenter.Subscribe<TViewModel, Page>(instance, ViewModelBase.NavigationPushView,
+			MessagingCenter.Subscribe<TViewModel, NavigationPage>(instance, ViewModelBase.NavigationPushView,
 				(sender, page) =>
 				{
 					Device.BeginInvokeOnMainThread(async () =>
@@ -29,11 +28,10 @@ namespace SchinkZeShips.Core.Infrastructure
 		///     Unsubscribes all events
 		/// </summary>
 		/// <typeparam name="TViewModel">The type of the viewmodel</typeparam>
-		/// <typeparam name="TView">The type of the view</typeparam>
 		/// <param name="instance">The instance of the viewmodel</param>
-		public static void Unsubscribe<TViewModel, TView>(this TView instance) where TView : Page where TViewModel : ViewModelBase
+		public static void Unsubscribe<TViewModel>(this ContentPage instance) where TViewModel : ViewModelBase
 		{
-			MessagingCenter.Unsubscribe<TViewModel, Page>(instance, ViewModelBase.NavigationPushView);
+			MessagingCenter.Unsubscribe<TViewModel, NavigationPage>(instance, ViewModelBase.NavigationPushView);
 		}
 	}
 }

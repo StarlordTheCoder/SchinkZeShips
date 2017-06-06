@@ -2,6 +2,7 @@
 using System.Net.Http;
 using Acr.UserDialogs;
 using SchinkZeShips.Core.ExtensionMethods;
+using SchinkZeShips.Core.GameLogic;
 using SchinkZeShips.Core.Infrastructure;
 using SchinkZeShips.Core.SchinkZeShipsReference;
 using Xamarin.Forms;
@@ -14,7 +15,7 @@ namespace SchinkZeShips.Core.GameLobby
 		private Game _currentGame;
 		private bool _onViewVisible;
 		private bool _timerRunning;
-		private bool _leftGame;
+		private bool _leftLobbyManually;
 
 		public GameLobbyViewModel()
 		{
@@ -50,7 +51,7 @@ namespace SchinkZeShips.Core.GameLobby
 
 		private async void LeaveGameAsync()
 		{
-			_leftGame = true;
+			_leftLobbyManually = true;
 			var dialog = CreateLoadingDialog("Verlasse Spiel");
 			dialog.Show();
 
@@ -64,7 +65,7 @@ namespace SchinkZeShips.Core.GameLobby
 			catch (HttpRequestException)
 			{
 				UserDialogs.Instance.AlertNoConnection();
-				_leftGame = false;
+				_leftLobbyManually = false;
 			}
 			finally
 			{
@@ -135,7 +136,7 @@ namespace SchinkZeShips.Core.GameLobby
 
 		private async void UpdateGamestateAsync()
 		{
-			if (_leftGame)
+			if (_leftLobbyManually)
 			{
 				return;
 			}
@@ -152,31 +153,31 @@ namespace SchinkZeShips.Core.GameLobby
 			if (ownGame.RunningGameState != null)
 			{
 				await UserDialogs.Instance.AlertAsync("Das Spiel wurde gestartet!");
-				//TODO Push ConfigureLayout View
+				PushViewModal(new ConfigureBoardView(ownGame));
 				return;
 			}
 
 			CurrentGame = ownGame;
 		}
 
-		public async void StartGameAsync()
+		private async void StartGameAsync()
 		{
+			_leftLobbyManually = true;
 			var dialog = CreateLoadingDialog("Starte Spiel");
 			dialog.Show();
 
 			try
 			{
-				//TODO Update game to have RunningGameState
-				//await Service.UpdateGame();
+				await Service.UpdateGame(CurrentGame.Id, new GameState());
 
 				dialog.Hide();
 
-				//TODO ConfigureLayoutView
-				PushViewModal(new StartView());
+				PushViewModal(new ConfigureBoardView(CurrentGame));
 			}
 			catch (HttpRequestException)
 			{
 				UserDialogs.Instance.AlertNoConnection();
+				_leftLobbyManually = false;
 			}
 			finally
 			{

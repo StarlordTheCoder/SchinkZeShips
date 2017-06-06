@@ -14,14 +14,14 @@ namespace SchinkZeShips.Core.GameLobby
 
 		protected override void OnAppearing()
 		{
-			this.Subscribe<GameLobbyViewModel, GameLobbyView>();
+			this.Subscribe<GameLobbyViewModel>();
 			(BindingContext as ViewModelBase)?.OnAppearing();
 			base.OnAppearing();
 		}
 
 		protected override void OnDisappearing()
 		{
-			this.Unsubscribe<GameLobbyViewModel, GameLobbyView>();
+			this.Unsubscribe<GameLobbyViewModel>();
 			(BindingContext as ViewModelBase)?.OnDisappearing();
 			base.OnDisappearing();
 		}
