@@ -123,10 +123,10 @@ namespace SchinkZeShips.Tests.Server
 			{
 				PlayingFieldCreator = new PlayingFieldState()
 			};
-			currentGame.RunningGameState.PlayingFieldCreator.Cells[0].HasShip = true;
+			currentGame.RunningGameState.PlayingFieldCreator.Cells[0][0].HasShip = true;
 
 			_service.UpdateCurrentGame(currentGame.Id, currentGame.RunningGameState);
-			Assert.That(_service.GetCurrentGame(creator.Id).RunningGameState.PlayingFieldCreator.Cells[0].HasShip, Is.EqualTo(true));
+			Assert.That(_service.GetCurrentGame(creator.Id).RunningGameState.PlayingFieldCreator.Cells[0][0].HasShip, Is.EqualTo(true));
 
 			Assert.That(() => _service.UpdateCurrentGame(game2.Id, game2.RunningGameState), Throws.Exception);
 		}

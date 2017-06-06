@@ -33,10 +33,16 @@
   <xs:element name="GameState" nillable="true" type="tns:GameState" />
   <xs:complexType name="PlayingFieldState">
     <xs:sequence>
-      <xs:element minOccurs="0" name="Cells" nillable="true" type="tns:ArrayOfCellState" />
+      <xs:element minOccurs="0" name="Cells" nillable="true" type="tns:ArrayOfArrayOfCellState" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="PlayingFieldState" nillable="true" type="tns:PlayingFieldState" />
+  <xs:complexType name="ArrayOfArrayOfCellState">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ArrayOfCellState" nillable="true" type="tns:ArrayOfCellState" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfArrayOfCellState" nillable="true" type="tns:ArrayOfArrayOfCellState" />
   <xs:complexType name="ArrayOfCellState">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="CellState" nillable="true" type="tns:CellState" />

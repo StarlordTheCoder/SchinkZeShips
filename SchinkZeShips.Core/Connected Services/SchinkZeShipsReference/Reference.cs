@@ -212,10 +212,10 @@ namespace SchinkZeShips.Core.SchinkZeShipsReference {
     [System.Runtime.Serialization.DataContractAttribute(Name="PlayingFieldState", Namespace="http://schemas.datacontract.org/2004/07/SchinkZeShips.Server")]
     public partial class PlayingFieldState : object, System.ComponentModel.INotifyPropertyChanged {
         
-        private System.Collections.Generic.List<SchinkZeShips.Core.SchinkZeShipsReference.CellState> CellsField;
+        private System.Collections.Generic.List<System.Collections.Generic.List<SchinkZeShips.Core.SchinkZeShipsReference.CellState>> CellsField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<SchinkZeShips.Core.SchinkZeShipsReference.CellState> Cells {
+        public System.Collections.Generic.List<System.Collections.Generic.List<SchinkZeShips.Core.SchinkZeShipsReference.CellState>> Cells {
             get {
                 return this.CellsField;
             }
