@@ -1,8 +1,8 @@
 ﻿{
   "dependencies": {
-    "Castle.Core": "4.0.0",
+    "Castle.Core": "4.1.0",
     "Moq": "4.7.25",
-    "NUnit": "3.7.0",
+    "NUnit": "3.7.1",
     "NUnit3TestAdapter": "3.7.0"
   },
   "frameworks": {
