@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using SchinkZeShips.Core.ExtensionMethods;
+﻿using SchinkZeShips.Core.ExtensionMethods;
 using SchinkZeShips.Core.Infrastructure;
 using SchinkZeShips.Core.SchinkZeShipsReference;
 using Xamarin.Forms;
@@ -45,9 +44,6 @@ namespace SchinkZeShips.Core.GameLogic
 			}
 		}
 
-		public PlayingFieldState ConfiguringBoard { get; } = new PlayingFieldState
-		{
-			Cells = Enumerable.Repeat(Enumerable.Repeat(new CellState(), 10).ToList(), 10).ToList()
-		};
+		public PlayingFieldState ConfiguringBoard { get; } = new PlayingFieldState();
 	}
 }

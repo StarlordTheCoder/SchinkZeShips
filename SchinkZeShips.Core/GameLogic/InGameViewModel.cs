@@ -12,7 +12,7 @@ namespace SchinkZeShips.Core.GameLogic
 		private const int InGameRefreshTimeoutInMs = 2000;
 		private Game _currentGame;
 		private bool _onViewVisible;
-		private IProgressDialog _waitingForOpponentDialog;
+		private readonly IProgressDialog _waitingForOpponentDialog = CreateLoadingDialog(string.Empty);
 
 		public Game CurrentGame
 		{
@@ -23,13 +23,15 @@ namespace SchinkZeShips.Core.GameLogic
 
 				if (_currentGame.IsConfiguringBoard())
 				{
-					_waitingForOpponentDialog = CreateLoadingDialog("Warte, bis der andere Spieler sein Feld konfiguriert");
+					_waitingForOpponentDialog.Title = "Warte, bis der andere Spieler sein Feld konfiguriert";
+					if (!_waitingForOpponentDialog.IsShowing) _waitingForOpponentDialog.Show();
 				}
 				else if (_currentGame.RunningGameState.CurrentPlayerIsGameCreator != _currentGame.CurrentPlayerIsLobbyCreator())
 				{
-					_waitingForOpponentDialog = CreateLoadingDialog("Warte, bis der andere Spieler seinen Zug beendet");
+					_waitingForOpponentDialog.Title = "Warte, bis der andere Spieler seinen Zug beendet";
+					if(!_waitingForOpponentDialog.IsShowing) _waitingForOpponentDialog.Show();
 				}
-				else if (_waitingForOpponentDialog != null && _waitingForOpponentDialog.IsShowing)
+				else if (_waitingForOpponentDialog.IsShowing)
 				{
 					_waitingForOpponentDialog.Hide();
 				}

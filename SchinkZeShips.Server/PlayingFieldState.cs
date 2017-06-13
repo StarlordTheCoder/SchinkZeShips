@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
 
 namespace SchinkZeShips.Server
@@ -7,7 +8,25 @@ namespace SchinkZeShips.Server
 	public class PlayingFieldState
 	{
 		[DataMember]
-		public CellState[][] Cells { get; set; } = Enumerable.Repeat(Enumerable.Repeat(new CellState(), 10).ToArray(), 10).ToArray();
+		public CellState[][] Cells { get; set; }
+
+		public PlayingFieldState()
+		{
+			var totalList = new List<CellState[]>();
+			for (var i = 0; i < 10; i++)
+			{
+				var list = new List<CellState>();
+
+				for (var j = 0; j < 10; j++)
+				{
+					list.Add(new CellState());
+				}
+
+				totalList.Add(list.ToArray());
+			}
+
+			Cells = totalList.ToArray();
+		}
 
 		public override bool Equals(object obj)
 		{

@@ -83,6 +83,7 @@
     </Compile>
     <Compile Include="GameLobby\SearchLobbyViewModel.cs" />
     <Compile Include="GameLobby\GameLobbyViewModel.cs" />
+    <Compile Include="SchinkZeShipsReference\PlayingFieldState.cs" />
     <Compile Include="Infrastructure\GameLogicService.cs" />
     <Compile Include="Infrastructure\EventsHelper.cs" />
     <Compile Include="Infrastructure\NotifyPropertyChangedBase.cs" />
