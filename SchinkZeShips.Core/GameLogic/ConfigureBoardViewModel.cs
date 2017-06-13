@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using SchinkZeShips.Core.ExtensionMethods;
 using SchinkZeShips.Core.Infrastructure;
 using SchinkZeShips.Core.SchinkZeShipsReference;
@@ -9,7 +8,6 @@ namespace SchinkZeShips.Core.GameLogic
 {
 	public class ConfigureBoardViewModel : ViewModelBase
 	{
-		private const int ConfigureBoardRefreshTimeoutInMs = 5000;
 		private Game _currentGame;
 
 		public ConfigureBoardViewModel()
@@ -19,9 +17,20 @@ namespace SchinkZeShips.Core.GameLogic
 
 		private async void LockInLayoutAsync()
 		{
-			//TODO Merge layout with Server
-			//TODO Send own layout to Server
-			//TODO Start timer - Device.StartTimer(TimeSpan.FromMilliseconds(ConfigureBoardRefreshTimeoutInMs), OnTimerElapsed);
+			var latestGameState = await Service.GetCurrentGame();
+
+			if (latestGameState.CurrentPlayerIsLobbyCreator())
+			{
+				latestGameState.RunningGameState.PlayingFieldCreator = ConfiguringBoard;
+			}
+			else
+			{
+				latestGameState.RunningGameState.PlayingFieldParticipant = ConfiguringBoard;
+			}
+
+			await Service.UpdateGameState(latestGameState.Id, latestGameState.RunningGameState);
+
+			PushViewModal(new InGameView(latestGameState));
 		}
 
 		public Command LockInLayoutCommand { get; }
@@ -36,46 +45,9 @@ namespace SchinkZeShips.Core.GameLogic
 			}
 		}
 
-		private bool OnViewVisible { get; set; }
-
 		public PlayingFieldState ConfiguringBoard { get; } = new PlayingFieldState
 		{
 			Cells = Enumerable.Repeat(Enumerable.Repeat(new CellState(), 10).ToList(), 10).ToList()
 		};
-
-		public override void OnAppearing()
-		{
-			base.OnAppearing();
-			OnViewVisible = true;
-		}
-
-		public override void OnDisappearing()
-		{
-			base.OnDisappearing();
-			OnViewVisible = false;
-		}
-
-		private bool OnTimerElapsed()
-		{
-			if (!OnViewVisible)
-			{
-				return false;
-			}
-			UpdateGamestateAsync();
-			return true;
-		}
-
-		private async void UpdateGamestateAsync()
-		{
-			var ownGame = await Service.GetCurrentGame();
-
-			if (ownGame.IsPlaying())
-			{
-				PushViewModal(new InGameView(ownGame));
-				return;
-			}
-
-			CurrentGame = ownGame;
-		}
 	}
 }

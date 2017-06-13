@@ -1,11 +1,18 @@
-﻿using SchinkZeShips.Core.Infrastructure;
+﻿using System;
+using Acr.UserDialogs;
+using SchinkZeShips.Core.ExtensionMethods;
+using SchinkZeShips.Core.Infrastructure;
 using SchinkZeShips.Core.SchinkZeShipsReference;
+using Xamarin.Forms;
 
 namespace SchinkZeShips.Core.GameLogic
 {
 	public class InGameViewModel : ViewModelBase
 	{
+		private const int InGameRefreshTimeoutInMs = 2000;
 		private Game _currentGame;
+		private bool _onViewVisible;
+		private IProgressDialog _waitingForOpponentDialog;
 
 		public Game CurrentGame
 		{
@@ -13,11 +20,34 @@ namespace SchinkZeShips.Core.GameLogic
 			set
 			{
 				_currentGame = value;
+
+				if (_currentGame.IsConfiguringBoard())
+				{
+					_waitingForOpponentDialog = CreateLoadingDialog("Warte, bis der andere Spieler sein Feld konfiguriert");
+				}
+				else if (_currentGame.RunningGameState.CurrentPlayerIsGameCreator != _currentGame.CurrentPlayerIsLobbyCreator())
+				{
+					_waitingForOpponentDialog = CreateLoadingDialog("Warte, bis der andere Spieler seinen Zug beendet");
+				}
+				else if (_waitingForOpponentDialog != null && _waitingForOpponentDialog.IsShowing)
+				{
+					_waitingForOpponentDialog.Hide();
+				}
+
 				OnPropertyChanged();
 			}
 		}
 
-		private bool OnViewVisible { get; set; }
+		private bool OnViewVisible
+		{
+			get { return _onViewVisible; }
+			set
+			{
+				_onViewVisible = value;
+				if (_onViewVisible)
+					Device.StartTimer(TimeSpan.FromMilliseconds(InGameRefreshTimeoutInMs), OnTimerElapsed);
+			}
+		}
 
 		public override void OnAppearing()
 		{
@@ -43,15 +73,7 @@ namespace SchinkZeShips.Core.GameLogic
 
 		private async void UpdateGamestateAsync()
 		{
-			var ownGame = await Service.GetCurrentGame();
-
-			if (ownGame.RunningGameState.PlayingFieldCreator != null && ownGame.RunningGameState.PlayingFieldParticipant != null)
-			{
-				//TODO Push InGame View
-				return;
-			}
-
-			CurrentGame = ownGame;
+			CurrentGame = await Service.GetCurrentGame();
 		}
 	}
 }

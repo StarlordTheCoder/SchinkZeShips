@@ -104,7 +104,7 @@ namespace SchinkZeShips.Core.GameLobby
 		public Command KickParticipantCommand { get; }
 
 		public bool IsLobbyLeader => CurrentGame != null &&
-		                              Equals(CurrentGame.GameCreator.Id, Settings.Instance.UserId);
+		                              CurrentGame.CurrentPlayerIsLobbyCreator();
 
 		public bool HasParticipant => CurrentGame?.GameParticipant != null;
 

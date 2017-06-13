@@ -36,7 +36,15 @@ namespace SchinkZeShips.Core.GameLobby
 					}
 					else if (game.IsConfiguringBoard())
 					{
-						PushViewModal(new ConfigureBoardView(game));
+						var isCreator = game.CurrentPlayerIsLobbyCreator();
+						if (isCreator && game.RunningGameState.PlayingFieldCreator == null || !isCreator && game.RunningGameState.PlayingFieldParticipant == null)
+						{
+							PushViewModal(new ConfigureBoardView(game));
+						}
+						else
+						{
+							PushViewModal(new InGameView(game));
+						}
 					}
 					else if (game.IsPlaying())
 					{

@@ -10,12 +10,8 @@
 	</ContentPage.BindingContext>
 
 	<StackLayout Spacing="20" Padding="20" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-		<gameLogic:BoardView BindingContext="{Binding ConfiguringBoard}"/>
-
-		<Button Text="Layout bestätigen"
-		        HorizontalOptions="FillAndExpand"
-		        VerticalOptions="EndAndExpand"
-		        AutomationId="LockInLayoutButton"
-				Command="{Binding LockInLayoutCommand} "/>
+		<!-- TODO Current player field converter -->
+		<gameLogic:BoardView BindingContext="{Binding CurrentGame.RunningGameState.PlayingFieldCreator}"/>
+		<gameLogic:BoardView BindingContext="{Binding CurrentGame.RunningGameState.PlayingFieldParticipant}"/>
 	</StackLayout>
 </ContentPage>
