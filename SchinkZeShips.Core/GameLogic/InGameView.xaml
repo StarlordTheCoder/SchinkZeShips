@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:gameLogic="clr-namespace:SchinkZeShips.Core.GameLogic;assembly=SchinkZeShips.Core"
+             x:Class="SchinkZeShips.Core.GameLogic.InGameView"
+             Title="{Binding CurrentGame.Name}">
+	<ContentPage.BindingContext>
+		<gameLogic:InGameViewModel />
+	</ContentPage.BindingContext>
+
+	<StackLayout Spacing="20" Padding="20" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+		<gameLogic:BoardView BindingContext="{Binding ConfiguringBoard}"/>
+
+		<Button Text="Layout bestätigen"
+		        HorizontalOptions="FillAndExpand"
+		        VerticalOptions="EndAndExpand"
+		        AutomationId="LockInLayoutButton"
+				Command="{Binding LockInLayoutCommand} "/>
+	</StackLayout>
+</ContentPage>

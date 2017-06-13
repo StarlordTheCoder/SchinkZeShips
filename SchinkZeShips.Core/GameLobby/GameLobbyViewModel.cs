@@ -146,14 +146,14 @@ namespace SchinkZeShips.Core.GameLobby
 			if (ownGame == null)
 			{
 				PushViewModal(new StartView());
-				await UserDialogs.Instance.AlertAsync("Sie sind nicht mehr Teil eines Spieles!");
+				await UserDialogs.Instance.AlertAsync("Sie sind nicht mehr Teil eines Spiels!");
 				return;
 			}
 
-			if (ownGame.RunningGameState != null)
+			if (ownGame.IsConfiguringBoard())
 			{
-				await UserDialogs.Instance.AlertAsync("Das Spiel wurde gestartet!");
 				PushViewModal(new ConfigureBoardView(ownGame));
+				await UserDialogs.Instance.AlertAsync("Das Spiel wurde gestartet!");
 				return;
 			}
 

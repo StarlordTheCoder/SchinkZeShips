@@ -55,6 +55,7 @@
     </Compile>
     <Compile Include="Converter\InvertBooleanConverter.cs" />
     <Compile Include="ExtensionMethods\StringExtensions.cs" />
+    <Compile Include="ExtensionMethods\GameExtensions.cs" />
     <Compile Include="ExtensionMethods\UserDialogsExtensions.cs" />
     <Compile Include="GameLogic\CellView.xaml.cs">
       <DependentUpon>CellView.xaml</DependentUpon>
@@ -64,6 +65,10 @@
     </Compile>
     <Compile Include="GameLogic\BoardView.xaml.cs">
       <DependentUpon>BoardView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GameLogic\InGameViewModel.cs" />
+    <Compile Include="GameLogic\InGameView.xaml.cs">
+      <DependentUpon>InGameView.xaml</DependentUpon>
     </Compile>
     <Compile Include="GameLogic\ConfigureBoardView.xaml.cs">
       <DependentUpon>ConfigureBoardView.xaml</DependentUpon>
@@ -178,6 +183,13 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="GameLogic\CellView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>
+      </SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="GameLogic\InGameView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>
       </SubType>

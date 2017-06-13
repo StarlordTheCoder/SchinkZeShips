@@ -1,6 +1,8 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using Acr.UserDialogs;
 using SchinkZeShips.Core.ExtensionMethods;
+using SchinkZeShips.Core.GameLogic;
 using SchinkZeShips.Core.Infrastructure;
 using Xamarin.Forms;
 
@@ -27,7 +29,23 @@ namespace SchinkZeShips.Core.GameLobby
 				if (game != null)
 				{
 					dialog.Hide();
-					PushViewModal(new GameLobbyView(game));
+
+					if (game.IsInLobby())
+					{
+						PushViewModal(new GameLobbyView(game));
+					}
+					else if (game.IsConfiguringBoard())
+					{
+						PushViewModal(new ConfigureBoardView(game));
+					}
+					else if (game.IsPlaying())
+					{
+						PushViewModal(new InGameView(game));
+					}
+					else
+					{
+						throw new Exception("Dieser Fall sollte niemals eintreten");
+					}
 				}
 			}
 			catch (HttpRequestException)

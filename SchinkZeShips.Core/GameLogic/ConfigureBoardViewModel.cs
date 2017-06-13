@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using SchinkZeShips.Core.ExtensionMethods;
 using SchinkZeShips.Core.Infrastructure;
 using SchinkZeShips.Core.SchinkZeShipsReference;
 using Xamarin.Forms;
@@ -20,8 +21,7 @@ namespace SchinkZeShips.Core.GameLogic
 		{
 			//TODO Merge layout with Server
 			//TODO Send own layout to Server
-			//TODO Start update timer if other wasn't
-			// Device.StartTimer(TimeSpan.FromMilliseconds(ConfigureBoardRefreshTimeoutInMs), OnTimerElapsed);
+			//TODO Start timer - Device.StartTimer(TimeSpan.FromMilliseconds(ConfigureBoardRefreshTimeoutInMs), OnTimerElapsed);
 		}
 
 		public Command LockInLayoutCommand { get; }
@@ -69,9 +69,9 @@ namespace SchinkZeShips.Core.GameLogic
 		{
 			var ownGame = await Service.GetCurrentGame();
 
-			if (ownGame.RunningGameState.PlayingFieldCreator != null && ownGame.RunningGameState.PlayingFieldParticipant != null)
+			if (ownGame.IsPlaying())
 			{
-				//TODO Push InGame View
+				PushViewModal(new InGameView(ownGame));
 				return;
 			}
 
