@@ -54,8 +54,6 @@ namespace SchinkZeShips.UITests
 
 			_app.WaitForElement("UsernameEntry", "Failed to start app second time", TimeSpan.FromMinutes(1));
 
-			_app.WaitForElement("UsernameEntry", "Failed to start app second time", TimeSpan.FromMinutes(1));
-
 			_app.WaitForElement(e => e.Marked("UsernameEntry").Text(randomUsername), "Didn't find correct username", TimeSpan.FromMinutes(1));
 
 			_app.Back();
