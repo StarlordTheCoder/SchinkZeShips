@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Net.Http;
+using System.ServiceModel;
 using System.Threading.Tasks;
-using Acr.UserDialogs;
 using SchinkZeShips.Core.ExtensionMethods;
 using SchinkZeShips.Core.Infrastructure;
 using SchinkZeShips.Core.SchinkZeShipsReference;
@@ -54,8 +53,7 @@ namespace SchinkZeShips.Core.GameLobby
 		private async void LoadGames()
 		{
 			IsLoadingGames = true;
-			var dialog = CreateLoadingDialog("Lade Spiele");
-			dialog.Show();
+			ShowLoading("Lade Spiele");
 
 			try
 			{
@@ -65,14 +63,18 @@ namespace SchinkZeShips.Core.GameLobby
 
 				ApplyFilter();
 			}
-			catch (HttpRequestException)
+			catch (FaultException)
 			{
-				UserDialogs.Instance.AlertNoConnection();
+				throw;
+			}
+			catch (CommunicationException)
+			{
+				Dialogs.AlertNoConnection();
 			}
 			finally
 			{
-				dialog.Hide();
 				IsLoadingGames = false;
+				HideLoading();
 			}
 		}
 
@@ -91,8 +93,7 @@ namespace SchinkZeShips.Core.GameLobby
 
 		public async Task JoinGame(Game game)
 		{
-			var dialog = CreateLoadingDialog("Trete Spiel bei");
-			dialog.Show();
+			ShowLoading("Trete Spiel bei");
 
 			try
 			{
@@ -100,17 +101,19 @@ namespace SchinkZeShips.Core.GameLobby
 
 				game.GameParticipant = Settings.Instance.Player;
 
-				dialog.Hide();
-
 				PushViewModal(new GameLobbyView(game));
 			}
-			catch (HttpRequestException)
+			catch (FaultException)
 			{
-				UserDialogs.Instance.AlertNoConnection();
+				throw;
+			}
+			catch (CommunicationException)
+			{
+				Dialogs.AlertNoConnection();
 			}
 			finally
 			{
-				if (dialog.IsShowing) dialog.Hide();
+				HideLoading();
 			}
 		}
 	}

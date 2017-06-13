@@ -6,6 +6,7 @@ namespace SchinkZeShips.Core.ExtensionMethods
 	{
 		public static void AlertNoConnection(this IUserDialogs dialogs)
 		{
+			UserDialogs.Instance.HideLoading();
 			dialogs.Alert("Fehler beim Verbinden mit dem Server!", "Verbindung fehlgeschlagen");
 		}
 	}

@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Net.Http;
-using Acr.UserDialogs;
+using System.ServiceModel;
 using SchinkZeShips.Core.ExtensionMethods;
 using SchinkZeShips.Core.GameLogic;
 using SchinkZeShips.Core.Infrastructure;
@@ -19,8 +18,7 @@ namespace SchinkZeShips.Core.GameLobby
 
 		private async void TestIfAlreadyInGameAsync()
 		{
-			var dialog = CreateLoadingDialog("Überprüfe Spielzustand");
-			dialog.Show();
+			ShowLoading("Überprüfe Spielzustand");
 
 			try
 			{
@@ -28,8 +26,6 @@ namespace SchinkZeShips.Core.GameLobby
 
 				if (game != null)
 				{
-					dialog.Hide();
-
 					if (game.IsInLobby())
 					{
 						PushViewModal(new GameLobbyView(game));
@@ -37,7 +33,8 @@ namespace SchinkZeShips.Core.GameLobby
 					else if (game.IsConfiguringBoard())
 					{
 						var isCreator = game.CurrentPlayerIsLobbyCreator();
-						if (isCreator && game.RunningGameState.PlayingFieldCreator == null || !isCreator && game.RunningGameState.PlayingFieldParticipant == null)
+						if (isCreator && game.RunningGameState.PlayingFieldCreator == null ||
+						    !isCreator && game.RunningGameState.PlayingFieldParticipant == null)
 						{
 							PushViewModal(new ConfigureBoardView(game));
 						}
@@ -56,13 +53,17 @@ namespace SchinkZeShips.Core.GameLobby
 					}
 				}
 			}
-			catch (HttpRequestException)
+			catch (FaultException)
 			{
-				UserDialogs.Instance.AlertNoConnection();
+				throw;
+			}
+			catch (CommunicationException)
+			{
+				Dialogs.AlertNoConnection();
 			}
 			finally
 			{
-				if (dialog.IsShowing) dialog.Hide();
+				HideLoading();
 			}
 		}
 
@@ -89,35 +90,36 @@ namespace SchinkZeShips.Core.GameLobby
 
 		public Settings Settings { get; } = Settings.Instance;
 
-		public async void CreateGame()
+		private async void CreateGame()
 		{
-			var result = await UserDialogs.Instance.PromptAsync("Spielname eingeben", okText: "Spiel erstellen", cancelText: "Abbrechen", placeholder: "Spielname");
+			var result = await Dialogs.PromptAsync("Spielname eingeben", okText: "Spiel erstellen", cancelText: "Abbrechen", placeholder: "Spielname");
 
 			if (result.Ok)
 			{
-				var dialog = CreateLoadingDialog("Erstelle Spiel");
-				dialog.Show();
+				ShowLoading("Erstelle Spiel");
 
 				try
 				{
 					var game = await Service.CreateGame(result.Text);
 
-					dialog.Hide();
-
 					PushViewModal(new GameLobbyView(game));
 				}
-				catch (HttpRequestException)
+				catch (FaultException)
 				{
-					UserDialogs.Instance.AlertNoConnection();
+					throw;
+				}
+				catch (CommunicationException)
+				{
+					Dialogs.AlertNoConnection();
 				}
 				finally
 				{
-					if (dialog.IsShowing) dialog.Hide();
+					HideLoading();
 				}
 			}
 		}
 
-		public void SearchGame()
+		private void SearchGame()
 		{
 			PushView(this, new SearchLobbyView());
 		}

@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Net.Http;
-using Acr.UserDialogs;
+using System.ServiceModel;
 using SchinkZeShips.Core.ExtensionMethods;
 using SchinkZeShips.Core.GameLogic;
 using SchinkZeShips.Core.Infrastructure;
@@ -32,44 +31,50 @@ namespace SchinkZeShips.Core.GameLobby
 				return;
 			}
 
-			var dialog = CreateLoadingDialog($"Entferne {CurrentGame.GameParticipant.Username} vom Spiel");
-			dialog.Show();
+			ShowLoading($"Entferne {CurrentGame.GameParticipant.Username} vom Spiel");
 
 			try
 			{
 				await Service.RemoveFromGame(CurrentGame.Id, CurrentGame.GameParticipant.Id);
 			}
-			catch (HttpRequestException)
+			catch (FaultException)
 			{
-				UserDialogs.Instance.AlertNoConnection();
+				throw;
+			}
+			catch (CommunicationException)
+			{
+				Dialogs.AlertNoConnection();
 			}
 			finally
 			{
-				dialog.Hide();
+				HideLoading();
 			}
 		}
 
 		private async void LeaveGameAsync()
 		{
 			_leftLobbyManually = true;
-			var dialog = CreateLoadingDialog("Verlasse Spiel");
-			dialog.Show();
+
+			ShowLoading("Verlasse Spiel");
 
 			try
 			{
 				await Service.RemoveFromGame(CurrentGame.Id, Settings.Instance.UserId);
 
-				dialog.Hide();
 				PushViewModal(new StartView());
 			}
-			catch (HttpRequestException)
+			catch (FaultException)
 			{
-				UserDialogs.Instance.AlertNoConnection();
+				throw;
+			}
+			catch (CommunicationException)
+			{
+				Dialogs.AlertNoConnection();
 				_leftLobbyManually = false;
 			}
 			finally
 			{
-				if (dialog.IsShowing) dialog.Hide();
+				HideLoading();
 			}
 		}
 
@@ -146,14 +151,14 @@ namespace SchinkZeShips.Core.GameLobby
 			if (ownGame == null)
 			{
 				PushViewModal(new StartView());
-				await UserDialogs.Instance.AlertAsync("Sie sind nicht mehr Teil eines Spiels!");
+				await Dialogs.AlertAsync("Sie sind nicht mehr Teil eines Spiels!");
 				return;
 			}
 
 			if (ownGame.IsConfiguringBoard())
 			{
 				PushViewModal(new ConfigureBoardView(ownGame));
-				await UserDialogs.Instance.AlertAsync("Das Spiel wurde gestartet!");
+				await Dialogs.AlertAsync("Das Spiel wurde gestartet!");
 				return;
 			}
 
@@ -163,25 +168,26 @@ namespace SchinkZeShips.Core.GameLobby
 		private async void StartGameAsync()
 		{
 			_leftLobbyManually = true;
-			var dialog = CreateLoadingDialog("Starte Spiel");
-			dialog.Show();
+			ShowLoading("Starte Spiel");
 
 			try
 			{
 				await Service.UpdateGameState(CurrentGame.Id, new GameState());
 
-				dialog.Hide();
-
 				PushViewModal(new ConfigureBoardView(CurrentGame));
 			}
-			catch (HttpRequestException)
+			catch (FaultException)
 			{
-				UserDialogs.Instance.AlertNoConnection();
+				throw;
+			}
+			catch (CommunicationException)
+			{
+				Dialogs.AlertNoConnection();
 				_leftLobbyManually = false;
 			}
 			finally
 			{
-				if (dialog.IsShowing) dialog.Hide();
+				HideLoading();
 			}
 		}
 	}

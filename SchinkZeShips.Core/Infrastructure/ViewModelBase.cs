@@ -12,12 +12,19 @@ namespace SchinkZeShips.Core.Infrastructure
 		/// </summary>
 		public const string NavigationPushView = "Naviagion.PushView";
 
-		protected readonly GameLogicService Service = new GameLogicService();
+		protected static readonly IUserDialogs Dialogs = UserDialogs.Instance;
 
-		protected static IProgressDialog CreateLoadingDialog(string title)
+		protected static void ShowLoading(string title)
 		{
-			return UserDialogs.Instance.Loading(title);
+			Dialogs.ShowLoading(title);
 		}
+
+		protected static void HideLoading()
+		{
+			Dialogs.HideLoading();
+		}
+
+		protected readonly GameLogicService Service = new GameLogicService();
 
 		/// <summary>
 		///     Tells the current view to navigate to the provided page
@@ -27,7 +34,8 @@ namespace SchinkZeShips.Core.Infrastructure
 		/// <param name="page">The page to navigate to</param>
 		protected static void PushView<TViewModel>(TViewModel instance, ContentPage page) where TViewModel : class
 		{
-			MessagingCenter.Send(instance, NavigationPushView, new NavigationPage(page));
+			Dialogs.HideLoading();
+			MessagingCenter.Send(instance, NavigationPushView, page);
 		}
 
 		/// <summary>
@@ -39,6 +47,7 @@ namespace SchinkZeShips.Core.Infrastructure
 		{
 			Device.BeginInvokeOnMainThread(() =>
 			{
+				Dialogs.HideLoading();
 				Application.Current.MainPage = new NavigationPage(page);
 			});
 		}
