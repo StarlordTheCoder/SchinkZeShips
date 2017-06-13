@@ -8,11 +8,10 @@ namespace SchinkZeShips.Server
 	public class PlayingFieldState
 	{
 		[DataMember]
-		public CellState[][] Cells { get; set; }
+		public List<List<CellState>> Cells { get; set; } = new List<List<CellState>>();
 
 		public PlayingFieldState()
 		{
-			var totalList = new List<CellState[]>();
 			for (var i = 0; i < 10; i++)
 			{
 				var list = new List<CellState>();
@@ -22,10 +21,8 @@ namespace SchinkZeShips.Server
 					list.Add(new CellState());
 				}
 
-				totalList.Add(list.ToArray());
+				Cells.Add(list);
 			}
-
-			Cells = totalList.ToArray();
 		}
 
 		public override bool Equals(object obj)

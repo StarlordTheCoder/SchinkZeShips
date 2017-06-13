@@ -37,7 +37,7 @@ namespace SchinkZeShips.UITests
 		}
 
 		[Test]
-		public async Task UsernameSavedAfterRestart()
+		public void UsernameSavedAfterRestart()
 		{
 			_app.WaitForElement("UsernameEntry", "Failed to start app", TimeSpan.FromMinutes(1));
 

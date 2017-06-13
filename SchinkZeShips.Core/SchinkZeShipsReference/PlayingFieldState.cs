@@ -6,6 +6,8 @@ namespace SchinkZeShips.Core.SchinkZeShipsReference
 	{
 		public PlayingFieldState()
 		{
+			Cells = new List<List<CellState>>();
+
 			for (var i = 0; i < 10; i++)
 			{
 				var list = new List<CellState>();
