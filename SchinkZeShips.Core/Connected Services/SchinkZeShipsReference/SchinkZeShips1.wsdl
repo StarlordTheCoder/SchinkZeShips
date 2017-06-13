@@ -62,11 +62,11 @@
   <wsdl:message name="ISchinkZeShips_RemoveFromGame_OutputMessage">
     <wsdl:part name="parameters" element="tns:RemoveFromGameResponse" />
   </wsdl:message>
-  <wsdl:message name="ISchinkZeShips_UpdateCurrentGame_InputMessage">
-    <wsdl:part name="parameters" element="tns:UpdateCurrentGame" />
+  <wsdl:message name="ISchinkZeShips_UpdateGameState_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateGameState" />
   </wsdl:message>
-  <wsdl:message name="ISchinkZeShips_UpdateCurrentGame_OutputMessage">
-    <wsdl:part name="parameters" element="tns:UpdateCurrentGameResponse" />
+  <wsdl:message name="ISchinkZeShips_UpdateGameState_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateGameStateResponse" />
   </wsdl:message>
   <wsdl:portType name="ISchinkZeShips">
     <wsdl:operation name="GetAllOpenGames">
@@ -89,9 +89,9 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ISchinkZeShips/RemoveFromGame" message="tns:ISchinkZeShips_RemoveFromGame_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISchinkZeShips/RemoveFromGameResponse" message="tns:ISchinkZeShips_RemoveFromGame_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="UpdateCurrentGame">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISchinkZeShips/UpdateCurrentGame" message="tns:ISchinkZeShips_UpdateCurrentGame_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISchinkZeShips/UpdateCurrentGameResponse" message="tns:ISchinkZeShips_UpdateCurrentGame_OutputMessage" />
+    <wsdl:operation name="UpdateGameState">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISchinkZeShips/UpdateGameState" message="tns:ISchinkZeShips_UpdateGameState_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISchinkZeShips/UpdateGameStateResponse" message="tns:ISchinkZeShips_UpdateGameState_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ISchinkZeShips" type="tns:ISchinkZeShips">
@@ -141,8 +141,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="UpdateCurrentGame">
-      <soap:operation soapAction="http://tempuri.org/ISchinkZeShips/UpdateCurrentGame" style="document" />
+    <wsdl:operation name="UpdateGameState">
+      <soap:operation soapAction="http://tempuri.org/ISchinkZeShips/UpdateGameState" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -199,8 +199,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="UpdateCurrentGame">
-      <soap:operation soapAction="http://tempuri.org/ISchinkZeShips/UpdateCurrentGame" style="document" />
+    <wsdl:operation name="UpdateGameState">
+      <soap:operation soapAction="http://tempuri.org/ISchinkZeShips/UpdateGameState" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

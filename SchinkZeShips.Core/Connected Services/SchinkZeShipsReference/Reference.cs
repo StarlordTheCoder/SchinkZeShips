@@ -152,21 +152,21 @@ namespace SchinkZeShips.Core.SchinkZeShipsReference {
     [System.Runtime.Serialization.DataContractAttribute(Name="GameState", Namespace="http://schemas.datacontract.org/2004/07/SchinkZeShips.Server")]
     public partial class GameState : object, System.ComponentModel.INotifyPropertyChanged {
         
-        private SchinkZeShips.Core.SchinkZeShipsReference.Player CurrentPlayerField;
+        private bool CurrentPlayerIsGameCreatorField;
         
         private SchinkZeShips.Core.SchinkZeShipsReference.PlayingFieldState PlayingFieldCreatorField;
         
         private SchinkZeShips.Core.SchinkZeShipsReference.PlayingFieldState PlayingFieldParticipantField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public SchinkZeShips.Core.SchinkZeShipsReference.Player CurrentPlayer {
+        public bool CurrentPlayerIsGameCreator {
             get {
-                return this.CurrentPlayerField;
+                return this.CurrentPlayerIsGameCreatorField;
             }
             set {
-                if ((object.ReferenceEquals(this.CurrentPlayerField, value) != true)) {
-                    this.CurrentPlayerField = value;
-                    this.RaisePropertyChanged("CurrentPlayer");
+                if ((this.CurrentPlayerIsGameCreatorField.Equals(value) != true)) {
+                    this.CurrentPlayerIsGameCreatorField = value;
+                    this.RaisePropertyChanged("CurrentPlayerIsGameCreator");
                 }
             }
         }
@@ -311,10 +311,10 @@ namespace SchinkZeShips.Core.SchinkZeShipsReference {
         
         void EndRemoveFromGame(System.IAsyncResult result);
         
-        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/ISchinkZeShips/UpdateCurrentGame", ReplyAction="http://tempuri.org/ISchinkZeShips/UpdateCurrentGameResponse")]
-        System.IAsyncResult BeginUpdateCurrentGame(string gameId, SchinkZeShips.Core.SchinkZeShipsReference.GameState gameState, System.AsyncCallback callback, object asyncState);
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/ISchinkZeShips/UpdateGameState", ReplyAction="http://tempuri.org/ISchinkZeShips/UpdateGameStateResponse")]
+        System.IAsyncResult BeginUpdateGameState(string gameId, SchinkZeShips.Core.SchinkZeShipsReference.GameState gameState, System.AsyncCallback callback, object asyncState);
         
-        void EndUpdateCurrentGame(System.IAsyncResult result);
+        void EndUpdateGameState(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -412,11 +412,11 @@ namespace SchinkZeShips.Core.SchinkZeShipsReference {
         
         private System.Threading.SendOrPostCallback onRemoveFromGameCompletedDelegate;
         
-        private BeginOperationDelegate onBeginUpdateCurrentGameDelegate;
+        private BeginOperationDelegate onBeginUpdateGameStateDelegate;
         
-        private EndOperationDelegate onEndUpdateCurrentGameDelegate;
+        private EndOperationDelegate onEndUpdateGameStateDelegate;
         
-        private System.Threading.SendOrPostCallback onUpdateCurrentGameCompletedDelegate;
+        private System.Threading.SendOrPostCallback onUpdateGameStateCompletedDelegate;
         
         private BeginOperationDelegate onBeginOpenDelegate;
         
@@ -478,7 +478,7 @@ namespace SchinkZeShips.Core.SchinkZeShipsReference {
         
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> RemoveFromGameCompleted;
         
-        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> UpdateCurrentGameCompleted;
+        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> UpdateGameStateCompleted;
         
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> OpenCompleted;
         
@@ -717,50 +717,50 @@ namespace SchinkZeShips.Core.SchinkZeShipsReference {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.IAsyncResult SchinkZeShips.Core.SchinkZeShipsReference.ISchinkZeShips.BeginUpdateCurrentGame(string gameId, SchinkZeShips.Core.SchinkZeShipsReference.GameState gameState, System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BeginUpdateCurrentGame(gameId, gameState, callback, asyncState);
+        System.IAsyncResult SchinkZeShips.Core.SchinkZeShipsReference.ISchinkZeShips.BeginUpdateGameState(string gameId, SchinkZeShips.Core.SchinkZeShipsReference.GameState gameState, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginUpdateGameState(gameId, gameState, callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        void SchinkZeShips.Core.SchinkZeShipsReference.ISchinkZeShips.EndUpdateCurrentGame(System.IAsyncResult result) {
-            base.Channel.EndUpdateCurrentGame(result);
+        void SchinkZeShips.Core.SchinkZeShipsReference.ISchinkZeShips.EndUpdateGameState(System.IAsyncResult result) {
+            base.Channel.EndUpdateGameState(result);
         }
         
-        private System.IAsyncResult OnBeginUpdateCurrentGame(object[] inValues, System.AsyncCallback callback, object asyncState) {
+        private System.IAsyncResult OnBeginUpdateGameState(object[] inValues, System.AsyncCallback callback, object asyncState) {
             string gameId = ((string)(inValues[0]));
             SchinkZeShips.Core.SchinkZeShipsReference.GameState gameState = ((SchinkZeShips.Core.SchinkZeShipsReference.GameState)(inValues[1]));
-            return ((SchinkZeShips.Core.SchinkZeShipsReference.ISchinkZeShips)(this)).BeginUpdateCurrentGame(gameId, gameState, callback, asyncState);
+            return ((SchinkZeShips.Core.SchinkZeShipsReference.ISchinkZeShips)(this)).BeginUpdateGameState(gameId, gameState, callback, asyncState);
         }
         
-        private object[] OnEndUpdateCurrentGame(System.IAsyncResult result) {
-            ((SchinkZeShips.Core.SchinkZeShipsReference.ISchinkZeShips)(this)).EndUpdateCurrentGame(result);
+        private object[] OnEndUpdateGameState(System.IAsyncResult result) {
+            ((SchinkZeShips.Core.SchinkZeShipsReference.ISchinkZeShips)(this)).EndUpdateGameState(result);
             return null;
         }
         
-        private void OnUpdateCurrentGameCompleted(object state) {
-            if ((this.UpdateCurrentGameCompleted != null)) {
+        private void OnUpdateGameStateCompleted(object state) {
+            if ((this.UpdateGameStateCompleted != null)) {
                 InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
-                this.UpdateCurrentGameCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(e.Error, e.Cancelled, e.UserState));
+                this.UpdateGameStateCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(e.Error, e.Cancelled, e.UserState));
             }
         }
         
-        public void UpdateCurrentGameAsync(string gameId, SchinkZeShips.Core.SchinkZeShipsReference.GameState gameState) {
-            this.UpdateCurrentGameAsync(gameId, gameState, null);
+        public void UpdateGameStateAsync(string gameId, SchinkZeShips.Core.SchinkZeShipsReference.GameState gameState) {
+            this.UpdateGameStateAsync(gameId, gameState, null);
         }
         
-        public void UpdateCurrentGameAsync(string gameId, SchinkZeShips.Core.SchinkZeShipsReference.GameState gameState, object userState) {
-            if ((this.onBeginUpdateCurrentGameDelegate == null)) {
-                this.onBeginUpdateCurrentGameDelegate = new BeginOperationDelegate(this.OnBeginUpdateCurrentGame);
+        public void UpdateGameStateAsync(string gameId, SchinkZeShips.Core.SchinkZeShipsReference.GameState gameState, object userState) {
+            if ((this.onBeginUpdateGameStateDelegate == null)) {
+                this.onBeginUpdateGameStateDelegate = new BeginOperationDelegate(this.OnBeginUpdateGameState);
             }
-            if ((this.onEndUpdateCurrentGameDelegate == null)) {
-                this.onEndUpdateCurrentGameDelegate = new EndOperationDelegate(this.OnEndUpdateCurrentGame);
+            if ((this.onEndUpdateGameStateDelegate == null)) {
+                this.onEndUpdateGameStateDelegate = new EndOperationDelegate(this.OnEndUpdateGameState);
             }
-            if ((this.onUpdateCurrentGameCompletedDelegate == null)) {
-                this.onUpdateCurrentGameCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnUpdateCurrentGameCompleted);
+            if ((this.onUpdateGameStateCompletedDelegate == null)) {
+                this.onUpdateGameStateCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnUpdateGameStateCompleted);
             }
-            base.InvokeAsync(this.onBeginUpdateCurrentGameDelegate, new object[] {
+            base.InvokeAsync(this.onBeginUpdateGameStateDelegate, new object[] {
                         gameId,
-                        gameState}, this.onEndUpdateCurrentGameDelegate, this.onUpdateCurrentGameCompletedDelegate, userState);
+                        gameState}, this.onEndUpdateGameStateDelegate, this.onUpdateGameStateCompletedDelegate, userState);
         }
         
         private System.IAsyncResult OnBeginOpen(object[] inValues, System.AsyncCallback callback, object asyncState) {
@@ -931,17 +931,17 @@ namespace SchinkZeShips.Core.SchinkZeShipsReference {
                 base.EndInvoke("RemoveFromGame", _args, result);
             }
             
-            public System.IAsyncResult BeginUpdateCurrentGame(string gameId, SchinkZeShips.Core.SchinkZeShipsReference.GameState gameState, System.AsyncCallback callback, object asyncState) {
+            public System.IAsyncResult BeginUpdateGameState(string gameId, SchinkZeShips.Core.SchinkZeShipsReference.GameState gameState, System.AsyncCallback callback, object asyncState) {
                 object[] _args = new object[2];
                 _args[0] = gameId;
                 _args[1] = gameState;
-                System.IAsyncResult _result = base.BeginInvoke("UpdateCurrentGame", _args, callback, asyncState);
+                System.IAsyncResult _result = base.BeginInvoke("UpdateGameState", _args, callback, asyncState);
                 return _result;
             }
             
-            public void EndUpdateCurrentGame(System.IAsyncResult result) {
+            public void EndUpdateGameState(System.IAsyncResult result) {
                 object[] _args = new object[0];
-                base.EndInvoke("UpdateCurrentGame", _args, result);
+                base.EndInvoke("UpdateGameState", _args, result);
             }
         }
         

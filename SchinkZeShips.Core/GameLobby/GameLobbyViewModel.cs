@@ -168,7 +168,7 @@ namespace SchinkZeShips.Core.GameLobby
 
 			try
 			{
-				await Service.UpdateGame(CurrentGame.Id, new GameState());
+				await Service.UpdateGameState(CurrentGame.Id, new GameState());
 
 				dialog.Hide();
 

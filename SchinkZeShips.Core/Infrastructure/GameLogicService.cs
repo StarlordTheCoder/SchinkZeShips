@@ -115,22 +115,22 @@ namespace SchinkZeShips.Core.Infrastructure
 			await removeFromGame.Task;
 		}
 
-		public async Task UpdateGame(string gameId, GameState gameState)
+		public async Task UpdateGameState(string gameId, GameState gameState)
 		{
 			var updateGame = new TaskCompletionSource<object>();
 
 			EventHandler<AsyncCompletedEventArgs> updateGameHandler = null;
 			updateGameHandler = (sender, args) =>
 			{
-				_client.UpdateCurrentGameCompleted -= updateGameHandler;
+				_client.UpdateGameStateCompleted -= updateGameHandler;
 				if (args.Error != null)
 					updateGame.SetException(args.Error);
 				else
 					updateGame.SetResult(null);
 			};
 
-			_client.UpdateCurrentGameCompleted += updateGameHandler;
-			_client.UpdateCurrentGameAsync(gameId, gameState);
+			_client.UpdateGameStateCompleted += updateGameHandler;
+			_client.UpdateGameStateAsync(gameId, gameState);
 
 			await updateGame.Task;
 		}

@@ -68,7 +68,7 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="UpdateCurrentGame">
+  <xs:element name="UpdateGameState">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="gameId" nillable="true" type="xs:string" />
@@ -76,7 +76,7 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="UpdateCurrentGameResponse">
+  <xs:element name="UpdateGameStateResponse">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>

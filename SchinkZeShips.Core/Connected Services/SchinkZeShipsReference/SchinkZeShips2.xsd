@@ -25,7 +25,7 @@
   <xs:element name="Player" nillable="true" type="tns:Player" />
   <xs:complexType name="GameState">
     <xs:sequence>
-      <xs:element minOccurs="0" name="CurrentPlayer" nillable="true" type="tns:Player" />
+      <xs:element minOccurs="0" name="CurrentPlayerIsGameCreator" type="xs:boolean" />
       <xs:element minOccurs="0" name="PlayingFieldCreator" nillable="true" type="tns:PlayingFieldState" />
       <xs:element minOccurs="0" name="PlayingFieldParticipant" nillable="true" type="tns:PlayingFieldState" />
     </xs:sequence>

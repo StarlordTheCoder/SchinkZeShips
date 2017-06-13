@@ -56,9 +56,12 @@ namespace SchinkZeShips.Server
 			game.GameParticipant = player;
 		}
 
-		public Game GetCurrentGame(string playerId) => Games.FirstOrDefault(g =>
-			Equals(g.GameCreator.Id, playerId) ||
-			(g.GameParticipant != null && Equals(g.GameParticipant.Id, playerId)));
+		public Game GetCurrentGame(string playerId)
+		{
+			return Games.FirstOrDefault(g =>
+				Equals(g.GameCreator.Id, playerId) ||
+				Equals(g.GameParticipant?.Id, playerId));
+		}
 
 		public void RemoveFromGame(string gameId, string playerId)
 		{
@@ -96,7 +99,7 @@ namespace SchinkZeShips.Server
 			}
 		}
 
-		public void UpdateCurrentGame(string gameId, GameState gameState)
+		public void UpdateGameState(string gameId, GameState gameState)
 		{
 			var index = Games.FindIndex(g => Equals(g.Id, gameId));
 			if (index == -1)
