@@ -7,7 +7,7 @@ namespace SchinkZeShips.Core.GameLogic
 {
 	public class ValidateBoard : NotifyPropertyChangedBase
 	{
-		public Dictionary<int, int> Ships;
+		public Dictionary<int, int> Ships = new Dictionary<int, int>();
 		private PlayingFieldState _field;
 
 		public int AllowedShipsOfLength2 => Ships[2];
@@ -26,7 +26,7 @@ namespace SchinkZeShips.Core.GameLogic
 			Ships.Add(5, 1);
 		}
 
-		public bool CanAddShip(Dictionary<int, int> addedCells)
+		public bool CanAddShip(List<KeyValuePair<int, int>> addedCells)
 		{
 			var first = addedCells.First();
 
@@ -34,7 +34,7 @@ namespace SchinkZeShips.Core.GameLogic
 
 			var last = addedCells.Last();
 
-			var bottomRight = new KeyValuePair<int, int>(last.Key == 9 ? last.Key : last.Key + 1, last.Value == 0 ? last.Value : last.Value + 1);
+			var bottomRight = new KeyValuePair<int, int>(last.Key == 9 ? last.Key : last.Key + 1, last.Value == 9 ? last.Value : last.Value + 1);
 
 			for (int i = topLeft.Key; i <= bottomRight.Key; i++)
 			{
