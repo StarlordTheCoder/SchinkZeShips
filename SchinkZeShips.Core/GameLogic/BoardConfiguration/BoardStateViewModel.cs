@@ -9,16 +9,16 @@ namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
 	public class BoardStateViewModel : NotifyPropertyChangedBase
 	{
 		public Dictionary<Ship, int> Ships = new Dictionary<Ship, int>();
-		private readonly PlayingFieldState _field;
+		private readonly PlayingFieldState _board;
 
 		public int AllowedSubmarines => Ships[Ship.Submarine];
 		public int AllowedDestroyer => Ships[Ship.Destroyer];
 		public int AllowedCruisers => Ships[Ship.Cruiser];
 		public int AllowedBattleships => Ships[Ship.Battleship];
 
-		public BoardStateViewModel(PlayingFieldState field)
+		public BoardStateViewModel(PlayingFieldState board)
 		{
-			_field = field;
+			_board = board;
 
 
 			Ships.Add(Ship.Submarine, 4);
@@ -32,6 +32,12 @@ namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
 			var addShipAllowed = CanAddShip(shipToAdd);
 
 			if (!addShipAllowed) return false;
+
+			foreach (var coordinate in shipToAdd)
+			{
+				_board.Cells[coordinate.Row][coordinate.Column].HasShip = true;
+			}
+
 
 			var shipType = (Ship)shipToAdd.Count;
 
@@ -64,7 +70,7 @@ namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
 			{
 				for (var column = topLeft.Column; column <= bottomRight.Column; column++)
 				{
-					if (_field.Cells[row][column].HasShip)
+					if (_board.Cells[row][column].HasShip)
 					{
 						return false;
 					}

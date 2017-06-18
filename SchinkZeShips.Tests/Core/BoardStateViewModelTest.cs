@@ -58,9 +58,85 @@ namespace SchinkZeShips.Tests.Core
 		public void CantCreateTooManyShipsOfTheSameType()
 		{
 			// Act & Assert
-			_validate.CanAddShip(new List<Coordinate> { new Coordinate(5, 9), new Coordinate(9, 5), new Coordinate(9, 6), new Coordinate(9, 7), new Coordinate(9, 8) });
+			Assert.That(_validate.AllowedBattleships, Is.EqualTo(1));
+
+			var battleShip = new List<Coordinate>
+			{
+				new Coordinate(9, 4),
+				new Coordinate(9, 5),
+				new Coordinate(9, 6),
+				new Coordinate(9, 7),
+				new Coordinate(9, 8)
+			};
+
+			// Assert first ship is properly added
+			var addFirstShip = _validate.TryAddShip(battleShip);
 			
-			Assert.That(!_validate.CanAddShip(new List<Coordinate> { new Coordinate(8, 5), new Coordinate(8, 6), new Coordinate(8, 7), new Coordinate(8, 8), new Coordinate(8, 9) }));
+			Assert.That(addFirstShip, Is.True);
+			Assert.That(_validate.AllowedBattleships, Is.EqualTo(0));
+
+			Assert.That(_board.Cells[9][4].HasShip);
+			Assert.That(_board.Cells[9][5].HasShip);
+			Assert.That(_board.Cells[9][6].HasShip);
+			Assert.That(_board.Cells[9][7].HasShip);
+			Assert.That(_board.Cells[9][8].HasShip);
+
+			// Assert second ship isn't added
+			var canAddSecondBattleship = _validate.TryAddShip(new List<Coordinate>
+				{
+					new Coordinate(5, 5),
+					new Coordinate(5, 6),
+					new Coordinate(5, 7),
+					new Coordinate(5, 8),
+					new Coordinate(5, 9)
+				});
+			Assert.That(canAddSecondBattleship, Is.False);
+			Assert.That(_validate.AllowedBattleships, Is.EqualTo(0));
+			Assert.That(_board.Cells[5][5].HasShip, Is.False);
+			Assert.That(_board.Cells[5][6].HasShip, Is.False);
+			Assert.That(_board.Cells[5][7].HasShip, Is.False);
+			Assert.That(_board.Cells[5][8].HasShip, Is.False);
+			Assert.That(_board.Cells[5][9].HasShip, Is.False);
+		}
+
+		[Test]
+		public void CantCreateShipsWhichAreTooClose()
+		{
+			// Act & Assert
+			Assert.That(_validate.AllowedBattleships, Is.EqualTo(1));
+			Assert.That(_validate.AllowedSubmarines, Is.EqualTo(4));
+
+			var battleShip = new List<Coordinate>
+			{
+				new Coordinate(9, 4),
+				new Coordinate(9, 5),
+				new Coordinate(9, 6),
+				new Coordinate(9, 7),
+				new Coordinate(9, 8)
+			};
+
+			// Assert first ship is properly added
+			var addFirstShip = _validate.TryAddShip(battleShip);
+
+			Assert.That(addFirstShip, Is.True);
+			Assert.That(_validate.AllowedBattleships, Is.EqualTo(0));
+
+			Assert.That(_board.Cells[9][4].HasShip);
+			Assert.That(_board.Cells[9][5].HasShip);
+			Assert.That(_board.Cells[9][6].HasShip);
+			Assert.That(_board.Cells[9][7].HasShip);
+			Assert.That(_board.Cells[9][8].HasShip);
+
+			// Assert second ship isn't added
+			var canAddsubmarine = _validate.TryAddShip(new List<Coordinate>
+			{
+				new Coordinate(8, 6),
+				new Coordinate(8, 7)
+			});
+			Assert.That(canAddsubmarine, Is.False);
+			Assert.That(_validate.AllowedSubmarines, Is.EqualTo(4));
+			Assert.That(_board.Cells[8][6].HasShip, Is.False);
+			Assert.That(_board.Cells[8][7].HasShip, Is.False);
 		}
 	}
 }
