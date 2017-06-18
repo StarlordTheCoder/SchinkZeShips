@@ -53,7 +53,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Converter\GameStateBoardConverter.cs" />
     <Compile Include="Converter\InvertBooleanConverter.cs" />
+    <Compile Include="ExtensionMethods\PlayingFieldStateExtensions.cs" />
     <Compile Include="ExtensionMethods\StringExtensions.cs" />
     <Compile Include="ExtensionMethods\GameExtensions.cs" />
     <Compile Include="ExtensionMethods\UserDialogsExtensions.cs" />

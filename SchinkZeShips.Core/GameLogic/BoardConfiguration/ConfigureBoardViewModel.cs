@@ -31,8 +31,8 @@ namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
 			}
 			else
 			{
-				var firstCoordinate = GetCoordinateFor(_firstClickedCell);
-				var secondCoordinate = GetCoordinateFor(clickedCell);
+				var firstCoordinate = ConfiguringBoard.GetCoordinateFor(_firstClickedCell);
+				var secondCoordinate = ConfiguringBoard.GetCoordinateFor(clickedCell);
 
 				_firstClickedCell.IsSelected = false;
 				clickedCell.IsSelected = false;
@@ -101,21 +101,6 @@ namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
 			}
 		}
 
-		private Coordinate GetCoordinateFor(CellState cell)
-		{
-			var rowsWithIndex = ConfiguringBoard.Cells.Select((value, index) => new {value, index});
-			foreach (var row in rowsWithIndex)
-			{
-				var column = row.value.Select((value, index) => new { value, index }).FirstOrDefault(c => c.value.Equals(cell));
-				if (column != null)
-				{
-					return new Coordinate(row.index, column.index);
-				}
-			}
-
-			return null;
-		}
-
 		public override void OnAppearing()
 		{
 			base.OnAppearing();
@@ -140,7 +125,7 @@ namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
 		{
 			var latestGameState = await Service.GetCurrentGame();
 
-			if (latestGameState.CurrentPlayerIsLobbyCreator())
+			if (latestGameState.ThisPlayerIsGameCreator())
 			{
 				latestGameState.RunningGameState.PlayingFieldCreator = ConfiguringBoard;
 			}

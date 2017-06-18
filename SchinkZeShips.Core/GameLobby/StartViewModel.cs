@@ -33,7 +33,7 @@ namespace SchinkZeShips.Core.GameLobby
 					}
 					else if (game.IsConfiguringBoard())
 					{
-						var isCreator = game.CurrentPlayerIsLobbyCreator();
+						var isCreator = game.ThisPlayerIsGameCreator();
 						if (isCreator && game.RunningGameState.PlayingFieldCreator == null ||
 						    !isCreator && game.RunningGameState.PlayingFieldParticipant == null)
 						{

@@ -21,9 +21,19 @@ namespace SchinkZeShips.Core.ExtensionMethods
 			return game.RunningGameState?.PlayingFieldCreator != null && game.RunningGameState.PlayingFieldParticipant != null;
 		}
 
-		public static bool CurrentPlayerIsLobbyCreator(this Game game)
+		public static bool ThisPlayerIsGameCreator(this Game game)
 		{
 			return Equals(game.GameCreator.Id, Settings.Instance.UserId);
+		}
+
+		public static PlayingFieldState ThisPlayerBoard(this Game game)
+		{
+			return game.ThisPlayerIsGameCreator() ? game.RunningGameState.PlayingFieldCreator : game.RunningGameState.PlayingFieldParticipant;
+		}
+
+		public static PlayingFieldState OtherPlayerBoard(this Game game)
+		{
+			return game.ThisPlayerIsGameCreator() ? game.RunningGameState.PlayingFieldParticipant : game.RunningGameState.PlayingFieldCreator;
 		}
 	}
 }

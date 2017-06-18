@@ -3,7 +3,7 @@
 <Frame xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:gameLogic="clr-namespace:SchinkZeShips.Core.GameLogic;assembly=SchinkZeShips.Core"
-             x:Class="SchinkZeShips.Core.GameLogic.CellView"
+             x:Class="SchinkZeShips.Core.GameLogic.CellView" Margin="0" Padding="0" HeightRequest="40" WidthRequest="40" HorizontalOptions="Fill" VerticalOptions="Fill"
 	   OutlineColor="Black" >
 	<Frame.Triggers>
 		<MultiTrigger TargetType="Frame">
