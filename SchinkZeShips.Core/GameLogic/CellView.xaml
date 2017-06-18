@@ -5,8 +5,51 @@
              xmlns:gameLogic="clr-namespace:SchinkZeShips.Core.GameLogic;assembly=SchinkZeShips.Core"
              x:Class="SchinkZeShips.Core.GameLogic.CellView"
 	   OutlineColor="Black" >
+	<Frame.Triggers>
+		<MultiTrigger TargetType="Frame">
+			<MultiTrigger.Conditions>
+				<BindingCondition Binding="{Binding IsSelected}" Value="True" />
+			</MultiTrigger.Conditions>
+			<MultiTrigger.Setters>
+				<Setter Property="BackgroundColor" Value="LightBlue"/>
+			</MultiTrigger.Setters>
+		</MultiTrigger>
+		<MultiTrigger TargetType="Frame">
+			<MultiTrigger.Conditions>
+				<BindingCondition Binding="{Binding HasShip}" Value="True" />
+				<BindingCondition Binding="{Binding WasShot}" Value="False" />
+			</MultiTrigger.Conditions>
+			<MultiTrigger.Setters>
+				<Setter Property="BackgroundColor" Value="Blue"/>
+			</MultiTrigger.Setters>
+		</MultiTrigger>
+		<MultiTrigger TargetType="Frame">
+			<MultiTrigger.Conditions>
+				<BindingCondition Binding="{Binding HasShip}" Value="True" />
+				<BindingCondition Binding="{Binding WasShot}" Value="True" />
+			</MultiTrigger.Conditions>
+			<MultiTrigger.Setters>
+				<Setter Property="BackgroundColor" Value="Red"/>
+			</MultiTrigger.Setters>
+		</MultiTrigger>
+		<MultiTrigger TargetType="Frame">
+			<MultiTrigger.Conditions>
+				<BindingCondition Binding="{Binding HasShip}" Value="False" />
+				<BindingCondition Binding="{Binding WasShot}" Value="True" />
+			</MultiTrigger.Conditions>
+			<MultiTrigger.Setters>
+				<Setter Property="BackgroundColor" Value="Coral"/>
+			</MultiTrigger.Setters>
+		</MultiTrigger>
+	</Frame.Triggers>
 	<Frame.GestureRecognizers>
-		<TapGestureRecognizer Tapped="Cell_Tapped"/>
+		<TapGestureRecognizer Tapped="Cell_Tapped" NumberOfTapsRequired="1"/>
 	</Frame.GestureRecognizers>
-	<Label Text="{Binding HasShip}" />
+	<Label>
+		<Label.Text>
+			<OnPlatform x:TypeArguments="x:String" >
+				<On Platform="Windows" Value="UWP"/>
+			</OnPlatform>
+		</Label.Text>
+	</Label>
 </Frame>

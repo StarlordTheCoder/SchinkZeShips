@@ -13,7 +13,7 @@ namespace SchinkZeShips.Core.GameLogic
 		private void Cell_Tapped(object sender, EventArgs e)
 		{
 			var cell = (CellState)BindingContext;
-			cell.HasShip = !cell.HasShip;
+			cell.IsSelected = !cell.IsSelected;
 		}
 	}
 }

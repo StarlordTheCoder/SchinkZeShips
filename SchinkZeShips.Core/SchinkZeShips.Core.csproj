@@ -57,6 +57,7 @@
     <Compile Include="ExtensionMethods\StringExtensions.cs" />
     <Compile Include="ExtensionMethods\GameExtensions.cs" />
     <Compile Include="ExtensionMethods\UserDialogsExtensions.cs" />
+    <Compile Include="GameLogic\BoardConfiguration\IBoardStateViewModel.cs" />
     <Compile Include="GameLogic\CellView.xaml.cs">
       <DependentUpon>CellView.xaml</DependentUpon>
     </Compile>
@@ -85,6 +86,7 @@
     <Compile Include="GameLobby\SearchLobbyViewModel.cs" />
     <Compile Include="GameLobby\GameLobbyViewModel.cs" />
     <Compile Include="GameLogic\Ship.cs" />
+    <Compile Include="SchinkZeShipsReference\CellState.cs" />
     <Compile Include="SchinkZeShipsReference\PlayingFieldState.cs" />
     <Compile Include="Infrastructure\GameLogicService.cs" />
     <Compile Include="Infrastructure\EventsHelper.cs" />

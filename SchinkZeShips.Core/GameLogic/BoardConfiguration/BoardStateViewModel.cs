@@ -6,7 +6,7 @@ using SchinkZeShips.Core.SchinkZeShipsReference;
 
 namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
 {
-	public class BoardStateViewModel : NotifyPropertyChangedBase
+	public class BoardStateViewModel : NotifyPropertyChangedBase, IBoardStateViewModel
 	{
 		public Dictionary<Ship, int> Ships = new Dictionary<Ship, int>();
 		private readonly PlayingFieldState _board;

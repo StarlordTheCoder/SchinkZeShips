@@ -1,5 +1,8 @@
-﻿namespace SchinkZeShips.Core.GameLogic
+﻿using System.Diagnostics;
+
+namespace SchinkZeShips.Core.GameLogic
 {
+	[DebuggerDisplay("{" + nameof(Row) + "}, {" + nameof(Column) + "}")]
 	public class Coordinate
 	{
 		public Coordinate(int row, int column)
