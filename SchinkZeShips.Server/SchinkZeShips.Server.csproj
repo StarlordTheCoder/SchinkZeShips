@@ -68,7 +68,7 @@
     <Compile Include="Game.cs" />
     <Compile Include="GameState.cs" />
     <Compile Include="Player.cs" />
-    <Compile Include="PlayingFieldState.cs" />
+    <Compile Include="BoardState.cs" />
     <Compile Include="SchinkZeShips.svc.cs">
       <DependentUpon>SchinkZeShips.svc</DependentUpon>
     </Compile>

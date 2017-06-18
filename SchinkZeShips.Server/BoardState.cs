@@ -5,12 +5,12 @@ using System.Runtime.Serialization;
 namespace SchinkZeShips.Server
 {
 	[DataContract]
-	public class PlayingFieldState
+	public class BoardState
 	{
 		[DataMember]
 		public List<List<CellState>> Cells { get; set; } = new List<List<CellState>>();
 
-		public PlayingFieldState()
+		public BoardState()
 		{
 			for (var i = 0; i < 10; i++)
 			{
@@ -27,7 +27,7 @@ namespace SchinkZeShips.Server
 
 		public override bool Equals(object obj)
 		{
-			var other = obj as PlayingFieldState;
+			var other = obj as BoardState;
 
 			return other != null &&
 				other.Cells.SequenceEqual(Cells);

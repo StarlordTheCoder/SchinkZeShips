@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using System;
+using System.Threading.Tasks;
+using NUnit.Framework;
 using SchinkZeShips.Server;
 
 namespace SchinkZeShips.Tests.Server
@@ -121,14 +123,62 @@ namespace SchinkZeShips.Tests.Server
 			var currentGame = _service.GetCurrentGame(creator.Id);
 			currentGame.RunningGameState = new GameState
 			{
-				PlayingFieldCreator = new PlayingFieldState()
+				BoardCreator = new BoardState()
 			};
-			currentGame.RunningGameState.PlayingFieldCreator.Cells[0][0].HasShip = true;
+			currentGame.RunningGameState.BoardCreator.Cells[0][0].HasShip = true;
 
 			_service.UpdateGameState(currentGame.Id, currentGame.RunningGameState);
-			Assert.That(_service.GetCurrentGame(creator.Id).RunningGameState.PlayingFieldCreator.Cells[0][0].HasShip, Is.EqualTo(true));
+			Assert.That(_service.GetCurrentGame(creator.Id).RunningGameState.BoardCreator.Cells[0][0].HasShip, Is.EqualTo(true));
 
 			Assert.That(() => _service.UpdateGameState(game2.Id, game2.RunningGameState), Throws.Exception);
+		}
+
+		[Test]
+		public async Task UpdateGameAdjustesLatestChangeDate()
+		{
+			//Arrange
+			var creator = new Player();
+
+			var game = _service.CreateGame(creator, "Foo");
+
+			var previousDateTime = game.LatestChangeTime;
+
+			Action validateLatestChangeTime = () =>
+			{
+				var newlyLoadedGame = _service.GetCurrentGame(creator.Id);
+
+				Assert.That(previousDateTime, Is.LessThan(newlyLoadedGame.LatestChangeTime));
+				previousDateTime = newlyLoadedGame.LatestChangeTime;
+			};
+
+			var newGameState = new GameState
+			{
+				BoardCreator = new BoardState()
+			};
+			newGameState.BoardCreator.Cells[0][0].HasShip = true;
+
+			// Act & Assert
+
+			// Wait one millisecond to ensore compatibility with fast processors
+
+			await Task.Delay(1);
+
+			// Add game participant
+			var participant = new Player();
+			_service.JoinGame(game.Id, participant);
+			validateLatestChangeTime();
+
+			await Task.Delay(1);
+
+			// Remove game participant
+			_service.RemoveFromGame(game.Id, participant.Id);
+			validateLatestChangeTime();
+
+			await Task.Delay(1);
+
+			// Update Game state
+			_service.UpdateGameState(game.Id, newGameState);
+			validateLatestChangeTime();
 		}
 
 	}

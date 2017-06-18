@@ -9,8 +9,10 @@ namespace SchinkZeShips.Server
 	{
 		private List<Game> Games { get; } = new List<Game>();
 
+		/// <inheritdoc />
 		public List<Game> GetAllOpenGames() => Games.Where(g => g.GameParticipant == null).ToList();
 
+		/// <inheritdoc />
 		public Game CreateGame(Player creator, string gameName)
 		{
 			if (GetCurrentGame(creator.Id) != null)
@@ -29,6 +31,7 @@ namespace SchinkZeShips.Server
 			return game;
 		}
 
+		/// <inheritdoc />
 		public void JoinGame(string gameIdToJoin, Player player)
 		{
 			var game = Games.FirstOrDefault(g => Equals(g.Id, gameIdToJoin));
@@ -56,6 +59,7 @@ namespace SchinkZeShips.Server
 			game.GameParticipant = player;
 		}
 
+		/// <inheritdoc />
 		public Game GetCurrentGame(string playerId)
 		{
 			return Games.FirstOrDefault(g =>
@@ -63,6 +67,7 @@ namespace SchinkZeShips.Server
 				Equals(g.GameParticipant?.Id, playerId));
 		}
 
+		/// <inheritdoc />
 		public void RemoveFromGame(string gameId, string playerId)
 		{
 			var game = Games.FirstOrDefault(g => Equals(g.Id, gameId));
@@ -99,6 +104,7 @@ namespace SchinkZeShips.Server
 			}
 		}
 
+		/// <inheritdoc />
 		public void UpdateGameState(string gameId, GameState gameState)
 		{
 			var index = Games.FindIndex(g => Equals(g.Id, gameId));
