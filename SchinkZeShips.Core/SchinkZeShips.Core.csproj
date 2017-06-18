@@ -66,15 +66,16 @@
     <Compile Include="GameLogic\BoardView.xaml.cs">
       <DependentUpon>BoardView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GameLogic\InGameViewModel.cs" />
-    <Compile Include="GameLogic\InGameView.xaml.cs">
+    <Compile Include="GameLogic\Coordinate.cs" />
+    <Compile Include="GameLogic\InGame\InGameViewModel.cs" />
+    <Compile Include="GameLogic\InGame\InGameView.xaml.cs">
       <DependentUpon>InGameView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GameLogic\ConfigureBoardView.xaml.cs">
+    <Compile Include="GameLogic\BoardConfiguration\ConfigureBoardView.xaml.cs">
       <DependentUpon>ConfigureBoardView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GameLogic\ConfigureBoardViewModel.cs" />
-    <Compile Include="GameLogic\ValidateBoard.cs" />
+    <Compile Include="GameLogic\BoardConfiguration\ConfigureBoardViewModel.cs" />
+    <Compile Include="GameLogic\BoardConfiguration\BoardStateViewModel.cs" />
     <Compile Include="GameLobby\SearchLobbyView.xaml.cs">
       <DependentUpon>SearchLobbyView.xaml</DependentUpon>
     </Compile>
@@ -83,6 +84,7 @@
     </Compile>
     <Compile Include="GameLobby\SearchLobbyViewModel.cs" />
     <Compile Include="GameLobby\GameLobbyViewModel.cs" />
+    <Compile Include="GameLogic\Ship.cs" />
     <Compile Include="SchinkZeShipsReference\PlayingFieldState.cs" />
     <Compile Include="Infrastructure\GameLogicService.cs" />
     <Compile Include="Infrastructure\EventsHelper.cs" />
@@ -162,7 +164,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="GameLogic\ConfigureBoardView.xaml">
+    <EmbeddedResource Include="GameLogic\BoardConfiguration\ConfigureBoardView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>
       </SubType>
@@ -190,7 +192,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="GameLogic\InGameView.xaml">
+    <EmbeddedResource Include="GameLogic\InGame\InGameView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>
       </SubType>

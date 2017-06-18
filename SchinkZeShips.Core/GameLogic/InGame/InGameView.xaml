@@ -3,10 +3,11 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:gameLogic="clr-namespace:SchinkZeShips.Core.GameLogic;assembly=SchinkZeShips.Core"
-             x:Class="SchinkZeShips.Core.GameLogic.InGameView"
+             xmlns:inGame="clr-namespace:SchinkZeShips.Core.GameLogic.InGame;assembly=SchinkZeShips.Core"
+             x:Class="SchinkZeShips.Core.GameLogic.InGame.InGameView"
              Title="{Binding CurrentGame.Name}">
 	<ContentPage.BindingContext>
-		<gameLogic:InGameViewModel />
+		<inGame:InGameViewModel />
 	</ContentPage.BindingContext>
 
 	<StackLayout Spacing="20" Padding="20" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">

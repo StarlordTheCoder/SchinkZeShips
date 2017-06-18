@@ -1,27 +1,27 @@
 ﻿using SchinkZeShips.Core.Infrastructure;
 using SchinkZeShips.Core.SchinkZeShipsReference;
 
-namespace SchinkZeShips.Core.GameLogic
+namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
 {
-	public partial class InGameView
+	public partial class ConfigureBoardView
 	{
-		public InGameView(Game game)
+		public ConfigureBoardView(Game game)
 		{
 			InitializeComponent();
 
-			((InGameViewModel) BindingContext).CurrentGame = game;
+			((ConfigureBoardViewModel) BindingContext).CurrentGame = game;
 		}
 
 		protected override void OnAppearing()
 		{
-			this.Subscribe<InGameViewModel>();
+			this.Subscribe<ConfigureBoardViewModel>();
 			(BindingContext as ViewModelBase)?.OnAppearing();
 			base.OnAppearing();
 		}
 
 		protected override void OnDisappearing()
 		{
-			this.Unsubscribe<InGameViewModel>();
+			this.Unsubscribe<ConfigureBoardViewModel>();
 			(BindingContext as ViewModelBase)?.OnDisappearing();
 			base.OnDisappearing();
 		}

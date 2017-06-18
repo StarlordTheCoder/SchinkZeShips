@@ -3,7 +3,7 @@ using SchinkZeShips.Core.Infrastructure;
 using SchinkZeShips.Core.SchinkZeShipsReference;
 using Xamarin.Forms;
 
-namespace SchinkZeShips.Core.GameLogic
+namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
 {
 	public class ConfigureBoardViewModel : ViewModelBase
 	{
@@ -29,7 +29,7 @@ namespace SchinkZeShips.Core.GameLogic
 
 			await Service.UpdateGameState(latestGameState.Id, latestGameState.RunningGameState);
 
-			PushViewModal(new InGameView(latestGameState));
+			PushViewModal(new InGame.InGameView(latestGameState));
 		}
 
 		public Command LockInLayoutCommand { get; }

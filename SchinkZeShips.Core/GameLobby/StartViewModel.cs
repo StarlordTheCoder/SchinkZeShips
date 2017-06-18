@@ -1,7 +1,8 @@
 ﻿using System;
 using System.ServiceModel;
 using SchinkZeShips.Core.ExtensionMethods;
-using SchinkZeShips.Core.GameLogic;
+using SchinkZeShips.Core.GameLogic.BoardConfiguration;
+using SchinkZeShips.Core.GameLogic.InGame;
 using SchinkZeShips.Core.Infrastructure;
 using Xamarin.Forms;
 

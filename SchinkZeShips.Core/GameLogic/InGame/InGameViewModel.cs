@@ -4,7 +4,7 @@ using SchinkZeShips.Core.Infrastructure;
 using SchinkZeShips.Core.SchinkZeShipsReference;
 using Xamarin.Forms;
 
-namespace SchinkZeShips.Core.GameLogic
+namespace SchinkZeShips.Core.GameLogic.InGame
 {
 	public class InGameViewModel : ViewModelBase
 	{
