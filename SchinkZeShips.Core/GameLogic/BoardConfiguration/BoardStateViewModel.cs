@@ -9,14 +9,14 @@ namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
 	public class BoardStateViewModel : NotifyPropertyChangedBase, IBoardStateViewModel
 	{
 		public Dictionary<Ship, int> Ships = new Dictionary<Ship, int>();
-		private readonly PlayingFieldState _board;
+		private readonly BoardState _board;
 
 		public int AllowedSubmarines => Ships[Ship.Submarine];
 		public int AllowedDestroyer => Ships[Ship.Destroyer];
 		public int AllowedCruisers => Ships[Ship.Cruiser];
 		public int AllowedBattleships => Ships[Ship.Battleship];
 
-		public BoardStateViewModel(PlayingFieldState board)
+		public BoardStateViewModel(BoardState board)
 		{
 			_board = board;
 

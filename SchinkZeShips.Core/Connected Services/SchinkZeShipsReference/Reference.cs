@@ -23,6 +23,8 @@ namespace SchinkZeShips.Core.SchinkZeShipsReference {
         
         private string IdField;
         
+        private System.DateTime LatestChangeTimeField;
+        
         private string NameField;
         
         private SchinkZeShips.Core.SchinkZeShipsReference.GameState RunningGameStateField;
@@ -62,6 +64,19 @@ namespace SchinkZeShips.Core.SchinkZeShipsReference {
                 if ((object.ReferenceEquals(this.IdField, value) != true)) {
                     this.IdField = value;
                     this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime LatestChangeTime {
+            get {
+                return this.LatestChangeTimeField;
+            }
+            set {
+                if ((this.LatestChangeTimeField.Equals(value) != true)) {
+                    this.LatestChangeTimeField = value;
+                    this.RaisePropertyChanged("LatestChangeTime");
                 }
             }
         }
@@ -152,11 +167,37 @@ namespace SchinkZeShips.Core.SchinkZeShipsReference {
     [System.Runtime.Serialization.DataContractAttribute(Name="GameState", Namespace="http://schemas.datacontract.org/2004/07/SchinkZeShips.Server")]
     public partial class GameState : object, System.ComponentModel.INotifyPropertyChanged {
         
+        private SchinkZeShips.Core.SchinkZeShipsReference.BoardState BoardCreatorField;
+        
+        private SchinkZeShips.Core.SchinkZeShipsReference.BoardState BoardParticipantField;
+        
         private bool CurrentPlayerIsGameCreatorField;
         
-        private SchinkZeShips.Core.SchinkZeShipsReference.PlayingFieldState PlayingFieldCreatorField;
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public SchinkZeShips.Core.SchinkZeShipsReference.BoardState BoardCreator {
+            get {
+                return this.BoardCreatorField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.BoardCreatorField, value) != true)) {
+                    this.BoardCreatorField = value;
+                    this.RaisePropertyChanged("BoardCreator");
+                }
+            }
+        }
         
-        private SchinkZeShips.Core.SchinkZeShipsReference.PlayingFieldState PlayingFieldParticipantField;
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public SchinkZeShips.Core.SchinkZeShipsReference.BoardState BoardParticipant {
+            get {
+                return this.BoardParticipantField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.BoardParticipantField, value) != true)) {
+                    this.BoardParticipantField = value;
+                    this.RaisePropertyChanged("BoardParticipant");
+                }
+            }
+        }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public bool CurrentPlayerIsGameCreator {
@@ -167,32 +208,6 @@ namespace SchinkZeShips.Core.SchinkZeShipsReference {
                 if ((this.CurrentPlayerIsGameCreatorField.Equals(value) != true)) {
                     this.CurrentPlayerIsGameCreatorField = value;
                     this.RaisePropertyChanged("CurrentPlayerIsGameCreator");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public SchinkZeShips.Core.SchinkZeShipsReference.PlayingFieldState PlayingFieldCreator {
-            get {
-                return this.PlayingFieldCreatorField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.PlayingFieldCreatorField, value) != true)) {
-                    this.PlayingFieldCreatorField = value;
-                    this.RaisePropertyChanged("PlayingFieldCreator");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public SchinkZeShips.Core.SchinkZeShipsReference.PlayingFieldState PlayingFieldParticipant {
-            get {
-                return this.PlayingFieldParticipantField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.PlayingFieldParticipantField, value) != true)) {
-                    this.PlayingFieldParticipantField = value;
-                    this.RaisePropertyChanged("PlayingFieldParticipant");
                 }
             }
         }
@@ -209,8 +224,8 @@ namespace SchinkZeShips.Core.SchinkZeShipsReference {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="PlayingFieldState", Namespace="http://schemas.datacontract.org/2004/07/SchinkZeShips.Server")]
-    public partial class PlayingFieldState : object, System.ComponentModel.INotifyPropertyChanged {
+    [System.Runtime.Serialization.DataContractAttribute(Name="BoardState", Namespace="http://schemas.datacontract.org/2004/07/SchinkZeShips.Server")]
+    public partial class BoardState : object, System.ComponentModel.INotifyPropertyChanged {
         
         private System.Collections.Generic.List<System.Collections.Generic.List<SchinkZeShips.Core.SchinkZeShipsReference.CellState>> CellsField;
         

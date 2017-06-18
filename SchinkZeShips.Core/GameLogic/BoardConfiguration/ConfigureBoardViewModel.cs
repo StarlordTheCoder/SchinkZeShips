@@ -127,11 +127,11 @@ namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
 
 			if (latestGameState.ThisPlayerIsGameCreator())
 			{
-				latestGameState.RunningGameState.PlayingFieldCreator = ConfiguringBoard;
+				latestGameState.RunningGameState.BoardCreator = ConfiguringBoard;
 			}
 			else
 			{
-				latestGameState.RunningGameState.PlayingFieldParticipant = ConfiguringBoard;
+				latestGameState.RunningGameState.BoardParticipant = ConfiguringBoard;
 			}
 
 			await Service.UpdateGameState(latestGameState.Id, latestGameState.RunningGameState);
@@ -151,6 +151,6 @@ namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
 			}
 		}
 
-		public PlayingFieldState ConfiguringBoard { get; } = new PlayingFieldState();
+		public BoardState ConfiguringBoard { get; } = new BoardState();
 	}
 }

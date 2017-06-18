@@ -10,12 +10,12 @@ namespace SchinkZeShips.Tests.Core
 	public class BoardStateViewModelTest
 	{
 		private BoardStateViewModel _validate;
-		private PlayingFieldState _board;
+		private BoardState _board;
 
 		[SetUp]
 		public void SetUp()
 		{
-			_board = new PlayingFieldState();
+			_board = new BoardState();
 
 			_validate = new BoardStateViewModel(_board);
 		}

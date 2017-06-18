@@ -2,9 +2,9 @@
 
 namespace SchinkZeShips.Core.SchinkZeShipsReference
 {
-	public partial class PlayingFieldState
+	public partial class BoardState
 	{
-		public PlayingFieldState()
+		public BoardState()
 		{
 			Cells = new List<List<CellState>>();
 

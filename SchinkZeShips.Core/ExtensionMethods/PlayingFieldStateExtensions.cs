@@ -6,7 +6,7 @@ namespace SchinkZeShips.Core.ExtensionMethods
 {
 	public static class PlayingFieldStateExtensions
 	{
-		public static Coordinate GetCoordinateFor(this PlayingFieldState board, CellState cell)
+		public static Coordinate GetCoordinateFor(this BoardState board, CellState cell)
 		{
 			var rowsWithIndex = board.Cells.Select((value, index) => new { value, index });
 			foreach (var row in rowsWithIndex)

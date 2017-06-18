@@ -11,6 +11,7 @@
       <xs:element minOccurs="0" name="GameCreator" nillable="true" type="tns:Player" />
       <xs:element minOccurs="0" name="GameParticipant" nillable="true" type="tns:Player" />
       <xs:element minOccurs="0" name="Id" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LatestChangeTime" type="xs:dateTime" />
       <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="RunningGameState" nillable="true" type="tns:GameState" />
     </xs:sequence>
@@ -25,18 +26,18 @@
   <xs:element name="Player" nillable="true" type="tns:Player" />
   <xs:complexType name="GameState">
     <xs:sequence>
+      <xs:element minOccurs="0" name="BoardCreator" nillable="true" type="tns:BoardState" />
+      <xs:element minOccurs="0" name="BoardParticipant" nillable="true" type="tns:BoardState" />
       <xs:element minOccurs="0" name="CurrentPlayerIsGameCreator" type="xs:boolean" />
-      <xs:element minOccurs="0" name="PlayingFieldCreator" nillable="true" type="tns:PlayingFieldState" />
-      <xs:element minOccurs="0" name="PlayingFieldParticipant" nillable="true" type="tns:PlayingFieldState" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="GameState" nillable="true" type="tns:GameState" />
-  <xs:complexType name="PlayingFieldState">
+  <xs:complexType name="BoardState">
     <xs:sequence>
       <xs:element minOccurs="0" name="Cells" nillable="true" type="tns:ArrayOfArrayOfCellState" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="PlayingFieldState" nillable="true" type="tns:PlayingFieldState" />
+  <xs:element name="BoardState" nillable="true" type="tns:BoardState" />
   <xs:complexType name="ArrayOfArrayOfCellState">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="ArrayOfCellState" nillable="true" type="tns:ArrayOfCellState" />

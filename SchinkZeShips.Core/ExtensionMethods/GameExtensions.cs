@@ -13,12 +13,12 @@ namespace SchinkZeShips.Core.ExtensionMethods
 		public static bool IsConfiguringBoard(this Game game)
 		{
 			return game.RunningGameState != null &&
-			       (game.RunningGameState.PlayingFieldCreator == null || game.RunningGameState.PlayingFieldParticipant == null);
+			       (game.RunningGameState.BoardCreator == null || game.RunningGameState.BoardParticipant == null);
 		}
 
 		public static bool IsPlaying(this Game game)
 		{
-			return game.RunningGameState?.PlayingFieldCreator != null && game.RunningGameState.PlayingFieldParticipant != null;
+			return game.RunningGameState?.BoardCreator != null && game.RunningGameState.BoardParticipant != null;
 		}
 
 		public static bool ThisPlayerIsGameCreator(this Game game)
@@ -26,14 +26,14 @@ namespace SchinkZeShips.Core.ExtensionMethods
 			return Equals(game.GameCreator.Id, Settings.Instance.UserId);
 		}
 
-		public static PlayingFieldState ThisPlayerBoard(this Game game)
+		public static BoardState ThisPlayerBoard(this Game game)
 		{
-			return game.ThisPlayerIsGameCreator() ? game.RunningGameState.PlayingFieldCreator : game.RunningGameState.PlayingFieldParticipant;
+			return game.ThisPlayerIsGameCreator() ? game.RunningGameState.BoardCreator : game.RunningGameState.BoardParticipant;
 		}
 
-		public static PlayingFieldState OtherPlayerBoard(this Game game)
+		public static BoardState OtherPlayerBoard(this Game game)
 		{
-			return game.ThisPlayerIsGameCreator() ? game.RunningGameState.PlayingFieldParticipant : game.RunningGameState.PlayingFieldCreator;
+			return game.ThisPlayerIsGameCreator() ? game.RunningGameState.BoardParticipant : game.RunningGameState.BoardCreator;
 		}
 	}
 }

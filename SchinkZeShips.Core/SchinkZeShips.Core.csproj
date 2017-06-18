@@ -89,7 +89,7 @@
     <Compile Include="GameLobby\GameLobbyViewModel.cs" />
     <Compile Include="GameLogic\Ship.cs" />
     <Compile Include="SchinkZeShipsReference\CellState.cs" />
-    <Compile Include="SchinkZeShipsReference\PlayingFieldState.cs" />
+    <Compile Include="SchinkZeShipsReference\BoardState.cs" />
     <Compile Include="Infrastructure\GameLogicService.cs" />
     <Compile Include="Infrastructure\EventsHelper.cs" />
     <Compile Include="Infrastructure\NotifyPropertyChangedBase.cs" />
