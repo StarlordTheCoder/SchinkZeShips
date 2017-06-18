@@ -16,7 +16,7 @@ namespace SchinkZeShips.Core.GameLogic.InGame
 
 		public InGameViewModel()
 		{
-			FireShotCommand = new Command(FireShotAsync, () => _selectedCell != null);
+			FireShotCommand = new Command(FireShotAsync, () => _selectedCell != null && CurrentGame.ThisPlayerIsGameCreator() == CurrentGame.RunningGameState.CurrentPlayerIsGameCreator);
 		}
 
 		private async void FireShotAsync()
@@ -29,6 +29,10 @@ namespace SchinkZeShips.Core.GameLogic.InGame
 			}
 
 			await Service.UpdateGameState(CurrentGame.Id, CurrentGame.RunningGameState);
+
+			FireShotCommand.ChangeCanExecute();
+
+			UpdateGamestateAsync();
 		}
 
 		public Game CurrentGame
@@ -38,6 +42,12 @@ namespace SchinkZeShips.Core.GameLogic.InGame
 			{
 				if (_currentGame != null)
 				{
+					if (_currentGame.LatestChangeTime == value.LatestChangeTime)
+					{
+						// Ignore a change to the game if there were no changes
+						return;
+					}
+
 					foreach (var cell in _currentGame.OtherPlayerBoard().Cells.SelectMany(c => c))
 					{
 						cell.GotSelected -= CellGotSelected;
