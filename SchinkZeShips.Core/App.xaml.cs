@@ -3,7 +3,10 @@ using Microsoft.Azure.Mobile.Analytics;
 using Microsoft.Azure.Mobile.Crashes;
 using SchinkZeShips.Core.GameLobby;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
+
+[assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace SchinkZeShips.Core
 {
 	public partial class App

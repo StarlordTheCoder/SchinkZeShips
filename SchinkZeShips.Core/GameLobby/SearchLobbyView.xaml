@@ -17,14 +17,9 @@
 		<ListView IsPullToRefreshEnabled="True" IsRefreshing="{Binding IsLoadingGames}"
 		          RefreshCommand="{Binding LoadGamesCommand}" ItemsSource="{Binding Games}"
 		          ItemTapped="ListView_OnItemTapped">
-			<ListView.HeaderTemplate>
-				<DataTemplate>
-					<SearchBar Text="{Binding GameFilter}" />
-				</DataTemplate>
-			</ListView.HeaderTemplate>
 			<ListView.ItemTemplate>
 				<DataTemplate>
-					<TextCell Text="{Binding Name}" />
+					<TextCell Text="{Binding Name}" Detail="{Binding GameCreator.Username, StringFormat='Erstellt von {0}'}"  AutomationId="GameNameTextCell" />
 				</DataTemplate>
 			</ListView.ItemTemplate>
 		</ListView>
