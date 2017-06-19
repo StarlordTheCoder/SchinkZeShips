@@ -1,6 +1,6 @@
-﻿using System;
-using System.ServiceModel;
+﻿using System.ServiceModel;
 using SchinkZeShips.Core.ExtensionMethods;
+using SchinkZeShips.Core.GameLogic;
 using SchinkZeShips.Core.GameLogic.BoardConfiguration;
 using SchinkZeShips.Core.Infrastructure;
 using SchinkZeShips.Core.SchinkZeShipsReference;
@@ -8,15 +8,13 @@ using Xamarin.Forms;
 
 namespace SchinkZeShips.Core.GameLobby
 {
-	public class GameLobbyViewModel : ViewModelBase
+	public class GameLobbyViewModel : ViewModelWithCurrentGameBase
 	{
 		private const int GameLobbyRefreshTimeoutInMs = 2000;
 		private Game _currentGame;
-		private bool _onViewVisible;
-		private bool _timerRunning;
 		private bool _leftLobbyManually;
 
-		public GameLobbyViewModel()
+		public GameLobbyViewModel() : base(GameLobbyRefreshTimeoutInMs)
 		{
 			StartGameCommand = new Command(StartGameAsync, () => IsLobbyLeader && HasParticipant);
 			LeaveGameCommand = new Command(LeaveGameAsync);
@@ -78,29 +76,38 @@ namespace SchinkZeShips.Core.GameLobby
 			}
 		}
 
-		public Game CurrentGame
+		public override Game CurrentGame
 		{
 			get { return _currentGame; }
 			set
 			{
+				if (_leftLobbyManually)
+				{
+					return;
+				}
+
+				if (value == null)
+				{
+					PushViewModal(new StartView());
+					Dialogs.Alert("Sie sind nicht mehr Teil eines Spiels!");
+					return;
+				}
+
+				if (value.IsConfiguringBoard())
+				{
+					PushViewModal(new ConfigureBoardView(value));
+					Dialogs.Alert("Das Spiel wurde gestartet!");
+					return;
+				}
+
 				_currentGame = value;
+
 				OnPropertyChanged();
 				OnPropertyChanged(nameof(IsLobbyLeader));
 				OnPropertyChanged(nameof(HasParticipant));
 				OnPropertyChanged(nameof(CanKickParticipant));
 				StartGameCommand.ChangeCanExecute();
 				KickParticipantCommand.ChangeCanExecute();
-			}
-		}
-
-		private bool OnViewVisible
-		{
-			get { return _onViewVisible; }
-			set
-			{
-				_onViewVisible = value;
-				if (_onViewVisible && !_timerRunning)
-					Device.StartTimer(TimeSpan.FromMilliseconds(GameLobbyRefreshTimeoutInMs), OnTimerElapsed);
 			}
 		}
 
@@ -114,56 +121,6 @@ namespace SchinkZeShips.Core.GameLobby
 		public bool HasParticipant => CurrentGame?.GameParticipant != null;
 
 		public bool CanKickParticipant => HasParticipant && IsLobbyLeader;
-
-		public override void OnAppearing()
-		{
-			base.OnAppearing();
-			OnViewVisible = true;
-		}
-
-		public override void OnDisappearing()
-		{
-			base.OnDisappearing();
-			OnViewVisible = false;
-		}
-
-		private bool OnTimerElapsed()
-		{
-			_timerRunning = true;
-			if (!OnViewVisible)
-			{
-				_timerRunning = false;
-				return false;
-			}
-			UpdateGamestateAsync();
-			return true;
-		}
-
-		private async void UpdateGamestateAsync()
-		{
-			if (_leftLobbyManually)
-			{
-				return;
-			}
-
-			var ownGame = await Service.GetCurrentGame();
-
-			if (ownGame == null)
-			{
-				PushViewModal(new StartView());
-				await Dialogs.AlertAsync("Sie sind nicht mehr Teil eines Spiels!");
-				return;
-			}
-
-			if (ownGame.IsConfiguringBoard())
-			{
-				PushViewModal(new ConfigureBoardView(ownGame));
-				await Dialogs.AlertAsync("Das Spiel wurde gestartet!");
-				return;
-			}
-
-			CurrentGame = ownGame;
-		}
 
 		private async void StartGameAsync()
 		{

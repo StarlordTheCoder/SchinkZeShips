@@ -5,7 +5,7 @@ using Xamarin.Forms;
 
 namespace SchinkZeShips.Core.Infrastructure
 {
-	public class ViewModelBase : NotifyPropertyChangedBase
+	public abstract class ViewModelBase : NotifyPropertyChangedBase
 	{
 		/// <summary>
 		///     Constant for the PushView request

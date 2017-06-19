@@ -7,14 +7,13 @@ using Xamarin.Forms;
 
 namespace SchinkZeShips.Core.GameLogic.InGame
 {
-	public class InGameViewModel : ViewModelBase
+	public class InGameViewModel : ViewModelWithCurrentGameBase
 	{
-		private const int InGameRefreshTimeoutInMs = 2000;
+		private const int InGameRefreshTimeoutInMs = 3000;
 		private Game _currentGame;
-		private bool _onViewVisible;
 		public Command FireShotCommand { get; }
 
-		public InGameViewModel()
+		public InGameViewModel() : base(InGameRefreshTimeoutInMs)
 		{
 			FireShotCommand = new Command(FireShotAsync, () => _selectedCell != null && CurrentGame.ThisPlayerIsGameCreator() == CurrentGame.RunningGameState.CurrentPlayerIsGameCreator);
 		}
@@ -35,7 +34,7 @@ namespace SchinkZeShips.Core.GameLogic.InGame
 			UpdateGamestateAsync();
 		}
 
-		public Game CurrentGame
+		public override Game CurrentGame
 		{
 			get { return _currentGame; }
 			set
@@ -90,6 +89,7 @@ namespace SchinkZeShips.Core.GameLogic.InGame
 				}
 
 				OnPropertyChanged();
+				FireShotCommand.ChangeCanExecute();
 			}
 		}
 
@@ -112,43 +112,5 @@ namespace SchinkZeShips.Core.GameLogic.InGame
 		}
 
 		private CellState _selectedCell;
-
-		private bool OnViewVisible
-		{
-			get { return _onViewVisible; }
-			set
-			{
-				_onViewVisible = value;
-				if (_onViewVisible)
-					Device.StartTimer(TimeSpan.FromMilliseconds(InGameRefreshTimeoutInMs), OnTimerElapsed);
-			}
-		}
-
-		public override void OnAppearing()
-		{
-			base.OnAppearing();
-			OnViewVisible = true;
-		}
-
-		public override void OnDisappearing()
-		{
-			base.OnDisappearing();
-			OnViewVisible = false;
-		}
-
-		private bool OnTimerElapsed()
-		{
-			if (!OnViewVisible)
-			{
-				return false;
-			}
-			UpdateGamestateAsync();
-			return true;
-		}
-
-		private async void UpdateGamestateAsync()
-		{
-			CurrentGame = await Service.GetCurrentGame();
-		}
 	}
 }

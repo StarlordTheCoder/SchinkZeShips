@@ -88,6 +88,7 @@
     <Compile Include="GameLobby\SearchLobbyViewModel.cs" />
     <Compile Include="GameLobby\GameLobbyViewModel.cs" />
     <Compile Include="GameLogic\Ship.cs" />
+    <Compile Include="Infrastructure\ViewModelWithCurrentGameBase.cs" />
     <Compile Include="SchinkZeShipsReference\CellState.cs" />
     <Compile Include="SchinkZeShipsReference\BoardState.cs" />
     <Compile Include="Infrastructure\GameLogicService.cs" />
