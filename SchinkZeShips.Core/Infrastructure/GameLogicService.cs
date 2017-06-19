@@ -37,6 +37,11 @@ namespace SchinkZeShips.Core.Infrastructure
 
 		public async Task<Game> GetCurrentGame()
 		{
+			return await GetGameForPlayer(Settings.Instance.UserId);
+		}
+
+		public async Task<Game> GetGameForPlayer(string playerId)
+		{
 			var getCurrentGame = new TaskCompletionSource<Game>();
 
 			EventHandler<GetCurrentGameCompletedEventArgs> getCurrentGameHandler = null;
@@ -50,7 +55,7 @@ namespace SchinkZeShips.Core.Infrastructure
 			};
 
 			_client.GetCurrentGameCompleted += getCurrentGameHandler;
-			_client.GetCurrentGameAsync(Settings.Instance.UserId);
+			_client.GetCurrentGameAsync(playerId);
 
 			return await getCurrentGame.Task;
 		}

@@ -17,14 +17,33 @@ namespace SchinkZeShips.UITests
 			//Leave any game if we're part of one
 			_server = new GameLogicService();
 
-			var currentGame = await _server.GetCurrentGame();
+			Settings.Instance.Username = Guid.NewGuid().ToString();
 
-			if (currentGame != null)
+			await RemovePlayerFromGameAsync(Settings.UiTestsGuid);
+			await RemovePlayerFromGameAsync(Settings.Instance.UserId);
+		}
+
+		private async Task RemovePlayerFromGameAsync(string playerId)
+		{
+			var game = await _server.GetGameForPlayer(playerId);
+
+			if (game != null)
 			{
-				await _server.RemoveFromGame(currentGame.Id, Settings.UiTestsGuid);
+				await _server.UpdateGameState(game.Id, null);
+				await _server.RemoveFromGame(game.Id, playerId);
 			}
+		}
 
-			_app = AppInitializer.StartApp(_platform);
+		private async Task RemoveCurrentGameAsync()
+		{
+			var game = await _server.GetCurrentGame();
+
+			if (game != null)
+			{
+				await _server.UpdateGameState(game.Id, null);
+				if(game.GameParticipant != null) await _server.RemoveFromGame(game.Id, game.GameParticipant.Id);
+				await _server.RemoveFromGame(game.Id, game.GameCreator.Id);
+			}
 		}
 
 		private IApp _app;
@@ -39,7 +58,9 @@ namespace SchinkZeShips.UITests
 		[Test]
 		public void UsernameSavedAfterRestart()
 		{
-			_app.WaitForElement("UsernameEntry", "Failed to start app", TimeSpan.FromMinutes(1));
+			_app = AppInitializer.StartApp(_platform);
+
+			_app.WaitForElement("UsernameEntry", "Failed to start app", TimeSpan.FromSeconds(10));
 
 			_app.ClearText("UsernameEntry");
 
@@ -52,11 +73,50 @@ namespace SchinkZeShips.UITests
 			// Restart app
 			_app = AppInitializer.StartApp(_platform, AppDataMode.DoNotClear);
 
-			_app.WaitForElement("UsernameEntry", "Failed to start app second time", TimeSpan.FromMinutes(1));
+			_app.WaitForElement("UsernameEntry", "Failed to start app second time", TimeSpan.FromSeconds(10));
 
-			_app.WaitForElement(e => e.Marked("UsernameEntry").Text(randomUsername), "Didn't find correct username", TimeSpan.FromMinutes(1));
+			_app.WaitForElement(e => e.Marked("UsernameEntry").Text(randomUsername), "Didn't find correct username", TimeSpan.FromSeconds(1));
+		}
 
-			_app.Back();
+		[Test]
+		public async Task CanFindAndJoinExistingLobby()
+		{
+			var randomGameName = Guid.NewGuid().ToString();
+			await _server.CreateGame(randomGameName);
+
+			_app = AppInitializer.StartApp(_platform);
+
+			_app.WaitForElement("UsernameEntry", "Failed to start app", TimeSpan.FromSeconds(10));
+
+			var randomUsername = Guid.NewGuid().ToString();
+			_app.ClearText("UsernameEntry");
+			_app.EnterText("UsernameEntry", randomUsername);
+			_app.DismissKeyboard();
+
+			_app.Tap("SearchGameButton");
+
+			// TODO Enable after search bar exists on android again
+			/*_app.WaitForElement("GameFilterSearchBar", "Failed to find search bar", TimeSpan.FromSeconds(20));
+
+			_app.EnterText("GameFilterSearchBar", randomGameName);
+			_app.DismissKeyboard();
+
+			_app.WaitForElement(e => e.Text(randomGameName), "Failed to find previously created game by name", TimeSpan.FromSeconds(10));
+
+			_app.ClearText("GameFilterSearchBar");
+			_app.EnterText("GameFilterSearchBar", randomUsername);
+			_app.DismissKeyboard();
+			*/
+
+			_app.WaitForElement(e => e.Text(randomGameName), "Failed to find previously created game by creator", TimeSpan.FromSeconds(10));
+
+			_app.Tap(e => e.Text(randomGameName));
+
+			_app.WaitForElement(e => e.Marked("GameCreatorLabel").Text(Settings.Instance.UserId));
+
+			_app.WaitForElement(e => e.Marked("GameParticipantLabel").Text(randomUsername));
+
+			await RemoveCurrentGameAsync();
 		}
 	}
 }
