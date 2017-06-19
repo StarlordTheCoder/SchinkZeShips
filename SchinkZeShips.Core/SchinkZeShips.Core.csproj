@@ -54,6 +54,7 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Converter\GameStateBoardConverter.cs" />
+    <Compile Include="Converter\ImageResourceExtension.cs" />
     <Compile Include="Converter\InvertBooleanConverter.cs" />
     <Compile Include="ExtensionMethods\PlayingFieldStateExtensions.cs" />
     <Compile Include="ExtensionMethods\StringExtensions.cs" />
@@ -202,6 +203,12 @@
       <SubType>
       </SubType>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\GrayNeedle.png" />
+    <EmbeddedResource Include="Resources\OrangeNeedle.png" />
+    <EmbeddedResource Include="Resources\ShipStartEnd.png" />
+    <EmbeddedResource Include="Resources\ShipCenter.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
 </Project>
