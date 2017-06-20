@@ -20,13 +20,31 @@ namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
 
 		private CellViewModel _firstClickedCell;
 
-		private void CellGotSelected(object sender, EventArgs eventArgs)
+		private async void CellSelectedChanged(object sender, EventArgs eventArgs)
 		{
 			var clickedCell = (CellViewModel) sender;
+
+			if (clickedCell.IsSelected && clickedCell.Ship != null)
+			{
+				clickedCell.IsSelected = false;
+
+				var remove = await Dialogs.ConfirmAsync($"Möchten Sie dieses {(clickedCell.Ship.ShipType.HasValue ? (int)clickedCell.Ship.ShipType.Value : 0)}er Schiff entfernen?");
+
+				if (remove)
+				{
+					foreach (var shipPart in clickedCell.Ship.ShipParts)
+					{
+						shipPart.Ship = null;
+					}
+				}
+
+				return;
+			}
 
 			if (!clickedCell.IsSelected)
 			{
 				_firstClickedCell = null;
+
 				return;
 			}
 
@@ -114,7 +132,7 @@ namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
 
 			foreach (var cell in ConfiguringBoard.Cells.SelectMany(c => c))
 			{
-				cell.SelectedChanged += CellGotSelected;
+				cell.SelectedChanged += CellSelectedChanged;
 			}
 		}
 
@@ -124,7 +142,7 @@ namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
 
 			foreach (var cell in ConfiguringBoard.Cells.SelectMany(c => c))
 			{
-				cell.SelectedChanged -= CellGotSelected;
+				cell.SelectedChanged -= CellSelectedChanged;
 			}
 		}
 

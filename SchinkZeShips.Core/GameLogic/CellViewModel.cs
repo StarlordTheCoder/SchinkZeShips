@@ -16,11 +16,6 @@ namespace SchinkZeShips.Core.GameLogic
 			{
 				_model = value;
 				OnPropertyChanged();
-
-				if (_model.HasShip)
-				{
-					IsSelected = false;
-				}
 			}
 		}
 
@@ -47,7 +42,7 @@ namespace SchinkZeShips.Core.GameLogic
 			{
 				_ship = value;
 				OnPropertyChanged();
-				_ship.Update();
+				_ship?.Update();
 			}
 		}
 
