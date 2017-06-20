@@ -20,9 +20,9 @@ namespace SchinkZeShips.Core.GameLogic.InGame
 
 		private async void FireShotAsync()
 		{
-			_selectedCell.WasShot = true;
+			_selectedCell.Model.WasShot = true;
 
-			if (!_selectedCell.HasShip)
+			if (!_selectedCell.Model.HasShip)
 			{
 				CurrentGame.RunningGameState.CurrentPlayerIsGameCreator = !CurrentGame.RunningGameState.CurrentPlayerIsGameCreator;
 			}
@@ -49,27 +49,13 @@ namespace SchinkZeShips.Core.GameLogic.InGame
 
 					foreach (var cell in _currentGame.OtherPlayerBoard().Cells.SelectMany(c => c))
 					{
-						cell.GotSelected -= CellGotSelected;
-					}
-				}
-
-				if (_selectedCell != null)
-				{
-					var selectedFieldCoordinate = _currentGame.OtherPlayerBoard().GetCoordinateFor(_selectedCell);
-					if (selectedFieldCoordinate != null)
-					{
-						_selectedCell = value.OtherPlayerBoard().Cells[selectedFieldCoordinate.Row][selectedFieldCoordinate.Column];
-						_selectedCell.IsSelected = true;
-					}
-					else
-					{
-						_selectedCell = null;
+						cell.SelectedChanged -= CellSelectedChanged;
 					}
 				}
 
 				foreach (var cell in value.OtherPlayerBoard().Cells.SelectMany(c => c))
 				{
-					cell.GotSelected += CellGotSelected;
+					cell.SelectedChanged += CellSelectedChanged;
 				}
 
 				_currentGame = value;
@@ -93,16 +79,16 @@ namespace SchinkZeShips.Core.GameLogic.InGame
 			}
 		}
 
-		private void CellGotSelected(object sender, EventArgs e)
+		private void CellSelectedChanged(object sender, EventArgs e)
 		{
 			if (_selectedCell != null)
 			{
 				_selectedCell.IsSelected = false;
 			}
 
-			_selectedCell = (CellState) sender;
+			_selectedCell = (CellViewModel) sender;
 
-			if (_selectedCell.WasShot)
+			if (_selectedCell.Model.WasShot)
 			{
 				_selectedCell.IsSelected = false;
 				_selectedCell = null;
@@ -111,6 +97,6 @@ namespace SchinkZeShips.Core.GameLogic.InGame
 			FireShotCommand.ChangeCanExecute();
 		}
 
-		private CellState _selectedCell;
+		private CellViewModel _selectedCell;
 	}
 }

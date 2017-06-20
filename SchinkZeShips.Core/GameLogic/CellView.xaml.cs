@@ -1,5 +1,4 @@
 ﻿using System;
-using SchinkZeShips.Core.SchinkZeShipsReference;
 
 namespace SchinkZeShips.Core.GameLogic
 {
@@ -12,7 +11,7 @@ namespace SchinkZeShips.Core.GameLogic
 
 		private void Cell_Tapped(object sender, EventArgs e)
 		{
-			var cell = (CellState)BindingContext;
+			var cell = (CellViewModel)BindingContext;
 			cell.IsSelected = !cell.IsSelected;
 		}
 	}

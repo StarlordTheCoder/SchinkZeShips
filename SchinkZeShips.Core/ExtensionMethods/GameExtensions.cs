@@ -1,4 +1,5 @@
-﻿using SchinkZeShips.Core.Infrastructure;
+﻿using SchinkZeShips.Core.GameLogic.BoardConfiguration;
+using SchinkZeShips.Core.Infrastructure;
 using SchinkZeShips.Core.SchinkZeShipsReference;
 
 namespace SchinkZeShips.Core.ExtensionMethods
@@ -26,14 +27,39 @@ namespace SchinkZeShips.Core.ExtensionMethods
 			return Equals(game.GameCreator.Id, Settings.Instance.UserId);
 		}
 
-		public static BoardState ThisPlayerBoard(this Game game)
+		public static BoardStateViewModel ThisPlayerBoard(this Game game)
 		{
-			return game.ThisPlayerIsGameCreator() ? game.RunningGameState.BoardCreator : game.RunningGameState.BoardParticipant;
+			var board = game.ThisPlayerIsGameCreator() ? game.RunningGameState.BoardCreator : game.RunningGameState.BoardParticipant;
+
+			if (_thisPlayerBoardStateViewModel == null)
+			{
+				_thisPlayerBoardStateViewModel = new BoardStateViewModel(board, true);
+			}
+			else
+			{
+				_thisPlayerBoardStateViewModel.Model = board;
+			}
+
+			return _thisPlayerBoardStateViewModel;
 		}
 
-		public static BoardState OtherPlayerBoard(this Game game)
+		public static BoardStateViewModel OtherPlayerBoard(this Game game)
 		{
-			return game.ThisPlayerIsGameCreator() ? game.RunningGameState.BoardParticipant : game.RunningGameState.BoardCreator;
+			var board = game.ThisPlayerIsGameCreator() ? game.RunningGameState.BoardParticipant : game.RunningGameState.BoardCreator;
+
+			if (_otherPlayerBoardStateViewModel == null)
+			{
+				_otherPlayerBoardStateViewModel = new BoardStateViewModel(board, false);
+			}
+			else
+			{
+				_otherPlayerBoardStateViewModel.Model = board;
+			}
+
+			return _otherPlayerBoardStateViewModel;
 		}
+
+		private static BoardStateViewModel _otherPlayerBoardStateViewModel;
+		private static BoardStateViewModel _thisPlayerBoardStateViewModel;
 	}
 }

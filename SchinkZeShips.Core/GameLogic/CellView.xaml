@@ -17,8 +17,9 @@
 		</MultiTrigger>
 		<MultiTrigger TargetType="Frame">
 			<MultiTrigger.Conditions>
-				<BindingCondition Binding="{Binding HasShip}" Value="True" />
-				<BindingCondition Binding="{Binding WasShot}" Value="False" />
+				<BindingCondition Binding="{Binding Model.HasShip}" Value="True" />
+				<BindingCondition Binding="{Binding Model.WasShot}" Value="False" />
+				<BindingCondition Binding="{Binding Ship.ShipVisible}" Value="True" />
 			</MultiTrigger.Conditions>
 			<MultiTrigger.Setters>
 				<Setter Property="BackgroundColor" Value="Blue"/>
@@ -26,8 +27,8 @@
 		</MultiTrigger>
 		<MultiTrigger TargetType="Frame">
 			<MultiTrigger.Conditions>
-				<BindingCondition Binding="{Binding HasShip}" Value="True" />
-				<BindingCondition Binding="{Binding WasShot}" Value="True" />
+				<BindingCondition Binding="{Binding Model.HasShip}" Value="True" />
+				<BindingCondition Binding="{Binding Model.WasShot}" Value="True" />
 			</MultiTrigger.Conditions>
 			<MultiTrigger.Setters>
 				<Setter Property="BackgroundColor" Value="Red"/>
@@ -35,8 +36,8 @@
 		</MultiTrigger>
 		<MultiTrigger TargetType="Frame">
 			<MultiTrigger.Conditions>
-				<BindingCondition Binding="{Binding HasShip}" Value="False" />
-				<BindingCondition Binding="{Binding WasShot}" Value="True" />
+				<BindingCondition Binding="{Binding Model.HasShip}" Value="False" />
+				<BindingCondition Binding="{Binding Model.WasShot}" Value="True" />
 			</MultiTrigger.Conditions>
 			<MultiTrigger.Setters>
 				<Setter Property="BackgroundColor" Value="Coral"/>
@@ -46,5 +47,17 @@
 	<Frame.GestureRecognizers>
 		<TapGestureRecognizer Tapped="Cell_Tapped" NumberOfTapsRequired="1"/>
 	</Frame.GestureRecognizers>
-	<!-- <Image Source="{converter:ImageResourceExtension SchinkZeShips.Core.Resources.GrayNeedle.png}" Aspect="AspectFit"  VerticalOptions="Fill" HorizontalOptions="CenterAndExpand"/> -->
+	<Image IsVisible="False" Source="{converter:ImageResourceExtension SchinkZeShips.Core.Resources.GrayNeedle.png}" Aspect="AspectFit" VerticalOptions="Fill" HorizontalOptions="CenterAndExpand">
+		<Image.Triggers>
+			<MultiTrigger TargetType="Image">
+				<MultiTrigger.Conditions>
+					<BindingCondition Binding="{Binding Ship.ShipVisible}" Value="True"/>
+					<BindingCondition Binding="{Binding Model.HasShip}" Value="True"/>
+				</MultiTrigger.Conditions>
+				<MultiTrigger.Setters>
+					<Setter Property="IsVisible" Value="True"/>
+				</MultiTrigger.Setters>
+			</MultiTrigger>
+		</Image.Triggers>
+	</Image>
 </Frame>

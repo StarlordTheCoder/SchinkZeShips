@@ -1,6 +1,5 @@
 ﻿using System.ServiceModel;
 using SchinkZeShips.Core.ExtensionMethods;
-using SchinkZeShips.Core.GameLogic;
 using SchinkZeShips.Core.GameLogic.BoardConfiguration;
 using SchinkZeShips.Core.Infrastructure;
 using SchinkZeShips.Core.SchinkZeShipsReference;

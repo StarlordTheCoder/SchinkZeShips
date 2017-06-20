@@ -11,19 +11,24 @@ namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
 	public class ConfigureBoardViewModel : ViewModelBase
 	{
 		private Game _currentGame;
-		public IBoardStateViewModel BoardStateViewModel { get; }
 
 		public ConfigureBoardViewModel()
 		{
 			LockInLayoutCommand = new Command(LockInLayoutAsync);
-			BoardStateViewModel = new BoardStateViewModel(ConfiguringBoard);
+			ConfiguringBoard = new BoardStateViewModel(new BoardState(), true);
 		}
 
-		private CellState _firstClickedCell;
+		private CellViewModel _firstClickedCell;
 
 		private void CellGotSelected(object sender, EventArgs eventArgs)
 		{
-			var clickedCell = (CellState) sender;
+			var clickedCell = (CellViewModel) sender;
+
+			if (!clickedCell.IsSelected)
+			{
+				_firstClickedCell = null;
+				return;
+			}
 
 			if (_firstClickedCell == null)
 			{
@@ -31,8 +36,8 @@ namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
 			}
 			else
 			{
-				var firstCoordinate = ConfiguringBoard.GetCoordinateFor(_firstClickedCell);
-				var secondCoordinate = ConfiguringBoard.GetCoordinateFor(clickedCell);
+				var firstCoordinate = _firstClickedCell.Coordinate;
+				var secondCoordinate = clickedCell.Coordinate;
 
 				_firstClickedCell.IsSelected = false;
 				clickedCell.IsSelected = false;
@@ -92,7 +97,9 @@ namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
 					return;
 				}
 
-				var addedShip = BoardStateViewModel.TryAddShip(shipToBePlaced);
+				var addedShip = ConfiguringBoard.TryAddShip(new Ship(
+					shipToBePlaced.OrderBy(s => s.Row).ThenBy(s => s.Column).Select(s => ConfiguringBoard.Cells[s.Row][s.Column])
+						.ToList(), true));
 
 				if (!addedShip)
 				{
@@ -107,7 +114,7 @@ namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
 
 			foreach (var cell in ConfiguringBoard.Cells.SelectMany(c => c))
 			{
-				cell.GotSelected += CellGotSelected;
+				cell.SelectedChanged += CellGotSelected;
 			}
 		}
 
@@ -117,7 +124,7 @@ namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
 
 			foreach (var cell in ConfiguringBoard.Cells.SelectMany(c => c))
 			{
-				cell.GotSelected -= CellGotSelected;
+				cell.SelectedChanged -= CellGotSelected;
 			}
 		}
 
@@ -127,11 +134,11 @@ namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
 
 			if (latestGameState.ThisPlayerIsGameCreator())
 			{
-				latestGameState.RunningGameState.BoardCreator = ConfiguringBoard;
+				latestGameState.RunningGameState.BoardCreator = ConfiguringBoard.Model;
 			}
 			else
 			{
-				latestGameState.RunningGameState.BoardParticipant = ConfiguringBoard;
+				latestGameState.RunningGameState.BoardParticipant = ConfiguringBoard.Model;
 			}
 
 			await Service.UpdateGameState(latestGameState.Id, latestGameState.RunningGameState);
@@ -151,6 +158,6 @@ namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
 			}
 		}
 
-		public BoardState ConfiguringBoard { get; } = new BoardState();
+		public BoardStateViewModel ConfiguringBoard { get; }
 	}
 }
