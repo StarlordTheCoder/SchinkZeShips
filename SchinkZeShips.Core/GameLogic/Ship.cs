@@ -7,12 +7,15 @@ namespace SchinkZeShips.Core.GameLogic
 {
 	public class Ship : NotifyPropertyChangedBase
 	{
-		public bool IsOwnerShip { get; }
+		public bool IsCreatorShip { get; }
 
-		public Ship(IReadOnlyCollection<CellViewModel> shipParts, bool isOwnerShip)
+		public string ShipId { get; }
+
+		public Ship(IReadOnlyCollection<CellViewModel> shipParts, bool isCreatorShip, string shipId)
 		{
 			ShipParts = shipParts;
-			IsOwnerShip = isOwnerShip;
+			IsCreatorShip = isCreatorShip;
+			ShipId = shipId;
 		}
 
 		public void Update()
@@ -34,6 +37,6 @@ namespace SchinkZeShips.Core.GameLogic
 			}
 		}
 
-		public bool ShipVisible => ShipParts.Count > 0 && (IsOwnerShip || ShipParts.All(s => s.Model.WasShot));
+		public bool ShipVisible => ShipParts.Count > 0 && (IsCreatorShip || ShipParts.All(s => s.Model.WasShot));
 	}
 }

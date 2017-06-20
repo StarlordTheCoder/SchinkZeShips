@@ -10,6 +10,7 @@ namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
 	{
 		private readonly Dictionary<ShipType, int> _ships = new Dictionary<ShipType, int>();
 		private BoardState _model;
+		public const int AmountOfCellsWithShips = 30;
 
 		public BoardState Model
 		{
@@ -32,83 +33,13 @@ namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
 					}
 				}
 
-				var cellsWithShips = Cells.SelectMany(c => c).Where(c => c.Model.HasShip).ToList();
-
-				foreach (var row in cellsWithShips.GroupBy(c => c.Coordinate.Row))
+				foreach (var cellsOfShip in Cells.SelectMany(c => c).Where(c => !String.IsNullOrEmpty(c.Model.ShipId)).GroupBy(c => c.Model.ShipId))
 				{
-					var shipParts = new List<CellViewModel>();
-					Action commitShip = () =>
+					var ship = new Ship(cellsOfShip.ToList(), IsCreatorBoard, cellsOfShip.Key);
+					foreach (var cell in cellsOfShip)
 					{
-						var ship = new Ship(shipParts.ToList(), IsCreatorBoard);
-
-						if (!ship.ShipType.HasValue)
-						{
-							shipParts.Clear();
-							return;
-						}
-						foreach (var shipPart in shipParts)
-						{
-							shipPart.Ship = ship;
-						}
-
-						shipParts.Clear();
-					};
-					foreach (var rowCell in row)
-					{
-						if (shipParts.Count == 0)
-						{
-							shipParts.Add(rowCell);
-						}
-						else if (shipParts.Any(s => s.Coordinate.Column == rowCell.Coordinate.Column + 1 || s.Coordinate.Column == rowCell.Coordinate.Column - 1))
-						{
-							shipParts.Add(rowCell);
-						}
-						else
-						{
-							commitShip();
-							shipParts.Add(rowCell);
-						}
+						cell.Ship = ship;
 					}
-					commitShip();
-				}
-
-				foreach (var col in cellsWithShips.GroupBy(c => c.Coordinate.Column))
-				{
-					var shipParts = new List<CellViewModel>();
-					Action commitShip = () =>
-					{
-						var ship = new Ship(shipParts.ToList(), IsCreatorBoard);
-
-						if (!ship.ShipType.HasValue)
-						{
-							shipParts.Clear();
-							return;
-						}
-						foreach (var shipPart in shipParts)
-						{
-							shipPart.Ship = ship;
-						}
-
-						shipParts.Clear();
-					};
-
-					foreach (var colCell in col)
-					{
-						if (shipParts.Count == 0)
-						{
-							shipParts.Add(colCell);
-						}
-						else if (shipParts.Any(s => s.Coordinate.Row == colCell.Coordinate.Row + 1 || s.Coordinate.Row == colCell.Coordinate.Row - 1))
-						{
-							shipParts.Add(colCell);
-						}
-						else
-						{
-							commitShip();
-							shipParts.Add(colCell);
-						}
-					}
-					commitShip();
 				}
 
 				OnPropertyChanged();
@@ -156,18 +87,21 @@ namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
 
 			foreach (var ship in shipToAdd.ShipParts)
 			{
-				ship.Model.HasShip = true;
 				ship.Ship = shipToAdd;
 			}
 
 
 			_ships[shipToAdd.ShipType.Value]--;
+			UpdateShipCounts();
+			return true;
+		}
+
+		private void UpdateShipCounts()
+		{
 			OnPropertyChanged(nameof(AllowedSubmarines));
 			OnPropertyChanged(nameof(AllowedDestroyer));
 			OnPropertyChanged(nameof(AllowedCruisers));
 			OnPropertyChanged(nameof(AllowedBattleships));
-
-			return true;
 		}
 
 		public bool CanAddShip(Ship ship)
@@ -198,6 +132,16 @@ namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
 			var allowedAmountOfShips = _ships[ship.ShipType.Value];
 
 			return allowedAmountOfShips > 0;
+		}
+
+		public void RemoveShip(Ship shipToRemove)
+		{
+			_ships[shipToRemove.ShipType.Value]++;
+
+			foreach (var shipPart in shipToRemove.ShipParts)
+			{
+				shipPart.Ship = null;
+			}
 		}
 	}
 }

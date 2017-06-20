@@ -52,7 +52,7 @@
   <xs:element name="ArrayOfCellState" nillable="true" type="tns:ArrayOfCellState" />
   <xs:complexType name="CellState">
     <xs:sequence>
-      <xs:element minOccurs="0" name="HasShip" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ShipId" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="WasShot" type="xs:boolean" />
     </xs:sequence>
   </xs:complexType>

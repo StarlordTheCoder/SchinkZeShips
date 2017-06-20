@@ -257,19 +257,19 @@ namespace SchinkZeShips.Core.SchinkZeShipsReference {
     [System.Runtime.Serialization.DataContractAttribute(Name="CellState", Namespace="http://schemas.datacontract.org/2004/07/SchinkZeShips.Server")]
     public partial class CellState : object, System.ComponentModel.INotifyPropertyChanged {
         
-        private bool HasShipField;
+        private string ShipIdField;
         
         private bool WasShotField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool HasShip {
+        public string ShipId {
             get {
-                return this.HasShipField;
+                return this.ShipIdField;
             }
             set {
-                if ((this.HasShipField.Equals(value) != true)) {
-                    this.HasShipField = value;
-                    this.RaisePropertyChanged("HasShip");
+                if ((object.ReferenceEquals(this.ShipIdField, value) != true)) {
+                    this.ShipIdField = value;
+                    this.RaisePropertyChanged("ShipId");
                 }
             }
         }

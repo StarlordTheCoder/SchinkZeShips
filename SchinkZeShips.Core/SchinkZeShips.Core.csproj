@@ -104,6 +104,7 @@
     </Compile>
     <Compile Include="GameLobby\StartViewModel.cs" />
     <Compile Include="Infrastructure\ViewModelBase.cs" />
+    <Compile Include="SchinkZeShipsReference\CellState.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\SchinkZeShipsReference\SchinkZeShips.Core.SchinkZeShipsReference.Game.datasource">

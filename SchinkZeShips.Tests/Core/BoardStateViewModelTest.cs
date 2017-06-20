@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 using SchinkZeShips.Core.GameLogic;
 using SchinkZeShips.Core.SchinkZeShipsReference;
 using System.Collections.Generic;
@@ -38,7 +39,7 @@ namespace SchinkZeShips.Tests.Core
 
 		private Ship CoordinatesToShip(IEnumerable<Coordinate> ship)
 		{
-			return new Ship(ship.Select(s => _validate.Cells[s.Row][s.Column]).ToList(), true);
+			return new Ship(ship.Select(s => _validate.Cells[s.Row][s.Column]).ToList(), true, Guid.NewGuid().ToString());
 		}
 
 		private static List<List<Coordinate>> _invalidShipPositions = new List<List<Coordinate>>
@@ -52,8 +53,8 @@ namespace SchinkZeShips.Tests.Core
 		public void CantCreateInvalideShip(List<Coordinate> ship)
 		{
 			//Arrange
-			_board.Cells[0][0].HasShip = true;
-			_board.Cells[7][8].HasShip = true;
+			_board.Cells[0][0].ShipId = "Tolles Schiff";
+			_board.Cells[7][8].ShipId = "Tolles Schiff";
 
 
 			// Act & Assert

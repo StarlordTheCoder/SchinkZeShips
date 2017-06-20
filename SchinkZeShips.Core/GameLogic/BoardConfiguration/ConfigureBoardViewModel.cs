@@ -14,7 +14,7 @@ namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
 
 		public ConfigureBoardViewModel()
 		{
-			LockInLayoutCommand = new Command(LockInLayoutAsync);
+			LockInLayoutCommand = new Command(LockInLayoutAsync, () => ConfiguringBoard.Cells.SelectMany(c => c).Count(c => c.Ship != null) == BoardStateViewModel.AmountOfCellsWithShips);
 			ConfiguringBoard = new BoardStateViewModel(new BoardState(), true);
 		}
 
@@ -32,10 +32,9 @@ namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
 
 				if (remove)
 				{
-					foreach (var shipPart in clickedCell.Ship.ShipParts)
-					{
-						shipPart.Ship = null;
-					}
+					ConfiguringBoard.RemoveShip(clickedCell.Ship);
+
+					LockInLayoutCommand.ChangeCanExecute();
 				}
 
 				return;
@@ -117,11 +116,15 @@ namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
 
 				var addedShip = ConfiguringBoard.TryAddShip(new Ship(
 					shipToBePlaced.OrderBy(s => s.Row).ThenBy(s => s.Column).Select(s => ConfiguringBoard.Cells[s.Row][s.Column])
-						.ToList(), true));
+						.ToList(), true, Guid.NewGuid().ToString()));
 
 				if (!addedShip)
 				{
 					Dialogs.Alert("Das Schiff kann dort nicht platziert werden", "Platzieren fehlgeschlagen");
+				}
+				else
+				{
+					LockInLayoutCommand.ChangeCanExecute();
 				}
 			}
 		}

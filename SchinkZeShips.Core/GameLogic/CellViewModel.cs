@@ -41,8 +41,9 @@ namespace SchinkZeShips.Core.GameLogic
 			set
 			{
 				_ship = value;
-				OnPropertyChanged();
+				Model.ShipId = _ship?.ShipId;
 				_ship?.Update();
+				OnPropertyChanged();
 			}
 		}
 

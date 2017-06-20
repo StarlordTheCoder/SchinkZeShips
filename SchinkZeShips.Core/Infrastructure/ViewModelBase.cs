@@ -47,7 +47,6 @@ namespace SchinkZeShips.Core.Infrastructure
 		{
 			Device.BeginInvokeOnMainThread(() =>
 			{
-				Dialogs.HideLoading();
 				Application.Current.MainPage = new NavigationPage(page);
 			});
 		}

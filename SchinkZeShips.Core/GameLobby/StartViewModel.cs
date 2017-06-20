@@ -4,6 +4,7 @@ using SchinkZeShips.Core.ExtensionMethods;
 using SchinkZeShips.Core.GameLogic.BoardConfiguration;
 using SchinkZeShips.Core.GameLogic.InGame;
 using SchinkZeShips.Core.Infrastructure;
+using SchinkZeShips.Core.SchinkZeShipsReference;
 using Xamarin.Forms;
 
 namespace SchinkZeShips.Core.GameLobby
@@ -21,38 +22,11 @@ namespace SchinkZeShips.Core.GameLobby
 		{
 			ShowLoading("Überprüfe Spielzustand");
 
+			Game game = null;
+
 			try
 			{
-				var game = await Service.GetCurrentGame();
-
-				if (game != null)
-				{
-					if (game.IsInLobby())
-					{
-						PushViewModal(new GameLobbyView(game));
-					}
-					else if (game.IsConfiguringBoard())
-					{
-						var isCreator = game.ThisPlayerIsGameCreator();
-						if (isCreator && game.RunningGameState.BoardCreator == null ||
-						    !isCreator && game.RunningGameState.BoardParticipant == null)
-						{
-							PushViewModal(new ConfigureBoardView(game));
-						}
-						else
-						{
-							PushViewModal(new InGameView(game));
-						}
-					}
-					else if (game.IsPlaying())
-					{
-						PushViewModal(new InGameView(game));
-					}
-					else
-					{
-						throw new Exception("Dieser Fall sollte niemals eintreten");
-					}
-				}
+				game = await Service.GetCurrentGame();
 			}
 			catch (FaultException)
 			{
@@ -65,6 +39,35 @@ namespace SchinkZeShips.Core.GameLobby
 			finally
 			{
 				HideLoading();
+			}
+
+			if (game != null)
+			{
+				if (game.IsInLobby())
+				{
+					PushViewModal(new GameLobbyView(game));
+				}
+				else if (game.IsConfiguringBoard())
+				{
+					var isCreator = game.ThisPlayerIsGameCreator();
+					if (isCreator && game.RunningGameState.BoardCreator == null ||
+					    !isCreator && game.RunningGameState.BoardParticipant == null)
+					{
+						PushViewModal(new ConfigureBoardView(game));
+					}
+					else
+					{
+						PushViewModal(new InGameView(game));
+					}
+				}
+				else if (game.IsPlaying())
+				{
+					PushViewModal(new InGameView(game));
+				}
+				else
+				{
+					throw new Exception("Dieser Fall sollte niemals eintreten");
+				}
 			}
 		}
 

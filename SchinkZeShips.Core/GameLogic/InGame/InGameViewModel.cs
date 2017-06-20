@@ -6,6 +6,7 @@ using SchinkZeShips.Core.SchinkZeShipsReference;
 using Xamarin.Forms;
 using SchinkZeShips.Core.GameLobby;
 using System.ServiceModel;
+using SchinkZeShips.Core.GameLogic.BoardConfiguration;
 
 namespace SchinkZeShips.Core.GameLogic.InGame
 {
@@ -18,7 +19,7 @@ namespace SchinkZeShips.Core.GameLogic.InGame
 
 		public InGameViewModel() : base(InGameRefreshTimeoutInMs)
 		{
-			FireShotCommand = new Command(FireShotAsync, () => _selectedCell != null && CurrentGame.ThisPlayerIsGameCreator() == CurrentGame.RunningGameState.CurrentPlayerIsGameCreator);
+			FireShotCommand = new Command(FireShotAsync, () => _selectedCell != null && _selectedCell.Ship == null && CurrentGame.ThisPlayerIsGameCreator() == CurrentGame.RunningGameState.CurrentPlayerIsGameCreator);
 			SurrenderGameCommand = new Command(SurrenderGame);
 		}
 
@@ -33,13 +34,15 @@ namespace SchinkZeShips.Core.GameLogic.InGame
 
 			await Service.UpdateGameState(CurrentGame.Id, CurrentGame.RunningGameState);
 
+			_selectedCell = null;
+
 			FireShotCommand.ChangeCanExecute();
 
 			UpdateGamestateAsync();
 
 			var shotShips = CurrentGame.OtherPlayerBoard().Cells.SelectMany(c => c).Count(c => c.Model.WasShot && c.Model.HasShip);
 
-			if(shotShips == 30)
+			if(shotShips == BoardStateViewModel.AmountOfCellsWithShips)
 			{
 				Dialogs.Alert("Speil Gewonnen");
 				ShowLoading("Verlasse Spiel");
