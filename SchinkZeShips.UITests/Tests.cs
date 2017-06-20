@@ -95,8 +95,7 @@ namespace SchinkZeShips.UITests
 
 			_app.Tap("SearchGameButton");
 
-			// TODO Enable after search bar exists on android again
-			/*_app.WaitForElement("GameFilterSearchBar", "Failed to find search bar", TimeSpan.FromSeconds(20));
+			_app.WaitForElement("GameFilterSearchBar", "Failed to find search bar", TimeSpan.FromSeconds(20));
 
 			_app.EnterText("GameFilterSearchBar", randomGameName);
 			_app.DismissKeyboard();
@@ -104,15 +103,14 @@ namespace SchinkZeShips.UITests
 			_app.WaitForElement(e => e.Text(randomGameName), "Failed to find previously created game by name", TimeSpan.FromSeconds(10));
 
 			_app.ClearText("GameFilterSearchBar");
-			_app.EnterText("GameFilterSearchBar", randomUsername);
+			_app.EnterText("GameFilterSearchBar", Settings.Instance.Username);
 			_app.DismissKeyboard();
-			*/
 
 			_app.WaitForElement(e => e.Text(randomGameName), "Failed to find previously created game by creator", TimeSpan.FromSeconds(10));
 
 			_app.Tap(e => e.Text(randomGameName));
 
-			_app.WaitForElement(e => e.Marked("GameCreatorLabel").Text(Settings.Instance.UserId));
+			_app.WaitForElement(e => e.Marked("GameCreatorLabel").Text(Settings.Instance.Username));
 
 			_app.WaitForElement(e => e.Marked("GameParticipantLabel").Text(randomUsername));
 

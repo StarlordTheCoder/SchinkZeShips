@@ -13,25 +13,29 @@
 		<StackLayout Spacing="20" VerticalOptions="FillAndExpand">
 			<Grid BackgroundColor="LightSteelBlue" HeightRequest="40">
 				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="*"/>
-					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="Auto" />
 				</Grid.ColumnDefinitions>
-				<Label Grid.Column="0" Text="{Binding CurrentGame.GameCreator.Username}" AutomationId="GameCreatorLabel"/>
+				<Label Grid.Column="0" Text="{Binding CurrentGame.GameCreator.Username}" AutomationId="GameCreatorLabel" />
 				<Label Grid.Column="1" Text="★" FontSize="20" />
 			</Grid>
 
 			<Grid BackgroundColor="LightSteelBlue" HeightRequest="40">
 				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="*"/>
-					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="Auto" />
 				</Grid.ColumnDefinitions>
-				<Label Grid.Column="0" Text="{Binding CurrentGame.GameParticipant.Username}"  IsVisible="{Binding HasParticipant}" AutomationId="GameParticipantLabel"/>
+				<Label Grid.Column="0" Text="{Binding CurrentGame.GameParticipant.Username}" IsVisible="{Binding HasParticipant}"
+				       AutomationId="GameParticipantLabel" />
 				<Button Grid.Column="1"
 				        Text="Remove"
 				        AutomationId="KickParticipantButton"
 				        Command="{Binding KickParticipantCommand}"
 				        IsVisible="{Binding CanKickParticipant}" />
-				<ActivityIndicator Grid.Column="0" Grid.ColumnSpan="2" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" IsVisible="{Binding HasParticipant, Converter={StaticResource InverseBoolConverter}}" IsRunning="{Binding HasParticipant, Converter={StaticResource InverseBoolConverter}}"/>
+				<ActivityIndicator Grid.Column="0" Grid.ColumnSpan="2" VerticalOptions="CenterAndExpand"
+				                   HorizontalOptions="CenterAndExpand"
+				                   IsVisible="{Binding HasParticipant, Converter={StaticResource InverseBoolConverter}}"
+				                   IsRunning="{Binding HasParticipant, Converter={StaticResource InverseBoolConverter}}" />
 			</Grid>
 		</StackLayout>
 
@@ -44,6 +48,6 @@
 		        HorizontalOptions="FillAndExpand"
 		        VerticalOptions="EndAndExpand"
 		        AutomationId="StartGameButton"
-				Command="{Binding StartGameCommand} "/>
+		        Command="{Binding StartGameCommand} " />
 	</StackLayout>
 </ContentPage>
