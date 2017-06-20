@@ -18,6 +18,12 @@ namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
 			{
 				_model = value;
 
+				if (_model == null)
+				{
+					OnPropertyChanged();
+					return;
+				}
+
 				for (var row = 0; row < 10; row++)
 				{
 					for (var col = 0; col < 10; col++)
