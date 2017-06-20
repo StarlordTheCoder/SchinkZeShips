@@ -18,12 +18,13 @@
 			<converter:GameStateBoardConverter ReturnOwnerBoard="False" x:Key="OpponentBoardConverter" />
 		</ResourceDictionary>
 	</ContentPage.Resources>
-	
+
 	<StackLayout Spacing="20" Padding="20" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
 		<StackLayout Orientation="Horizontal" Spacing="20">
 			<gameLogic:BoardView BindingContext="{Binding CurrentGame, Converter={StaticResource OwnerBoardConverter}}" />
 			<gameLogic:BoardView BindingContext="{Binding CurrentGame, Converter={StaticResource OpponentBoardConverter}}" />
 		</StackLayout>
-		<Button Command="{Binding FireShotCommand}" Text="Fire!" />
+		<Button Command="{Binding FireShotCommand}" Text="Feuern!" />
+		<Button Command="{Binding SurrenderGameCommand}" Text="Aufgeben" />
 	</StackLayout>
 </ContentPage>
