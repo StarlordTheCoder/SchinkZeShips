@@ -11,17 +11,5 @@ namespace SchinkZeShips.Server
 
 		[DataMember]
 		public string Username { get; set; }
-
-		public override bool Equals(object obj)
-		{
-			var other = obj as Player;
-
-			return other != null && other.Id == Id && other.Username == Username;
-		}
-
-		public override int GetHashCode()
-		{
-			return Id.GetHashCode() ^ Username.GetHashCode();
-		}
 	}
 }

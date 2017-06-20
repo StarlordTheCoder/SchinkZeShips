@@ -116,7 +116,7 @@ namespace SchinkZeShips.Tests.Server
 			//Arrange
 			var creator = new Player();
 
-			var game = _service.CreateGame(creator, "Foo");
+			_service.CreateGame(creator, "Foo");
 			var game2 = new Game();
 
 			// Act & Assert
@@ -125,10 +125,12 @@ namespace SchinkZeShips.Tests.Server
 			{
 				BoardCreator = new BoardState()
 			};
-			currentGame.RunningGameState.BoardCreator.Cells[0][0].HasShip = true;
+
+			var placedShip = Guid.NewGuid().ToString();
+			currentGame.RunningGameState.BoardCreator.Cells[0][0].ShipId = placedShip;
 
 			_service.UpdateGameState(currentGame.Id, currentGame.RunningGameState);
-			Assert.That(_service.GetCurrentGame(creator.Id).RunningGameState.BoardCreator.Cells[0][0].HasShip, Is.EqualTo(true));
+			Assert.That(_service.GetCurrentGame(creator.Id).RunningGameState.BoardCreator.Cells[0][0].ShipId, Is.EqualTo(placedShip));
 
 			Assert.That(() => _service.UpdateGameState(game2.Id, game2.RunningGameState), Throws.Exception);
 		}
@@ -155,7 +157,7 @@ namespace SchinkZeShips.Tests.Server
 			{
 				BoardCreator = new BoardState()
 			};
-			newGameState.BoardCreator.Cells[0][0].HasShip = true;
+			newGameState.BoardCreator.Cells[0][0].ShipId = "Super uniqe ship ID";
 
 			// Act & Assert
 
