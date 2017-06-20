@@ -4,6 +4,8 @@ using SchinkZeShips.Core.ExtensionMethods;
 using SchinkZeShips.Core.Infrastructure;
 using SchinkZeShips.Core.SchinkZeShipsReference;
 using Xamarin.Forms;
+using SchinkZeShips.Core.GameLobby;
+using System.ServiceModel;
 
 namespace SchinkZeShips.Core.GameLogic.InGame
 {
@@ -12,10 +14,12 @@ namespace SchinkZeShips.Core.GameLogic.InGame
 		private const int InGameRefreshTimeoutInMs = 3000;
 		private Game _currentGame;
 		public Command FireShotCommand { get; }
+		public Command SurrenderGameCommand { get; }
 
 		public InGameViewModel() : base(InGameRefreshTimeoutInMs)
 		{
 			FireShotCommand = new Command(FireShotAsync, () => _selectedCell != null && CurrentGame.ThisPlayerIsGameCreator() == CurrentGame.RunningGameState.CurrentPlayerIsGameCreator);
+			SurrenderGameCommand = new Command(SurrenderGame);
 		}
 
 		private async void FireShotAsync()
@@ -32,6 +36,61 @@ namespace SchinkZeShips.Core.GameLogic.InGame
 			FireShotCommand.ChangeCanExecute();
 
 			UpdateGamestateAsync();
+
+			var shotShips = CurrentGame.OtherPlayerBoard().Cells.SelectMany(c => c).Count(c => c.Model.WasShot && c.Model.HasShip);
+
+			if(shotShips == 30)
+			{
+				Dialogs.Alert("Speil Gewonnen");
+				ShowLoading("Verlasse Spiel");
+
+				try
+				{
+					await Service.UpdateGameState(CurrentGame.Id, null);
+
+					CurrentGame.RunningGameState = null;
+					PushViewModal(new GameLobbyView(CurrentGame));
+				}
+				catch (FaultException)
+				{
+					throw;
+				}
+				catch (CommunicationException)
+				{
+					Dialogs.AlertNoConnection();
+				}
+				finally
+				{
+					HideLoading();
+				}
+			}
+
+		}
+
+		public async void SurrenderGame()
+		{
+			ShowLoading("Verlasse Spiel");
+
+			try
+			{
+				await Service.UpdateGameState(CurrentGame.Id, null);
+				await Service.RemoveFromGame(CurrentGame.Id, Settings.Instance.UserId);
+
+				CurrentGame = null;
+			}
+			catch (FaultException)
+			{
+				throw;
+			}
+			catch (CommunicationException)
+			{
+				Dialogs.AlertNoConnection();
+			}
+			finally
+			{
+				HideLoading();
+			}
+
 		}
 
 		public override Game CurrentGame
@@ -41,7 +100,7 @@ namespace SchinkZeShips.Core.GameLogic.InGame
 			{
 				if (_currentGame != null)
 				{
-					if (_currentGame.LatestChangeTime == value.LatestChangeTime)
+					if (_currentGame.LatestChangeTime == value?.LatestChangeTime)
 					{
 						// Ignore a change to the game if there were no changes
 						return;
@@ -51,6 +110,14 @@ namespace SchinkZeShips.Core.GameLogic.InGame
 					{
 						cell.SelectedChanged -= CellSelectedChanged;
 					}
+				}
+
+				if (value?.RunningGameState == null)
+				{
+					_currentGame = null;
+
+					PushViewModal(new StartView());
+					return;
 				}
 
 				foreach (var cell in value.OtherPlayerBoard().Cells.SelectMany(c => c))
