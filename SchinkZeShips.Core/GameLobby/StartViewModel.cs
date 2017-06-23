@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.ServiceModel;
 using SchinkZeShips.Core.ExtensionMethods;
 using SchinkZeShips.Core.GameLogic.BoardConfiguration;
@@ -16,6 +17,11 @@ namespace SchinkZeShips.Core.GameLobby
 			CreateGameCommand = new Command(CreateGame, () => !string.IsNullOrEmpty(Settings.Username));
 			SearchGameCommand = new Command(SearchGame, () => !string.IsNullOrEmpty(Settings.Username));
 		}
+
+		public Command CreateGameCommand { get; }
+		public Command SearchGameCommand { get; }
+
+		public Settings Settings { get; } = Settings.Instance;
 
 		private async void TestIfAlreadyInGameAsync()
 		{
@@ -41,7 +47,6 @@ namespace SchinkZeShips.Core.GameLobby
 			}
 
 			if (game != null)
-			{
 				if (game.IsInLobby())
 				{
 					PushViewModal(new GameLobbyView(game));
@@ -51,13 +56,9 @@ namespace SchinkZeShips.Core.GameLobby
 					var isCreator = game.ThisPlayerIsGameCreator();
 					if (isCreator && game.RunningGameState.BoardCreator == null ||
 					    !isCreator && game.RunningGameState.BoardParticipant == null)
-					{
 						PushViewModal(new ConfigureBoardView(game));
-					}
 					else
-					{
 						PushViewModal(new InGameView(game));
-					}
 				}
 				else if (game.IsPlaying())
 				{
@@ -67,10 +68,9 @@ namespace SchinkZeShips.Core.GameLobby
 				{
 					throw new Exception("Dieser Fall sollte niemals eintreten");
 				}
-			}
 		}
 
-		private void Settings_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+		private void Settings_PropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
 			CreateGameCommand.ChangeCanExecute();
 			SearchGameCommand.ChangeCanExecute();
@@ -89,14 +89,10 @@ namespace SchinkZeShips.Core.GameLobby
 			Settings.PropertyChanged -= Settings_PropertyChanged;
 		}
 
-		public Command CreateGameCommand { get; }
-		public Command SearchGameCommand { get; }
-
-		public Settings Settings { get; } = Settings.Instance;
-
 		private async void CreateGame()
 		{
-			var result = await Dialogs.PromptAsync("Spielname eingeben", okText: "Spiel erstellen", cancelText: "Abbrechen", placeholder: "Spielname");
+			var result = await Dialogs.PromptAsync("Spielname eingeben", okText: "Spiel erstellen", cancelText: "Abbrechen",
+				placeholder: "Spielname");
 
 			if (result.Ok)
 			{

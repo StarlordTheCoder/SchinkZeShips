@@ -17,7 +17,7 @@
 		        HorizontalOptions="Center"
 		        VerticalOptions="CenterAndExpand"
 		        AutomationId="CreateGameButton"
-				Command="{Binding CreateGameCommand} "/>
+		        Command="{Binding CreateGameCommand} " />
 		<Button Text="Spiel Suchen"
 		        HorizontalOptions="Center"
 		        VerticalOptions="CenterAndExpand"

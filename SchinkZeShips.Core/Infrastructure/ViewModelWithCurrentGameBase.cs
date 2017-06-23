@@ -19,7 +19,7 @@ namespace SchinkZeShips.Core.Infrastructure
 
 		private bool OnViewVisible
 		{
-			get { return _onViewVisible; }
+			get => _onViewVisible;
 			set
 			{
 				_onViewVisible = value;

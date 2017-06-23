@@ -13,9 +13,7 @@ namespace SchinkZeShips.Core.SchinkZeShipsReference
 				var list = new List<CellState>();
 
 				for (var j = 0; j < 10; j++)
-				{
 					list.Add(new CellState());
-				}
 
 				Cells.Add(list);
 			}

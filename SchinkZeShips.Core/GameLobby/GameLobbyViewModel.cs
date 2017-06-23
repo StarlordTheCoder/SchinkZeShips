@@ -20,6 +20,50 @@ namespace SchinkZeShips.Core.GameLobby
 			KickParticipantCommand = new Command(KickParticipantAsync, () => CanKickParticipant);
 		}
 
+		public override Game CurrentGame
+		{
+			get => _currentGame;
+			set
+			{
+				if (_leftLobbyManually)
+					return;
+
+				if (value == null)
+				{
+					PushViewModal(new StartView());
+					Dialogs.Alert("Sie sind nicht mehr Teil eines Spiels!");
+					return;
+				}
+
+				if (value.IsConfiguringBoard())
+				{
+					PushViewModal(new ConfigureBoardView(value));
+					Dialogs.Alert("Das Spiel wurde gestartet!");
+					return;
+				}
+
+				_currentGame = value;
+
+				OnPropertyChanged();
+				OnPropertyChanged(nameof(IsLobbyLeader));
+				OnPropertyChanged(nameof(HasParticipant));
+				OnPropertyChanged(nameof(CanKickParticipant));
+				StartGameCommand.ChangeCanExecute();
+				KickParticipantCommand.ChangeCanExecute();
+			}
+		}
+
+		public Command StartGameCommand { get; }
+		public Command LeaveGameCommand { get; }
+		public Command KickParticipantCommand { get; }
+
+		public bool IsLobbyLeader => CurrentGame != null &&
+		                             CurrentGame.ThisPlayerIsGameCreator();
+
+		public bool HasParticipant => CurrentGame?.GameParticipant != null;
+
+		public bool CanKickParticipant => HasParticipant && IsLobbyLeader;
+
 		private async void KickParticipantAsync()
 		{
 			if (!IsLobbyLeader)
@@ -74,52 +118,6 @@ namespace SchinkZeShips.Core.GameLobby
 				HideLoading();
 			}
 		}
-
-		public override Game CurrentGame
-		{
-			get { return _currentGame; }
-			set
-			{
-				if (_leftLobbyManually)
-				{
-					return;
-				}
-
-				if (value == null)
-				{
-					PushViewModal(new StartView());
-					Dialogs.Alert("Sie sind nicht mehr Teil eines Spiels!");
-					return;
-				}
-
-				if (value.IsConfiguringBoard())
-				{
-					PushViewModal(new ConfigureBoardView(value));
-					Dialogs.Alert("Das Spiel wurde gestartet!");
-					return;
-				}
-
-				_currentGame = value;
-
-				OnPropertyChanged();
-				OnPropertyChanged(nameof(IsLobbyLeader));
-				OnPropertyChanged(nameof(HasParticipant));
-				OnPropertyChanged(nameof(CanKickParticipant));
-				StartGameCommand.ChangeCanExecute();
-				KickParticipantCommand.ChangeCanExecute();
-			}
-		}
-
-		public Command StartGameCommand { get; }
-		public Command LeaveGameCommand { get; }
-		public Command KickParticipantCommand { get; }
-
-		public bool IsLobbyLeader => CurrentGame != null &&
-		                              CurrentGame.ThisPlayerIsGameCreator();
-
-		public bool HasParticipant => CurrentGame?.GameParticipant != null;
-
-		public bool CanKickParticipant => HasParticipant && IsLobbyLeader;
 
 		private async void StartGameAsync()
 		{

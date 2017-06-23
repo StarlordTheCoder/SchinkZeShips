@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using SchinkZeShips.Core.ExtensionMethods;
+using SchinkZeShips.Core.GameLogic.InGame;
 using SchinkZeShips.Core.Infrastructure;
 using SchinkZeShips.Core.SchinkZeShipsReference;
 using Xamarin.Forms;
@@ -12,13 +13,29 @@ namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
 	{
 		private Game _currentGame;
 
+		private CellViewModel _firstClickedCell;
+
 		public ConfigureBoardViewModel()
 		{
-			LockInLayoutCommand = new Command(LockInLayoutAsync, () => ConfiguringBoard.Cells.SelectMany(c => c).Count(c => c.Ship != null) == BoardStateViewModel.AmountOfCellsWithShips);
+			LockInLayoutCommand = new Command(LockInLayoutAsync,
+				() => ConfiguringBoard.Cells.SelectMany(c => c).Count(c => c.Ship != null) ==
+				      BoardStateViewModel.AmountOfCellsWithShips);
 			ConfiguringBoard = new BoardStateViewModel(new BoardState(), true);
 		}
 
-		private CellViewModel _firstClickedCell;
+		public Command LockInLayoutCommand { get; }
+
+		public Game CurrentGame
+		{
+			get => _currentGame;
+			set
+			{
+				_currentGame = value;
+				OnPropertyChanged();
+			}
+		}
+
+		public BoardStateViewModel ConfiguringBoard { get; }
 
 		private async void CellSelectedChanged(object sender, EventArgs eventArgs)
 		{
@@ -28,7 +45,9 @@ namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
 			{
 				clickedCell.IsSelected = false;
 
-				var remove = await Dialogs.ConfirmAsync($"Möchten Sie dieses {(clickedCell.Ship.ShipType.HasValue ? (int)clickedCell.Ship.ShipType.Value : 0)}er Schiff entfernen?");
+				var remove =
+					await Dialogs.ConfirmAsync(
+						$"Möchten Sie dieses {(clickedCell.Ship.ShipType.HasValue ? (int) clickedCell.Ship.ShipType.Value : 0)}er Schiff entfernen?");
 
 				if (remove)
 				{
@@ -62,9 +81,7 @@ namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
 				_firstClickedCell = null;
 
 				if (firstCoordinate == null || secondCoordinate == null)
-				{
 					throw new Exception("You clicked cells which are outside of the field. This should never happen");
-				}
 
 				var shipToBePlaced = new List<Coordinate>();
 
@@ -84,9 +101,7 @@ namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
 					}
 
 					for (var column = smallerColumn; column <= biggerColumn; column++)
-					{
 						shipToBePlaced.Add(new Coordinate(firstCoordinate.Row, column));
-					}
 				}
 				else if (firstCoordinate.Column == secondCoordinate.Column)
 				{
@@ -104,9 +119,7 @@ namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
 					}
 
 					for (var row = smallerRow; row <= biggerRow; row++)
-					{
 						shipToBePlaced.Add(new Coordinate(row, firstCoordinate.Column));
-					}
 				}
 				else
 				{
@@ -119,13 +132,9 @@ namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
 						.ToList(), true, Guid.NewGuid().ToString()));
 
 				if (!addedShip)
-				{
 					Dialogs.Alert("Das Schiff kann dort nicht platziert werden", "Platzieren fehlgeschlagen");
-				}
 				else
-				{
 					LockInLayoutCommand.ChangeCanExecute();
-				}
 			}
 		}
 
@@ -134,9 +143,7 @@ namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
 			base.OnAppearing();
 
 			foreach (var cell in ConfiguringBoard.Cells.SelectMany(c => c))
-			{
 				cell.SelectedChanged += CellSelectedChanged;
-			}
 		}
 
 		public override void OnDisappearing()
@@ -144,9 +151,7 @@ namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
 			base.OnDisappearing();
 
 			foreach (var cell in ConfiguringBoard.Cells.SelectMany(c => c))
-			{
 				cell.SelectedChanged -= CellSelectedChanged;
-			}
 		}
 
 		private async void LockInLayoutAsync()
@@ -154,31 +159,13 @@ namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
 			var latestGameState = await Service.GetCurrentGame();
 
 			if (latestGameState.ThisPlayerIsGameCreator())
-			{
 				latestGameState.RunningGameState.BoardCreator = ConfiguringBoard.Model;
-			}
 			else
-			{
 				latestGameState.RunningGameState.BoardParticipant = ConfiguringBoard.Model;
-			}
 
 			await Service.UpdateGameState(latestGameState.Id, latestGameState.RunningGameState);
 
-			PushViewModal(new InGame.InGameView(latestGameState));
+			PushViewModal(new InGameView(latestGameState));
 		}
-
-		public Command LockInLayoutCommand { get; }
-
-		public Game CurrentGame
-		{
-			get { return _currentGame; }
-			set
-			{
-				_currentGame = value;
-				OnPropertyChanged();
-			}
-		}
-
-		public BoardStateViewModel ConfiguringBoard { get; }
 	}
 }

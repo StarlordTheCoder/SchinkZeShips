@@ -9,14 +9,12 @@ namespace SchinkZeShips.Core.SchinkZeShipsReference
 			PropertyChanged += OnPropertyChanged;
 		}
 
+		public bool HasShip => !string.IsNullOrEmpty(ShipId);
+
 		private void OnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
 		{
 			if (propertyChangedEventArgs.PropertyName == nameof(ShipId))
-			{
 				RaisePropertyChanged(nameof(HasShip));
-			}
 		}
-
-		public bool HasShip => !string.IsNullOrEmpty(ShipId);
 	}
 }

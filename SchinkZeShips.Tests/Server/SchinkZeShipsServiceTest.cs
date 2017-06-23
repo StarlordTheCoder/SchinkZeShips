@@ -8,20 +8,13 @@ namespace SchinkZeShips.Tests.Server
 	[TestFixture]
 	public class SchinkZeShipsServiceTest
 	{
-		private ISchinkZeShips _service;
-
 		[SetUp]
 		public void SetUp()
 		{
 			_service = new SchinkZeShips.Server.SchinkZeShips();
 		}
 
-		[Test]
-		public void NewPlayerHasNoRunningGames()
-		{
-			//Act & Assert
-			Assert.That(_service.GetCurrentGame("RandomUserId"), Is.Null);
-		}
+		private ISchinkZeShips _service;
 
 		[Test]
 		public void CanJoinCreatedGame()
@@ -111,6 +104,13 @@ namespace SchinkZeShips.Tests.Server
 		}
 
 		[Test]
+		public void NewPlayerHasNoRunningGames()
+		{
+			//Act & Assert
+			Assert.That(_service.GetCurrentGame("RandomUserId"), Is.Null);
+		}
+
+		[Test]
 		public void UpdateCurrentGame()
 		{
 			//Arrange
@@ -130,7 +130,8 @@ namespace SchinkZeShips.Tests.Server
 			currentGame.RunningGameState.BoardCreator.Cells[0][0].ShipId = placedShip;
 
 			_service.UpdateGameState(currentGame.Id, currentGame.RunningGameState);
-			Assert.That(_service.GetCurrentGame(creator.Id).RunningGameState.BoardCreator.Cells[0][0].ShipId, Is.EqualTo(placedShip));
+			Assert.That(_service.GetCurrentGame(creator.Id).RunningGameState.BoardCreator.Cells[0][0].ShipId,
+				Is.EqualTo(placedShip));
 
 			Assert.That(() => _service.UpdateGameState(game2.Id, game2.RunningGameState), Throws.Exception);
 		}
@@ -182,6 +183,5 @@ namespace SchinkZeShips.Tests.Server
 			_service.UpdateGameState(game.Id, newGameState);
 			validateLatestChangeTime();
 		}
-
 	}
 }

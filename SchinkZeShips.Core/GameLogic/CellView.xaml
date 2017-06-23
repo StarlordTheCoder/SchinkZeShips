@@ -1,18 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <Frame xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:gameLogic="clr-namespace:SchinkZeShips.Core.GameLogic;assembly=SchinkZeShips.Core"
-             xmlns:converter="clr-namespace:SchinkZeShips.Core.Converter;assembly=SchinkZeShips.Core"
-             x:Class="SchinkZeShips.Core.GameLogic.CellView" Margin="0" Padding="0" HeightRequest="40" WidthRequest="40" HorizontalOptions="Fill" VerticalOptions="Fill"
-	   OutlineColor="Black" BackgroundColor="White" >
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:converter="clr-namespace:SchinkZeShips.Core.Converter;assembly=SchinkZeShips.Core"
+       x:Class="SchinkZeShips.Core.GameLogic.CellView" Margin="0" Padding="0" HeightRequest="40" WidthRequest="40"
+       HorizontalOptions="Fill" VerticalOptions="Fill"
+       OutlineColor="Black" BackgroundColor="White">
 	<Frame.Triggers>
 		<MultiTrigger TargetType="Frame">
 			<MultiTrigger.Conditions>
 				<BindingCondition Binding="{Binding IsSelected}" Value="True" />
 			</MultiTrigger.Conditions>
 			<MultiTrigger.Setters>
-				<Setter Property="BackgroundColor" Value="LightBlue"/>
+				<Setter Property="BackgroundColor" Value="LightBlue" />
 			</MultiTrigger.Setters>
 		</MultiTrigger>
 		<MultiTrigger TargetType="Frame">
@@ -22,7 +22,7 @@
 				<BindingCondition Binding="{Binding Ship.ShipVisible}" Value="True" />
 			</MultiTrigger.Conditions>
 			<MultiTrigger.Setters>
-				<Setter Property="BackgroundColor" Value="Blue"/>
+				<Setter Property="BackgroundColor" Value="Blue" />
 			</MultiTrigger.Setters>
 		</MultiTrigger>
 		<MultiTrigger TargetType="Frame">
@@ -31,7 +31,7 @@
 				<BindingCondition Binding="{Binding Model.WasShot}" Value="True" />
 			</MultiTrigger.Conditions>
 			<MultiTrigger.Setters>
-				<Setter Property="BackgroundColor" Value="Red"/>
+				<Setter Property="BackgroundColor" Value="Red" />
 			</MultiTrigger.Setters>
 		</MultiTrigger>
 		<MultiTrigger TargetType="Frame">
@@ -40,22 +40,23 @@
 				<BindingCondition Binding="{Binding Model.WasShot}" Value="True" />
 			</MultiTrigger.Conditions>
 			<MultiTrigger.Setters>
-				<Setter Property="BackgroundColor" Value="Coral"/>
+				<Setter Property="BackgroundColor" Value="Coral" />
 			</MultiTrigger.Setters>
 		</MultiTrigger>
 	</Frame.Triggers>
 	<Frame.GestureRecognizers>
-		<TapGestureRecognizer Tapped="Cell_Tapped" NumberOfTapsRequired="1"/>
+		<TapGestureRecognizer Tapped="Cell_Tapped" NumberOfTapsRequired="1" />
 	</Frame.GestureRecognizers>
-	<Image IsVisible="False" Source="{converter:ImageResourceExtension SchinkZeShips.Core.Resources.GrayNeedle.png}" Aspect="AspectFit" VerticalOptions="Fill" HorizontalOptions="CenterAndExpand">
+	<Image IsVisible="False" Source="{converter:ImageResourceExtension SchinkZeShips.Core.Resources.GrayNeedle.png}"
+	       Aspect="AspectFit" VerticalOptions="Fill" HorizontalOptions="CenterAndExpand">
 		<Image.Triggers>
 			<MultiTrigger TargetType="Image">
 				<MultiTrigger.Conditions>
-					<BindingCondition Binding="{Binding Ship.ShipVisible}" Value="True"/>
-					<BindingCondition Binding="{Binding Model.HasShip}" Value="True"/>
+					<BindingCondition Binding="{Binding Ship.ShipVisible}" Value="True" />
+					<BindingCondition Binding="{Binding Model.HasShip}" Value="True" />
 				</MultiTrigger.Conditions>
 				<MultiTrigger.Setters>
-					<Setter Property="IsVisible" Value="True"/>
+					<Setter Property="IsVisible" Value="True" />
 				</MultiTrigger.Setters>
 			</MultiTrigger>
 		</Image.Triggers>

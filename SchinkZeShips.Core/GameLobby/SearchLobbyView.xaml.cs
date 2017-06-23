@@ -27,7 +27,7 @@ namespace SchinkZeShips.Core.GameLobby
 
 		private async void ListView_OnItemTapped(object sender, ItemTappedEventArgs e)
 		{
-			await ((SearchLobbyViewModel) BindingContext).JoinGame((Game)e.Item);
+			await ((SearchLobbyViewModel) BindingContext).JoinGame((Game) e.Item);
 		}
 	}
 }

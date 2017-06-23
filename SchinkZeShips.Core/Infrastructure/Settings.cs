@@ -6,9 +6,9 @@ using SchinkZeShips.Core.SchinkZeShipsReference;
 namespace SchinkZeShips.Core.Infrastructure
 {
 	/// <summary>
-	/// This is the Settings static class that can be used in your Core solution or in any
-	/// of your client applications. All settings are laid out the same exact way with getters
-	/// and setters. 
+	///     This is the Settings static class that can be used in your Core solution or in any
+	///     of your client applications. All settings are laid out the same exact way with getters
+	///     and setters.
 	/// </summary>
 	public class Settings : NotifyPropertyChangedBase
 	{
@@ -36,7 +36,7 @@ namespace SchinkZeShips.Core.Infrastructure
 
 		public string Username
 		{
-			get { return AppSettings.GetValueOrDefault(UsernameKey, UsernameDefault); }
+			get => AppSettings.GetValueOrDefault(UsernameKey, UsernameDefault);
 			set
 			{
 				AppSettings.AddOrUpdateValue(UsernameKey, value);
@@ -52,7 +52,7 @@ namespace SchinkZeShips.Core.Infrastructure
 #else
 		public Guid Guid
 		{
-			get { return AppSettings.GetValueOrDefault<Guid>(GuidKey); }
+			get => AppSettings.GetValueOrDefault<Guid>(GuidKey);
 			set
 			{
 				AppSettings.AddOrUpdateValue(GuidKey, value);
@@ -67,11 +67,8 @@ namespace SchinkZeShips.Core.Infrastructure
 		private Settings()
 		{
 			if (!AppSettings.Contains(GuidKey))
-			{
 				Guid = Guid.NewGuid();
-			}
 		}
 #endif
-
 	}
 }

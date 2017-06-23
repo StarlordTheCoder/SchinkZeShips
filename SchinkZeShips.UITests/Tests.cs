@@ -41,7 +41,7 @@ namespace SchinkZeShips.UITests
 			if (game != null)
 			{
 				await _server.UpdateGameState(game.Id, null);
-				if(game.GameParticipant != null) await _server.RemoveFromGame(game.Id, game.GameParticipant.Id);
+				if (game.GameParticipant != null) await _server.RemoveFromGame(game.Id, game.GameParticipant.Id);
 				await _server.RemoveFromGame(game.Id, game.GameCreator.Id);
 			}
 		}
@@ -53,29 +53,6 @@ namespace SchinkZeShips.UITests
 		public Tests(Platform platform)
 		{
 			_platform = platform;
-		}
-
-		[Test]
-		public void UsernameSavedAfterRestart()
-		{
-			_app = AppInitializer.StartApp(_platform);
-
-			_app.WaitForElement("UsernameEntry", "Failed to start app", TimeSpan.FromSeconds(10));
-
-			_app.ClearText("UsernameEntry");
-
-			var randomUsername = Guid.NewGuid().ToString();
-
-			_app.EnterText(randomUsername);
-
-			_app.DismissKeyboard();
-
-			// Restart app
-			_app = AppInitializer.StartApp(_platform, AppDataMode.DoNotClear);
-
-			_app.WaitForElement("UsernameEntry", "Failed to start app second time", TimeSpan.FromSeconds(10));
-
-			_app.WaitForElement(e => e.Marked("UsernameEntry").Text(randomUsername), "Didn't find correct username", TimeSpan.FromSeconds(1));
 		}
 
 		[Test]
@@ -100,13 +77,15 @@ namespace SchinkZeShips.UITests
 			_app.EnterText("GameFilterSearchBar", randomGameName);
 			_app.DismissKeyboard();
 
-			_app.WaitForElement(e => e.Text(randomGameName), "Failed to find previously created game by name", TimeSpan.FromSeconds(10));
+			_app.WaitForElement(e => e.Text(randomGameName), "Failed to find previously created game by name",
+				TimeSpan.FromSeconds(10));
 
 			_app.ClearText("GameFilterSearchBar");
 			_app.EnterText("GameFilterSearchBar", Settings.Instance.Username);
 			_app.DismissKeyboard();
 
-			_app.WaitForElement(e => e.Text(randomGameName), "Failed to find previously created game by creator", TimeSpan.FromSeconds(10));
+			_app.WaitForElement(e => e.Text(randomGameName), "Failed to find previously created game by creator",
+				TimeSpan.FromSeconds(10));
 
 			_app.Tap(e => e.Text(randomGameName));
 
@@ -115,6 +94,30 @@ namespace SchinkZeShips.UITests
 			_app.WaitForElement(e => e.Marked("GameParticipantLabel").Text(randomUsername));
 
 			await RemoveCurrentGameAsync();
+		}
+
+		[Test]
+		public void UsernameSavedAfterRestart()
+		{
+			_app = AppInitializer.StartApp(_platform);
+
+			_app.WaitForElement("UsernameEntry", "Failed to start app", TimeSpan.FromSeconds(10));
+
+			_app.ClearText("UsernameEntry");
+
+			var randomUsername = Guid.NewGuid().ToString();
+
+			_app.EnterText(randomUsername);
+
+			_app.DismissKeyboard();
+
+			// Restart app
+			_app = AppInitializer.StartApp(_platform, AppDataMode.DoNotClear);
+
+			_app.WaitForElement("UsernameEntry", "Failed to start app second time", TimeSpan.FromSeconds(10));
+
+			_app.WaitForElement(e => e.Marked("UsernameEntry").Text(randomUsername), "Didn't find correct username",
+				TimeSpan.FromSeconds(1));
 		}
 	}
 }

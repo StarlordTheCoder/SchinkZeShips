@@ -22,7 +22,7 @@ namespace SchinkZeShips.Server
 		[DataMember]
 		public Player GameCreator
 		{
-			get { return _gameCreator; }
+			get => _gameCreator;
 			set
 			{
 				if (Equals(_gameCreator, value)) return;
@@ -34,7 +34,7 @@ namespace SchinkZeShips.Server
 		[DataMember]
 		public Player GameParticipant
 		{
-			get { return _gameParticipant; }
+			get => _gameParticipant;
 			set
 			{
 				if (Equals(_gameParticipant, value)) return;
@@ -46,7 +46,7 @@ namespace SchinkZeShips.Server
 		[DataMember]
 		public GameState RunningGameState
 		{
-			get { return _runningGameState; }
+			get => _runningGameState;
 			set
 			{
 				if (Equals(_runningGameState, value)) return;
@@ -69,8 +69,8 @@ namespace SchinkZeShips.Server
 			var other = obj as Game;
 
 			return other != null &&
-				Equals(other.Id, Id) &&
-				Equals(other.LatestChangeTime, LatestChangeTime);
+			       Equals(other.Id, Id) &&
+			       Equals(other.LatestChangeTime, LatestChangeTime);
 		}
 
 		public override int GetHashCode()

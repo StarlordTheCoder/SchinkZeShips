@@ -10,15 +10,16 @@ namespace SchinkZeShips.Server
 		private List<Game> Games { get; } = new List<Game>();
 
 		/// <inheritdoc />
-		public List<Game> GetAllOpenGames() => Games.Where(g => g.GameParticipant == null).ToList();
+		public List<Game> GetAllOpenGames()
+		{
+			return Games.Where(g => g.GameParticipant == null).ToList();
+		}
 
 		/// <inheritdoc />
 		public Game CreateGame(Player creator, string gameName)
 		{
 			if (GetCurrentGame(creator.Id) != null)
-			{
 				throw new FaultException("Sie sind bereits teil einer Runde");
-			}
 
 			var game = new Game
 			{
@@ -37,24 +38,16 @@ namespace SchinkZeShips.Server
 			var game = Games.FirstOrDefault(g => Equals(g.Id, gameIdToJoin));
 
 			if (game == null)
-			{
 				throw new FaultException("Runde wurde nicht gefunden");
-			}
 
 			if (game.RunningGameState != null)
-			{
 				throw new FaultException("Runde wurde bereits gestartet");
-			}
 
 			if (game.GameParticipant != null)
-			{
 				throw new FaultException("Runde bereits voll");
-			}
 
 			if (GetCurrentGame(player.Id) != null)
-			{
 				throw new FaultException("Sie sind bereits teil einer Runde");
-			}
 
 			game.GameParticipant = player;
 		}
@@ -73,17 +66,12 @@ namespace SchinkZeShips.Server
 			var game = Games.FirstOrDefault(g => Equals(g.Id, gameId));
 
 			if (game == null)
-			{
 				throw new FaultException("Runde wurde nicht gefunden");
-			}
 
 			if (game.RunningGameState != null)
-			{
 				throw new FaultException("Runde wurde bereits gestartet");
-			}
 
 			if (Equals(game.GameCreator.Id, playerId))
-			{
 				if (game.GameParticipant != null)
 				{
 					game.GameCreator = game.GameParticipant;
@@ -93,15 +81,10 @@ namespace SchinkZeShips.Server
 				{
 					Games.Remove(game);
 				}
-			}
 			else if (Equals(game.GameParticipant.Id, playerId))
-			{
 				game.GameParticipant = null;
-			}
 			else
-			{
 				throw new FaultException("Spieler nicht Teil der Runde");
-			}
 		}
 
 		/// <inheritdoc />
@@ -109,13 +92,8 @@ namespace SchinkZeShips.Server
 		{
 			var index = Games.FindIndex(g => Equals(g.Id, gameId));
 			if (index == -1)
-			{
 				throw new FaultException("Spiel existiert nicht");
-			}
-			else
-			{
-				Games[index].RunningGameState = gameState;
-			}
+			Games[index].RunningGameState = gameState;
 		}
 	}
 }

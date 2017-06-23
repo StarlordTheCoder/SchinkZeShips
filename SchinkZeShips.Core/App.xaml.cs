@@ -5,8 +5,8 @@ using SchinkZeShips.Core.GameLobby;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
+
 namespace SchinkZeShips.Core
 {
 	public partial class App
@@ -23,8 +23,8 @@ namespace SchinkZeShips.Core
 		{
 			// Handle when your app starts
 			MobileCenter.Start("android=8fc0dc45-73d1-42d4-89c7-e24cac248309;" +
-							   "uwp=5a68fff6-b282-4395-b40d-8a9f239b8544;" +
-							   "ios=cb9ff152-34e9-4f8b-9c2d-196c3ff38c2c",
+			                   "uwp=5a68fff6-b282-4395-b40d-8a9f239b8544;" +
+			                   "ios=cb9ff152-34e9-4f8b-9c2d-196c3ff38c2c",
 				typeof(Analytics), typeof(Crashes));
 		}
 

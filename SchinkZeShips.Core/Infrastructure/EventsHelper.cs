@@ -15,13 +15,7 @@ namespace SchinkZeShips.Core.Infrastructure
 		public static void Subscribe<TViewModel>(this ContentPage instance) where TViewModel : ViewModelBase
 		{
 			MessagingCenter.Subscribe<TViewModel, ContentPage>(instance, ViewModelBase.NavigationPushView,
-				(sender, page) =>
-				{
-					Device.BeginInvokeOnMainThread(async () =>
-					{
-						await instance.Navigation.PushAsync(page);
-					});
-				});
+				(sender, page) => { Device.BeginInvokeOnMainThread(async () => { await instance.Navigation.PushAsync(page); }); });
 		}
 
 		/// <summary>

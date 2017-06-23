@@ -19,7 +19,8 @@
 		          ItemTapped="ListView_OnItemTapped">
 			<ListView.ItemTemplate>
 				<DataTemplate>
-					<TextCell Text="{Binding Name}" Detail="{Binding GameCreator.Username, StringFormat='Erstellt von {0}'}" AutomationId="GameNameTextCell" />
+					<TextCell Text="{Binding Name}" Detail="{Binding GameCreator.Username, StringFormat='Erstellt von {0}'}"
+					          AutomationId="GameNameTextCell" />
 				</DataTemplate>
 			</ListView.ItemTemplate>
 		</ListView>

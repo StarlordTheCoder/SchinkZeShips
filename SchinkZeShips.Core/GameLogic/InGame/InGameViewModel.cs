@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
+using System.ServiceModel;
 using SchinkZeShips.Core.ExtensionMethods;
+using SchinkZeShips.Core.GameLobby;
+using SchinkZeShips.Core.GameLogic.BoardConfiguration;
 using SchinkZeShips.Core.Infrastructure;
 using SchinkZeShips.Core.SchinkZeShipsReference;
 using Xamarin.Forms;
-using SchinkZeShips.Core.GameLobby;
-using System.ServiceModel;
-using SchinkZeShips.Core.GameLogic.BoardConfiguration;
 
 namespace SchinkZeShips.Core.GameLogic.InGame
 {
@@ -14,8 +14,8 @@ namespace SchinkZeShips.Core.GameLogic.InGame
 	{
 		private const int InGameRefreshTimeoutInMs = 3000;
 		private Game _currentGame;
-		public Command FireShotCommand { get; }
-		public Command SurrenderGameCommand { get; }
+
+		private CellViewModel _lastClickedCell;
 
 		public InGameViewModel() : base(InGameRefreshTimeoutInMs)
 		{
@@ -23,14 +23,55 @@ namespace SchinkZeShips.Core.GameLogic.InGame
 			SurrenderGameCommand = new Command(SurrenderGame);
 		}
 
+		public Command FireShotCommand { get; }
+		public Command SurrenderGameCommand { get; }
+
+		public override Game CurrentGame
+		{
+			get => _currentGame;
+			set
+			{
+				if (_currentGame != null)
+				{
+					if (_currentGame.LatestChangeTime == value?.LatestChangeTime)
+						return;
+
+					foreach (var cell in _currentGame.OtherPlayerBoard().Cells.SelectMany(c => c))
+						cell.SelectedChanged -= CellSelectedChanged;
+				}
+
+				if (value?.RunningGameState == null)
+				{
+					_currentGame = null;
+
+					PushViewModal(new StartView());
+					return;
+				}
+
+				foreach (var cell in value.OtherPlayerBoard().Cells.SelectMany(c => c))
+					cell.SelectedChanged += CellSelectedChanged;
+
+				_currentGame = value;
+
+
+				if (_currentGame.IsConfiguringBoard())
+					ShowLoading("Warte, bis der andere Spieler sein Feld konfiguriert");
+				else if (_currentGame.RunningGameState.CurrentPlayerIsGameCreator != _currentGame.ThisPlayerIsGameCreator())
+					ShowLoading("Warte, bis der andere Spieler seinen Zug beendet");
+				else
+					HideLoading();
+
+				OnPropertyChanged();
+				FireShotCommand.ChangeCanExecute();
+			}
+		}
+
 		private async void FireShotAsync()
 		{
 			_lastClickedCell.Model.WasShot = true;
 
 			if (!_lastClickedCell.Model.HasShip)
-			{
 				CurrentGame.RunningGameState.CurrentPlayerIsGameCreator = !CurrentGame.RunningGameState.CurrentPlayerIsGameCreator;
-			}
 
 			await Service.UpdateGameState(CurrentGame.Id, CurrentGame.RunningGameState);
 
@@ -41,9 +82,10 @@ namespace SchinkZeShips.Core.GameLogic.InGame
 
 			UpdateGamestateAsync();
 
-			var shotShips = CurrentGame.OtherPlayerBoard().Cells.SelectMany(c => c).Count(c => c.Model.WasShot && c.Model.HasShip);
+			var shotShips = CurrentGame.OtherPlayerBoard().Cells.SelectMany(c => c)
+				.Count(c => c.Model.WasShot && c.Model.HasShip);
 
-			if(shotShips == BoardStateViewModel.AmountOfCellsWithShips)
+			if (shotShips == BoardStateViewModel.AmountOfCellsWithShips)
 			{
 				Dialogs.Alert("Spiel Gewonnen");
 				ShowLoading("Verlasse Spiel");
@@ -72,7 +114,8 @@ namespace SchinkZeShips.Core.GameLogic.InGame
 
 		private bool CanFireShot()
 		{
-			return _lastClickedCell != null && _lastClickedCell.IsSelected && !_lastClickedCell.Model.WasShot && CurrentGame.ThisPlayerIsGameCreator() ==
+			return _lastClickedCell != null && _lastClickedCell.IsSelected && !_lastClickedCell.Model.WasShot &&
+			       CurrentGame.ThisPlayerIsGameCreator() ==
 			       CurrentGame.RunningGameState.CurrentPlayerIsGameCreator;
 		}
 
@@ -99,74 +142,16 @@ namespace SchinkZeShips.Core.GameLogic.InGame
 			{
 				HideLoading();
 			}
-
-		}
-
-		public override Game CurrentGame
-		{
-			get { return _currentGame; }
-			set
-			{
-				if (_currentGame != null)
-				{
-					if (_currentGame.LatestChangeTime == value?.LatestChangeTime)
-					{
-						// Ignore a change to the game if there were no changes
-						return;
-					}
-
-					foreach (var cell in _currentGame.OtherPlayerBoard().Cells.SelectMany(c => c))
-					{
-						cell.SelectedChanged -= CellSelectedChanged;
-					}
-				}
-
-				if (value?.RunningGameState == null)
-				{
-					_currentGame = null;
-
-					PushViewModal(new StartView());
-					return;
-				}
-
-				foreach (var cell in value.OtherPlayerBoard().Cells.SelectMany(c => c))
-				{
-					cell.SelectedChanged += CellSelectedChanged;
-				}
-
-				_currentGame = value;
-
-
-				if (_currentGame.IsConfiguringBoard())
-				{
-					ShowLoading("Warte, bis der andere Spieler sein Feld konfiguriert");
-				}
-				else if (_currentGame.RunningGameState.CurrentPlayerIsGameCreator != _currentGame.ThisPlayerIsGameCreator())
-				{
-					ShowLoading("Warte, bis der andere Spieler seinen Zug beendet");
-				}
-				else
-				{
-					HideLoading();
-				}
-
-				OnPropertyChanged();
-				FireShotCommand.ChangeCanExecute();
-			}
 		}
 
 		private void CellSelectedChanged(object sender, EventArgs e)
 		{
 			if (_lastClickedCell != null)
-			{
 				_lastClickedCell.IsSelected = false;
-			}
 
-			_lastClickedCell = (CellViewModel)sender;
+			_lastClickedCell = (CellViewModel) sender;
 
 			FireShotCommand.ChangeCanExecute();
 		}
-
-		private CellViewModel _lastClickedCell;
 	}
 }

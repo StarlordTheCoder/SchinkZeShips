@@ -6,6 +6,9 @@ namespace SchinkZeShips.Core.ExtensionMethods
 {
 	public static class GameExtensions
 	{
+		private static BoardStateViewModel _otherPlayerBoardStateViewModel;
+		private static BoardStateViewModel _thisPlayerBoardStateViewModel;
+
 		public static bool IsInLobby(this Game game)
 		{
 			return game.RunningGameState == null;
@@ -29,37 +32,30 @@ namespace SchinkZeShips.Core.ExtensionMethods
 
 		public static BoardStateViewModel ThisPlayerBoard(this Game game)
 		{
-			var board = game.ThisPlayerIsGameCreator() ? game.RunningGameState.BoardCreator : game.RunningGameState.BoardParticipant;
+			var board = game.ThisPlayerIsGameCreator()
+				? game.RunningGameState.BoardCreator
+				: game.RunningGameState.BoardParticipant;
 
 			if (_thisPlayerBoardStateViewModel == null)
-			{
 				_thisPlayerBoardStateViewModel = new BoardStateViewModel(board, true);
-			}
 			else
-			{
 				_thisPlayerBoardStateViewModel.Model = board;
-			}
 
 			return _thisPlayerBoardStateViewModel;
 		}
 
 		public static BoardStateViewModel OtherPlayerBoard(this Game game)
 		{
-			var board = game.ThisPlayerIsGameCreator() ? game.RunningGameState.BoardParticipant : game.RunningGameState.BoardCreator;
+			var board = game.ThisPlayerIsGameCreator()
+				? game.RunningGameState.BoardParticipant
+				: game.RunningGameState.BoardCreator;
 
 			if (_otherPlayerBoardStateViewModel == null)
-			{
 				_otherPlayerBoardStateViewModel = new BoardStateViewModel(board, false);
-			}
 			else
-			{
 				_otherPlayerBoardStateViewModel.Model = board;
-			}
 
 			return _otherPlayerBoardStateViewModel;
 		}
-
-		private static BoardStateViewModel _otherPlayerBoardStateViewModel;
-		private static BoardStateViewModel _thisPlayerBoardStateViewModel;
 	}
 }

@@ -12,6 +12,7 @@ namespace SchinkZeShips.Core.GameLobby
 {
 	public class SearchLobbyViewModel : ViewModelBase
 	{
+		private IList<Game> _allGames = new List<Game>();
 		private string _gameFilter = string.Empty;
 		private bool _isLoadingGames;
 
@@ -23,7 +24,7 @@ namespace SchinkZeShips.Core.GameLobby
 
 		public string GameFilter
 		{
-			get { return _gameFilter; }
+			get => _gameFilter;
 			set
 			{
 				if (Equals(_gameFilter, value)) return;
@@ -35,7 +36,7 @@ namespace SchinkZeShips.Core.GameLobby
 
 		public bool IsLoadingGames
 		{
-			get { return _isLoadingGames; }
+			get => _isLoadingGames;
 			set
 			{
 				if (Equals(_isLoadingGames, value)) return;
@@ -47,8 +48,6 @@ namespace SchinkZeShips.Core.GameLobby
 		public ObservableCollection<Game> Games { get; } = new ObservableCollection<Game>();
 
 		public Command LoadGamesCommand { get; }
-
-		private IList<Game> _allGames = new List<Game>();
 
 		private async void LoadGames()
 		{

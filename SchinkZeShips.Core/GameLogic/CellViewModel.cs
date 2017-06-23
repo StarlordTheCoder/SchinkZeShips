@@ -6,12 +6,20 @@ namespace SchinkZeShips.Core.GameLogic
 {
 	public class CellViewModel : NotifyPropertyChangedBase
 	{
+		private bool _isSelected;
 		private CellState _model;
+		private Ship _ship;
+
+		public CellViewModel(Coordinate coordinate)
+		{
+			Coordinate = coordinate;
+		}
+
 		public Coordinate Coordinate { get; }
 
 		public CellState Model
 		{
-			get { return _model; }
+			get => _model;
 			set
 			{
 				_model = value;
@@ -19,12 +27,9 @@ namespace SchinkZeShips.Core.GameLogic
 			}
 		}
 
-		private bool _isSelected;
-		private Ship _ship;
-
 		public bool IsSelected
 		{
-			get { return _isSelected; }
+			get => _isSelected;
 			set
 			{
 				if (_isSelected == value) return;
@@ -37,7 +42,7 @@ namespace SchinkZeShips.Core.GameLogic
 
 		public Ship Ship
 		{
-			get { return _ship; }
+			get => _ship;
 			set
 			{
 				_ship = value;
@@ -53,11 +58,6 @@ namespace SchinkZeShips.Core.GameLogic
 		private void RaiseSelectedChanged()
 		{
 			SelectedChanged?.Invoke(this, EventArgs.Empty);
-		}
-
-		public CellViewModel(Coordinate coordinate)
-		{
-			Coordinate = coordinate;
 		}
 	}
 }

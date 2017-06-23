@@ -20,7 +20,7 @@ namespace SchinkZeShips.Android
 			base.OnCreate(bundle);
 
 			Forms.Init(this, bundle);
-			UserDialogs.Init(() => (Activity)Forms.Context);
+			UserDialogs.Init(() => (Activity) Forms.Context);
 			LoadApplication(new App());
 		}
 	}

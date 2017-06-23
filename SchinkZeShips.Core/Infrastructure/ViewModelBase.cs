@@ -14,6 +14,8 @@ namespace SchinkZeShips.Core.Infrastructure
 
 		protected static readonly IUserDialogs Dialogs = UserDialogs.Instance;
 
+		protected readonly GameLogicService Service = new GameLogicService();
+
 		protected static void ShowLoading(string title)
 		{
 			Dialogs.ShowLoading(title);
@@ -23,8 +25,6 @@ namespace SchinkZeShips.Core.Infrastructure
 		{
 			Dialogs.HideLoading();
 		}
-
-		protected readonly GameLogicService Service = new GameLogicService();
 
 		/// <summary>
 		///     Tells the current view to navigate to the provided page
@@ -45,14 +45,15 @@ namespace SchinkZeShips.Core.Infrastructure
 		/// <param name="page">The page to display</param>
 		protected static void PushViewModal(ContentPage page)
 		{
-			Device.BeginInvokeOnMainThread(() =>
-			{
-				Application.Current.MainPage = new NavigationPage(page);
-			});
+			Device.BeginInvokeOnMainThread(() => { Application.Current.MainPage = new NavigationPage(page); });
 		}
 
-		public virtual void OnAppearing() { }
-		public virtual void OnDisappearing() { }
+		public virtual void OnAppearing()
+		{
+		}
 
+		public virtual void OnDisappearing()
+		{
+		}
 	}
 }

@@ -7,10 +7,6 @@ namespace SchinkZeShips.Core.GameLogic
 {
 	public class Ship : NotifyPropertyChangedBase
 	{
-		public bool IsCreatorShip { get; }
-
-		public string ShipId { get; }
-
 		public Ship(IReadOnlyCollection<CellViewModel> shipParts, bool isCreatorShip, string shipId)
 		{
 			ShipParts = shipParts;
@@ -18,10 +14,9 @@ namespace SchinkZeShips.Core.GameLogic
 			ShipId = shipId;
 		}
 
-		public void Update()
-		{
-			OnPropertyChanged(nameof(ShipVisible));
-		}
+		public bool IsCreatorShip { get; }
+
+		public string ShipId { get; }
 
 		public IReadOnlyCollection<CellViewModel> ShipParts { get; }
 
@@ -33,10 +28,15 @@ namespace SchinkZeShips.Core.GameLogic
 
 				var validShipType = Enum.IsDefined(typeof(ShipType), shipLength);
 
-				return validShipType ? (ShipType?)shipLength : null;
+				return validShipType ? (ShipType?) shipLength : null;
 			}
 		}
 
 		public bool ShipVisible => ShipParts.Count > 0 && (IsCreatorShip || ShipParts.All(s => s.Model.WasShot));
+
+		public void Update()
+		{
+			OnPropertyChanged(nameof(ShipVisible));
+		}
 	}
 }
