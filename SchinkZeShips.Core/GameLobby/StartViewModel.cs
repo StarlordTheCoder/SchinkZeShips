@@ -15,7 +15,6 @@ namespace SchinkZeShips.Core.GameLobby
 		{
 			CreateGameCommand = new Command(CreateGame, () => !string.IsNullOrEmpty(Settings.Username));
 			SearchGameCommand = new Command(SearchGame, () => !string.IsNullOrEmpty(Settings.Username));
-			TestIfAlreadyInGameAsync();
 		}
 
 		private async void TestIfAlreadyInGameAsync()
@@ -81,6 +80,7 @@ namespace SchinkZeShips.Core.GameLobby
 		{
 			base.OnAppearing();
 			Settings.PropertyChanged += Settings_PropertyChanged;
+			TestIfAlreadyInGameAsync();
 		}
 
 		public override void OnDisappearing()

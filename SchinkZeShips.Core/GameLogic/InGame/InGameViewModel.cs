@@ -19,22 +19,23 @@ namespace SchinkZeShips.Core.GameLogic.InGame
 
 		public InGameViewModel() : base(InGameRefreshTimeoutInMs)
 		{
-			FireShotCommand = new Command(FireShotAsync, () => _selectedCell != null && _selectedCell.Ship == null && CurrentGame.ThisPlayerIsGameCreator() == CurrentGame.RunningGameState.CurrentPlayerIsGameCreator);
+			FireShotCommand = new Command(FireShotAsync, CanFireShot);
 			SurrenderGameCommand = new Command(SurrenderGame);
 		}
 
 		private async void FireShotAsync()
 		{
-			_selectedCell.Model.WasShot = true;
+			_lastClickedCell.Model.WasShot = true;
 
-			if (!_selectedCell.Model.HasShip)
+			if (!_lastClickedCell.Model.HasShip)
 			{
 				CurrentGame.RunningGameState.CurrentPlayerIsGameCreator = !CurrentGame.RunningGameState.CurrentPlayerIsGameCreator;
 			}
 
 			await Service.UpdateGameState(CurrentGame.Id, CurrentGame.RunningGameState);
 
-			_selectedCell = null;
+			_lastClickedCell.IsSelected = false;
+			_lastClickedCell = null;
 
 			FireShotCommand.ChangeCanExecute();
 
@@ -44,7 +45,7 @@ namespace SchinkZeShips.Core.GameLogic.InGame
 
 			if(shotShips == BoardStateViewModel.AmountOfCellsWithShips)
 			{
-				Dialogs.Alert("Speil Gewonnen");
+				Dialogs.Alert("Spiel Gewonnen");
 				ShowLoading("Verlasse Spiel");
 
 				try
@@ -67,7 +68,12 @@ namespace SchinkZeShips.Core.GameLogic.InGame
 					HideLoading();
 				}
 			}
+		}
 
+		private bool CanFireShot()
+		{
+			return _lastClickedCell != null && _lastClickedCell.IsSelected && !_lastClickedCell.Model.WasShot && CurrentGame.ThisPlayerIsGameCreator() ==
+			       CurrentGame.RunningGameState.CurrentPlayerIsGameCreator;
 		}
 
 		public async void SurrenderGame()
@@ -151,22 +157,16 @@ namespace SchinkZeShips.Core.GameLogic.InGame
 
 		private void CellSelectedChanged(object sender, EventArgs e)
 		{
-			if (_selectedCell != null)
+			if (_lastClickedCell != null)
 			{
-				_selectedCell.IsSelected = false;
+				_lastClickedCell.IsSelected = false;
 			}
 
-			_selectedCell = (CellViewModel) sender;
-
-			if (_selectedCell.Model.WasShot)
-			{
-				_selectedCell.IsSelected = false;
-				_selectedCell = null;
-			}
+			_lastClickedCell = (CellViewModel)sender;
 
 			FireShotCommand.ChangeCanExecute();
 		}
 
-		private CellViewModel _selectedCell;
+		private CellViewModel _lastClickedCell;
 	}
 }
