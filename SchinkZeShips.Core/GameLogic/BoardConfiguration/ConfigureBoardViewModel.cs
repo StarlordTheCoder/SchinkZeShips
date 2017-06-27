@@ -170,6 +170,9 @@ namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
 
 			await Service.UpdateGameState(latestGameState.Id, latestGameState.RunningGameState);
 
+			//TODO Use Service / better class
+			GameExtensions.ResetBoards();
+
 			PushViewModal(new InGameView(latestGameState));
 		}
 	}

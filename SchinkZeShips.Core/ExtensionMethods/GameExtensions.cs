@@ -58,5 +58,11 @@ namespace SchinkZeShips.Core.ExtensionMethods
 
 			return _otherPlayerBoardStateViewModel;
 		}
+
+		public static void ResetBoards()
+		{
+			_thisPlayerBoardStateViewModel = null;
+			_otherPlayerBoardStateViewModel = null;
+		}
 	}
 }
