@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using SchinkZeShips.Core.GameLogic.Board;
 using SchinkZeShips.Core.Infrastructure;
 
 namespace SchinkZeShips.Core.GameLogic

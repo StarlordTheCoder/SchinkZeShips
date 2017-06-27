@@ -9,45 +9,49 @@
 		<gameLobby:GameLobbyViewModel />
 	</ContentPage.BindingContext>
 
-	<StackLayout Spacing="20" Padding="20" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-		<StackLayout Spacing="20" VerticalOptions="FillAndExpand">
-			<Grid BackgroundColor="LightSteelBlue" HeightRequest="40">
+	<Grid Padding="20">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="40"/>
+			<RowDefinition Height="40"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition />
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
+		<Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" BackgroundColor="LightSteelBlue">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="*" />
 					<ColumnDefinition Width="Auto" />
 				</Grid.ColumnDefinitions>
 				<Label Grid.Column="0" Text="{Binding CurrentGame.GameCreator.Username}" AutomationId="GameCreatorLabel" />
 				<Label Grid.Column="1" Text="★" FontSize="20" />
-			</Grid>
+		</Grid>
 
-			<Grid BackgroundColor="LightSteelBlue" HeightRequest="40">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="*" />
-					<ColumnDefinition Width="Auto" />
-				</Grid.ColumnDefinitions>
-				<Label Grid.Column="0" Text="{Binding CurrentGame.GameParticipant.Username}" IsVisible="{Binding HasParticipant}"
+		<Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" BackgroundColor="LightSteelBlue">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="Auto" />
+			</Grid.ColumnDefinitions>
+			<Label Grid.Column="0" Text="{Binding CurrentGame.GameParticipant.Username}" IsVisible="{Binding HasParticipant}"
 				       AutomationId="GameParticipantLabel" />
-				<Button Grid.Column="1"
+			<Button Grid.Column="1"
 				        Text="Remove"
 				        AutomationId="KickParticipantButton"
 				        Command="{Binding KickParticipantCommand}"
 				        IsVisible="{Binding CanKickParticipant}" />
-				<ActivityIndicator Grid.Column="0" Grid.ColumnSpan="2" VerticalOptions="CenterAndExpand"
+			<ActivityIndicator Grid.Column="0" Grid.ColumnSpan="2" VerticalOptions="CenterAndExpand"
 				                   HorizontalOptions="CenterAndExpand"
 				                   IsVisible="{Binding HasParticipant, Converter={StaticResource InverseBoolConverter}}"
 				                   IsRunning="{Binding HasParticipant, Converter={StaticResource InverseBoolConverter}}" />
-			</Grid>
-		</StackLayout>
+		</Grid>
 
-		<Button Text="Spiel verlassen"
-		        HorizontalOptions="StartAndExpand"
-		        VerticalOptions="EndAndExpand"
+		<Button Text="Spiel verlassen" Grid.Row="3" Grid.Column="0"
 		        AutomationId="LeaveGameButton"
 		        Command="{Binding LeaveGameCommand}" />
-		<Button Text="Spiel starten"
-		        HorizontalOptions="FillAndExpand"
-		        VerticalOptions="EndAndExpand"
+		<Button Text="Spiel starten" Grid.Row="3" Grid.Column="1"
 		        AutomationId="StartGameButton"
 		        Command="{Binding StartGameCommand} " />
-	</StackLayout>
+	</Grid>
 </ContentPage>

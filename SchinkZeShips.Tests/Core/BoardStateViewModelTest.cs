@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using SchinkZeShips.Core.GameLogic;
+using SchinkZeShips.Core.GameLogic.Board;
 using SchinkZeShips.Core.GameLogic.BoardConfiguration;
 using SchinkZeShips.Core.SchinkZeShipsReference;
 

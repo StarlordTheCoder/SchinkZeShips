@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using SchinkZeShips.Core.ExtensionMethods;
+using SchinkZeShips.Core.GameLogic.Board;
 using SchinkZeShips.Core.GameLogic.InGame;
 using SchinkZeShips.Core.Infrastructure;
 using SchinkZeShips.Core.SchinkZeShipsReference;
@@ -43,6 +44,10 @@ namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
 
 			if (clickedCell.IsSelected && clickedCell.Ship != null)
 			{
+				if (_firstClickedCell != null)
+				{
+					_firstClickedCell.IsSelected = false;
+				}
 				clickedCell.IsSelected = false;
 
 				var remove =

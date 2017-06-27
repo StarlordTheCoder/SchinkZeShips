@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SchinkZeShips.Core.GameLogic
+namespace SchinkZeShips.Core.GameLogic.Board
 {
 	public partial class CellView
 	{

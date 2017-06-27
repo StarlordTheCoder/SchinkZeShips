@@ -9,7 +9,7 @@
 		<gameLobby:StartViewModel />
 	</ContentPage.BindingContext>
 
-	<StackLayout Spacing="20" Padding="20" VerticalOptions="Center">
+	<StackLayout Spacing="20" VerticalOptions="Center">
 		<Entry Placeholder="Benutzername" Text="{Binding Settings.Username}"
 		       HorizontalOptions="CenterAndExpand"
 		       AutomationId="UsernameEntry" />

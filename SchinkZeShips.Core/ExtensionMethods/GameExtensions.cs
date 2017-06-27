@@ -1,4 +1,5 @@
-﻿using SchinkZeShips.Core.GameLogic.BoardConfiguration;
+﻿using SchinkZeShips.Core.GameLogic.Board;
+using SchinkZeShips.Core.GameLogic.BoardConfiguration;
 using SchinkZeShips.Core.Infrastructure;
 using SchinkZeShips.Core.SchinkZeShipsReference;
 

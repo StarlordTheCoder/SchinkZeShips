@@ -1,4 +1,4 @@
-﻿namespace SchinkZeShips.Core.GameLogic
+﻿namespace SchinkZeShips.Core.GameLogic.Board
 {
 	public partial class CellRowView
 	{

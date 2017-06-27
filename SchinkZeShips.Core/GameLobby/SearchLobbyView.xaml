@@ -9,9 +9,8 @@
 		<gameLobby:SearchLobbyViewModel />
 	</ContentPage.BindingContext>
 
-	<StackLayout Spacing="20" Padding="20" VerticalOptions="Center">
+	<StackLayout Spacing="20" Padding="20">
 		<SearchBar Text="{Binding GameFilter}"
-		           HorizontalOptions="FillAndExpand"
 		           VerticalOptions="StartAndExpand"
 		           AutomationId="GameFilterSearchBar" />
 		<ListView IsPullToRefreshEnabled="True" IsRefreshing="{Binding IsLoadingGames}"
@@ -25,7 +24,6 @@
 			</ListView.ItemTemplate>
 		</ListView>
 		<Button Text="Aktualisieren"
-		        HorizontalOptions="FillAndExpand"
 		        VerticalOptions="EndAndExpand"
 		        AutomationId="RefreshButton"
 		        Command="{Binding LoadGamesCommand} " />

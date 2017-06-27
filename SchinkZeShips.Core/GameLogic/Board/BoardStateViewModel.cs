@@ -3,7 +3,7 @@ using System.Linq;
 using SchinkZeShips.Core.Infrastructure;
 using SchinkZeShips.Core.SchinkZeShipsReference;
 
-namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
+namespace SchinkZeShips.Core.GameLogic.Board
 {
 	public class BoardStateViewModel : NotifyPropertyChangedBase
 	{
@@ -70,8 +70,6 @@ namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
 		public int AllowedBattleships => _ships[ShipType.Battleship];
 
 		public List<List<CellViewModel>> Cells { get; } = new List<List<CellViewModel>>();
-
-		public List<CellViewModel> AllCells => Cells.SelectMany(c => c).ToList();
 
 		public bool IsCreatorBoard { get; }
 

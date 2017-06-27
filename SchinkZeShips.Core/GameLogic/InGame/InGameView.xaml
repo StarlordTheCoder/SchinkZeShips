@@ -5,31 +5,33 @@
              xmlns:gameLogic="clr-namespace:SchinkZeShips.Core.GameLogic;assembly=SchinkZeShips.Core"
              xmlns:inGame="clr-namespace:SchinkZeShips.Core.GameLogic.InGame;assembly=SchinkZeShips.Core"
              xmlns:converter="clr-namespace:SchinkZeShips.Core.Converter;assembly=SchinkZeShips.Core"
+             xmlns:board="clr-namespace:SchinkZeShips.Core.GameLogic.Board;assembly=SchinkZeShips.Core"
              x:Class="SchinkZeShips.Core.GameLogic.InGame.InGameView"
              Title="{Binding CurrentGame.Name}">
 	<ContentPage.BindingContext>
 		<inGame:InGameViewModel />
 	</ContentPage.BindingContext>
 	<ContentPage.Resources>
-
-		<!-- Application resource dictionary -->
 		<ResourceDictionary>
 			<converter:GameStateBoardConverter ReturnOwnerBoard="True" x:Key="OwnerBoardConverter" />
 			<converter:GameStateBoardConverter ReturnOwnerBoard="False" x:Key="OpponentBoardConverter" />
 		</ResourceDictionary>
 	</ContentPage.Resources>
-	<Grid Padding="20" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+	<Grid Padding="20">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="*"/>
-			<RowDefinition Height="*"/>
-			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="2*"/>
 			<RowDefinition Height="Auto"/>
 		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
 		<Label Text="Hier wird Text stehen" Grid.Row="0"/>
-		<gameLogic:BoardView Grid.Row="1" BindingContext="{Binding CurrentGame, Converter={StaticResource OwnerBoardConverter}}" />
-		<gameLogic:BoardView Grid.Row="2" BindingContext="{Binding CurrentGame, Converter={StaticResource OpponentBoardConverter}}" />
-		<Button Grid.Row="3" Command="{Binding FireShotCommand}" Text="Feuern!" />
-		<Button Grid.Row="4" Command="{Binding SurrenderGameCommand}" Text="Aufgeben" />
+		<board:BoardView Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" BindingContext="{Binding CurrentGame, Converter={StaticResource OwnerBoardConverter}}" />
+		<board:BoardView Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" BindingContext="{Binding CurrentGame, Converter={StaticResource OpponentBoardConverter}}" />
+		<Button Grid.Column="1" Grid.Row="3" Command="{Binding FireShotCommand}" Text="Feuern!" />
+		<Button Grid.Column="0" Grid.Row="3" Command="{Binding SurrenderGameCommand}" Text="Aufgeben" />
 	</Grid>
 </ContentPage>

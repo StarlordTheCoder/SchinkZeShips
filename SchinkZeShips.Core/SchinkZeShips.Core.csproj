@@ -59,16 +59,16 @@
     <Compile Include="ExtensionMethods\StringExtensions.cs" />
     <Compile Include="ExtensionMethods\GameExtensions.cs" />
     <Compile Include="ExtensionMethods\UserDialogsExtensions.cs" />
-    <Compile Include="GameLogic\CellView.xaml.cs">
+    <Compile Include="GameLogic\Board\CellView.xaml.cs">
       <DependentUpon>CellView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GameLogic\CellRowView.xaml.cs">
+    <Compile Include="GameLogic\Board\CellRowView.xaml.cs">
       <DependentUpon>CellRowView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GameLogic\BoardView.xaml.cs">
+    <Compile Include="GameLogic\Board\BoardView.xaml.cs">
       <DependentUpon>BoardView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GameLogic\CellViewModel.cs" />
+    <Compile Include="GameLogic\Board\CellViewModel.cs" />
     <Compile Include="GameLogic\Coordinate.cs" />
     <Compile Include="GameLogic\InGame\InGameViewModel.cs" />
     <Compile Include="GameLogic\InGame\InGameView.xaml.cs">
@@ -78,7 +78,7 @@
       <DependentUpon>ConfigureBoardView.xaml</DependentUpon>
     </Compile>
     <Compile Include="GameLogic\BoardConfiguration\ConfigureBoardViewModel.cs" />
-    <Compile Include="GameLogic\BoardConfiguration\BoardStateViewModel.cs" />
+    <Compile Include="GameLogic\Board\BoardStateViewModel.cs" />
     <Compile Include="GameLobby\SearchLobbyView.xaml.cs">
       <DependentUpon>SearchLobbyView.xaml</DependentUpon>
     </Compile>
@@ -177,21 +177,21 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="GameLogic\BoardView.xaml">
+    <EmbeddedResource Include="GameLogic\Board\BoardView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>
       </SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="GameLogic\CellRowView.xaml">
+    <EmbeddedResource Include="GameLogic\Board\CellRowView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>
       </SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="GameLogic\CellView.xaml">
+    <EmbeddedResource Include="GameLogic\Board\CellView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>
       </SubType>

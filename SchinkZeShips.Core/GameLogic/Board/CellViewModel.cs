@@ -4,15 +4,15 @@ using SchinkZeShips.Core.Infrastructure;
 using SchinkZeShips.Core.SchinkZeShipsReference;
 using Xamarin.Forms;
 
-namespace SchinkZeShips.Core.GameLogic
+namespace SchinkZeShips.Core.GameLogic.Board
 {
 	public class CellViewModel : NotifyPropertyChangedBase
 	{
 		private bool _isSelected;
 		private CellState _model;
 		private Ship _ship;
-		private ImageSource _shipImage;
 		private int _rotation;
+		private string _shipImageName;
 
 		public CellViewModel(Coordinate coordinate)
 		{
@@ -41,13 +41,16 @@ namespace SchinkZeShips.Core.GameLogic
 			}
 		}
 
-		public ImageSource ShipImage
+		public ImageSource ShipImage { get; private set; }
+
+		private string ShipImageName
 		{
-			get => _shipImage;
 			set
 			{
-				_shipImage = value;
-				OnPropertyChanged();
+				if (Equals(_shipImageName, value)) return;
+				_shipImageName = value;
+				ShipImage = _shipImageName != null ? ImageSource.FromResource($"SchinkZeShips.Core.Resources.{_shipImageName}") : null;
+				OnPropertyChanged(nameof(ShipImage));
 			}
 		}
 
@@ -82,7 +85,7 @@ namespace SchinkZeShips.Core.GameLogic
 			if (Ship == null)
 			{
 				Rotation = 0;
-				ShipImage = null;
+				ShipImageName = null;
 				return;
 			}
 
@@ -93,11 +96,11 @@ namespace SchinkZeShips.Core.GameLogic
 
 			if (previous != null && next != null)
 			{
-				ShipImage = ImageSource.FromResource("SchinkZeShips.Core.Resources.ShipCenter.png");
+				ShipImageName = "ShipCenter.png";
 			}
 			else
 			{
-				ShipImage = ImageSource.FromResource("SchinkZeShips.Core.Resources.ShipStartEnd.png");
+				ShipImageName = "ShipStartEnd.png";
 			}
 
 			var neighbour = (previous ?? next).Coordinate;

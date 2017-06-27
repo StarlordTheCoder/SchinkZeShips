@@ -5,7 +5,6 @@
              xmlns:converter="clr-namespace:SchinkZeShips.Core.Converter;assembly=SchinkZeShips.Core"
              x:Class="SchinkZeShips.Core.App">
 	<Application.Resources>
-
 		<!-- Application resource dictionary -->
 		<ResourceDictionary>
 			<converter:InvertBooleanConverter x:Key="InverseBoolConverter" />

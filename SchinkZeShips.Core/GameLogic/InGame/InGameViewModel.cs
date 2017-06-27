@@ -3,6 +3,7 @@ using System.Linq;
 using System.ServiceModel;
 using SchinkZeShips.Core.ExtensionMethods;
 using SchinkZeShips.Core.GameLobby;
+using SchinkZeShips.Core.GameLogic.Board;
 using SchinkZeShips.Core.GameLogic.BoardConfiguration;
 using SchinkZeShips.Core.Infrastructure;
 using SchinkZeShips.Core.SchinkZeShipsReference;
