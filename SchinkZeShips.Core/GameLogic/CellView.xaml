@@ -4,7 +4,7 @@
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:converter="clr-namespace:SchinkZeShips.Core.Converter;assembly=SchinkZeShips.Core"
        x:Class="SchinkZeShips.Core.GameLogic.CellView" Margin="0" Padding="0" HeightRequest="40" WidthRequest="40"
-       HorizontalOptions="Fill" VerticalOptions="Fill"
+       HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
        OutlineColor="Black" BackgroundColor="White">
 	<Frame.Triggers>
 		<MultiTrigger TargetType="Frame">
@@ -15,6 +15,7 @@
 				<Setter Property="BackgroundColor" Value="LightBlue" />
 			</MultiTrigger.Setters>
 		</MultiTrigger>
+		<!--
 		<MultiTrigger TargetType="Frame">
 			<MultiTrigger.Conditions>
 				<BindingCondition Binding="{Binding Model.HasShip}" Value="True" />
@@ -43,22 +44,34 @@
 				<Setter Property="BackgroundColor" Value="Coral" />
 			</MultiTrigger.Setters>
 		</MultiTrigger>
+		-->
 	</Frame.Triggers>
 	<Frame.GestureRecognizers>
 		<TapGestureRecognizer Tapped="Cell_Tapped" NumberOfTapsRequired="1" />
 	</Frame.GestureRecognizers>
-	<Image IsVisible="False" Source="{converter:ImageResourceExtension SchinkZeShips.Core.Resources.GrayNeedle.png}"
-	       Aspect="AspectFit" VerticalOptions="Fill" HorizontalOptions="CenterAndExpand">
-		<Image.Triggers>
-			<MultiTrigger TargetType="Image">
-				<MultiTrigger.Conditions>
-					<BindingCondition Binding="{Binding Ship.ShipVisible}" Value="True" />
-					<BindingCondition Binding="{Binding Model.HasShip}" Value="True" />
-				</MultiTrigger.Conditions>
-				<MultiTrigger.Setters>
-					<Setter Property="IsVisible" Value="True" />
-				</MultiTrigger.Setters>
-			</MultiTrigger>
-		</Image.Triggers>
-	</Image>
+	<Grid>
+		<Image IsVisible="{Binding Ship.ShipVisible}" Source="{Binding ShipImage}" Rotation="{Binding Rotation}" Aspect="Fill" VerticalOptions="Fill" HorizontalOptions="Fill" />
+		<Image Aspect="AspectFit" VerticalOptions="Center" HorizontalOptions="Center">
+			<Image.Triggers>
+				<MultiTrigger TargetType="Image">
+					<MultiTrigger.Conditions>
+						<BindingCondition Binding="{Binding Model.WasShot}" Value="True" />
+						<BindingCondition Binding="{Binding Model.HasShip}" Value="True" />
+					</MultiTrigger.Conditions>
+					<MultiTrigger.Setters>
+						<Setter Property="Source" Value="{converter:ImageResourceExtension SchinkZeShips.Core.Resources.OrangeNeedle.png}" />
+					</MultiTrigger.Setters>
+				</MultiTrigger>
+				<MultiTrigger TargetType="Image">
+					<MultiTrigger.Conditions>
+						<BindingCondition Binding="{Binding Model.WasShot}" Value="True" />
+						<BindingCondition Binding="{Binding Model.HasShip}" Value="False" />
+					</MultiTrigger.Conditions>
+					<MultiTrigger.Setters>
+						<Setter Property="Source" Value="{converter:ImageResourceExtension SchinkZeShips.Core.Resources.GrayNeedle.png}" />
+					</MultiTrigger.Setters>
+				</MultiTrigger>
+			</Image.Triggers>
+		</Image>
+	</Grid>
 </Frame>

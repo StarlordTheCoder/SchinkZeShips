@@ -53,7 +53,7 @@ namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
 					Cells[row][col].Model = _model.Cells[row][col];
 
 				foreach (var cellsOfShip in Cells.SelectMany(c => c).Where(c => !string.IsNullOrEmpty(c.Model.ShipId))
-					.GroupBy(c => c.Model.ShipId))
+					.OrderBy(s => s.Coordinate.Row).ThenBy(s => s.Coordinate.Column).GroupBy(c => c.Model.ShipId))
 				{
 					var ship = new Ship(cellsOfShip.ToList(), IsCreatorBoard, cellsOfShip.Key);
 					foreach (var cell in cellsOfShip)
@@ -70,6 +70,8 @@ namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
 		public int AllowedBattleships => _ships[ShipType.Battleship];
 
 		public List<List<CellViewModel>> Cells { get; } = new List<List<CellViewModel>>();
+
+		public List<CellViewModel> AllCells => Cells.SelectMany(c => c).ToList();
 
 		public bool IsCreatorBoard { get; }
 

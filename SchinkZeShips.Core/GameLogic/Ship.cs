@@ -7,7 +7,7 @@ namespace SchinkZeShips.Core.GameLogic
 {
 	public class Ship : NotifyPropertyChangedBase
 	{
-		public Ship(IReadOnlyCollection<CellViewModel> shipParts, bool isCreatorShip, string shipId)
+		public Ship(IList<CellViewModel> shipParts, bool isCreatorShip, string shipId)
 		{
 			ShipParts = shipParts;
 			IsCreatorShip = isCreatorShip;
@@ -18,7 +18,7 @@ namespace SchinkZeShips.Core.GameLogic
 
 		public string ShipId { get; }
 
-		public IReadOnlyCollection<CellViewModel> ShipParts { get; }
+		public IList<CellViewModel> ShipParts { get; }
 
 		public ShipType? ShipType
 		{
