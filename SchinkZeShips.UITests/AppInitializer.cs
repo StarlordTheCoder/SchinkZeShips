@@ -15,6 +15,7 @@ namespace SchinkZeShips.UITests
 
 			return ConfigureApp
 				.iOS
+				.InstalledApp("ch.tbz.SchinkZeShips")
 				.StartApp();
 		}
 	}

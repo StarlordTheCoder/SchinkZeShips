@@ -11,7 +11,6 @@ namespace SchinkZeShips.Core.GameLogic.Board
 		private bool _isSelected;
 		private CellState _model;
 		private Ship _ship;
-		private int _rotation;
 		private string _shipImageName;
 
 		public CellViewModel(Coordinate coordinate)
@@ -27,16 +26,6 @@ namespace SchinkZeShips.Core.GameLogic.Board
 			set
 			{
 				_model = value;
-				OnPropertyChanged();
-			}
-		}
-
-		public int Rotation
-		{
-			get => _rotation;
-			set
-			{
-				_rotation = value;
 				OnPropertyChanged();
 			}
 		}
@@ -84,7 +73,6 @@ namespace SchinkZeShips.Core.GameLogic.Board
 		{
 			if (Ship == null)
 			{
-				Rotation = 0;
 				ShipImageName = null;
 				return;
 			}
@@ -94,24 +82,30 @@ namespace SchinkZeShips.Core.GameLogic.Board
 			var previous = Ship.ShipParts.ElementAtOrDefault(ownIndex - 1);
 			var next = Ship.ShipParts.ElementAtOrDefault(ownIndex + 1);
 
+			string imageNameBase;
+
 			if (previous != null && next != null)
 			{
-				ShipImageName = "ShipCenter.png";
+				imageNameBase = "ShipCenter";
 			}
 			else
 			{
-				ShipImageName = "ShipStartEnd.png";
+				imageNameBase = "ShipStartEnd";
 			}
+
+			string imageOrientation;
 
 			var neighbour = (previous ?? next).Coordinate;
 			if (neighbour.Row == Coordinate.Row)
 			{
-				Rotation = neighbour.Column > Coordinate.Column ? 180 : 0;
+				imageOrientation = neighbour.Column > Coordinate.Column ? "Left" : "Right";
 			}
 			else
 			{
-				Rotation = neighbour.Row > Coordinate.Row ? 270 : 90;
+				imageOrientation = neighbour.Row > Coordinate.Row ? "Up" : "Down";
 			}
+
+			ShipImageName = $"{imageNameBase}_{imageOrientation}.png";
 		}
 
 

@@ -205,10 +205,14 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\GrayNeedle.png" />
-    <EmbeddedResource Include="Resources\OrangeNeedle.png" />
-    <EmbeddedResource Include="Resources\ShipStartEnd.png" />
-    <EmbeddedResource Include="Resources\ShipCenter.png" />
+    <EmbeddedResource Include="Resources\ShipCenter_Down.png" />
+    <EmbeddedResource Include="Resources\ShipCenter_Left.png" />
+    <EmbeddedResource Include="Resources\ShipCenter_Right.png" />
+    <EmbeddedResource Include="Resources\ShipCenter_Up.png" />
+    <EmbeddedResource Include="Resources\ShipStartEnd_Down.png" />
+    <EmbeddedResource Include="Resources\ShipStartEnd_Left.png" />
+    <EmbeddedResource Include="Resources\ShipStartEnd_Right.png" />
+    <EmbeddedResource Include="Resources\ShipStartEnd_Up.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
 </Project>
