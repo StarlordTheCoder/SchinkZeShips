@@ -12,6 +12,7 @@
 	</ContentPage.BindingContext>
 
 	<StackLayout Spacing="20" Padding="20">
+		<board:ShipStatusDisplay BindingContext="{Binding ConfiguringBoard}"/>
 		<board:BoardView BindingContext="{Binding ConfiguringBoard}" />
 
 		<Button Text="Layout bestätigen"

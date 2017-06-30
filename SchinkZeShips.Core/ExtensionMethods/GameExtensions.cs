@@ -38,7 +38,7 @@ namespace SchinkZeShips.Core.ExtensionMethods
 				: game.RunningGameState.BoardParticipant;
 
 			if (_thisPlayerBoardStateViewModel == null)
-				_thisPlayerBoardStateViewModel = new BoardStateViewModel(board, true);
+				_thisPlayerBoardStateViewModel = new BoardStateViewModel(board, true, false);
 			else
 				_thisPlayerBoardStateViewModel.Model = board;
 
@@ -52,7 +52,7 @@ namespace SchinkZeShips.Core.ExtensionMethods
 				: game.RunningGameState.BoardCreator;
 
 			if (_otherPlayerBoardStateViewModel == null)
-				_otherPlayerBoardStateViewModel = new BoardStateViewModel(board, false);
+				_otherPlayerBoardStateViewModel = new BoardStateViewModel(board, false, true);
 			else
 				_otherPlayerBoardStateViewModel.Model = board;
 

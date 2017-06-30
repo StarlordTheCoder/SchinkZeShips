@@ -12,6 +12,9 @@ namespace SchinkZeShips.Core.GameLogic.Board
 		private void Cell_Tapped(object sender, EventArgs e)
 		{
 			var cell = (CellViewModel) BindingContext;
+
+			if (!cell.CanSelect) return;
+
 			cell.IsSelected = !cell.IsSelected;
 		}
 	}

@@ -13,12 +13,15 @@ namespace SchinkZeShips.Core.GameLogic.Board
 		private Ship _ship;
 		private string _shipImageName;
 
-		public CellViewModel(Coordinate coordinate)
+		public CellViewModel(Coordinate coordinate, bool canSelect)
 		{
 			Coordinate = coordinate;
+			CanSelect = canSelect;
 		}
 
 		public Coordinate Coordinate { get; }
+
+		public bool CanSelect { get; }
 
 		public CellState Model
 		{

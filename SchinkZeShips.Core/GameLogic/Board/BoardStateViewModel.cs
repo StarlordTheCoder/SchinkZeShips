@@ -11,7 +11,7 @@ namespace SchinkZeShips.Core.GameLogic.Board
 		private readonly Dictionary<ShipType, int> _ships = new Dictionary<ShipType, int>();
 		private BoardState _model;
 
-		public BoardStateViewModel(BoardState board, bool isCreatorBoard)
+		public BoardStateViewModel(BoardState board, bool isCreatorBoard, bool canSelectBoard)
 		{
 			for (var row = 0; row < 10; row++)
 			{
@@ -20,7 +20,7 @@ namespace SchinkZeShips.Core.GameLogic.Board
 				for (var col = 0; col < 10; col++)
 				{
 					var coordinate = new Coordinate(row, col);
-					list.Add(new CellViewModel(coordinate));
+					list.Add(new CellViewModel(coordinate, canSelectBoard));
 				}
 
 				Cells.Add(list);

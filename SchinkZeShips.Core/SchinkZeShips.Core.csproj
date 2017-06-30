@@ -59,6 +59,9 @@
     <Compile Include="ExtensionMethods\StringExtensions.cs" />
     <Compile Include="ExtensionMethods\GameExtensions.cs" />
     <Compile Include="ExtensionMethods\UserDialogsExtensions.cs" />
+    <Compile Include="GameLogic\Board\ShipStatusDisplay.xaml.cs">
+      <DependentUpon>ShipStatusDisplay.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GameLogic\Board\CellView.xaml.cs">
       <DependentUpon>CellView.xaml</DependentUpon>
     </Compile>
@@ -213,6 +216,13 @@
     <EmbeddedResource Include="Resources\ShipStartEnd_Left.png" />
     <EmbeddedResource Include="Resources\ShipStartEnd_Right.png" />
     <EmbeddedResource Include="Resources\ShipStartEnd_Up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="GameLogic\Board\ShipStatusDisplay.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>
+      </SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
 </Project>

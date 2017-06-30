@@ -17,7 +17,7 @@ namespace SchinkZeShips.Tests.Core
 		{
 			_board = new BoardState();
 
-			_validate = new BoardStateViewModel(_board, true);
+			_validate = new BoardStateViewModel(_board, true, true);
 		}
 
 		private BoardStateViewModel _validate;

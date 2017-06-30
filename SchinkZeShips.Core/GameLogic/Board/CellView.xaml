@@ -3,7 +3,7 @@
 <Frame xmlns="http://xamarin.com/schemas/2014/forms"
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        x:Class="SchinkZeShips.Core.GameLogic.Board.CellView" Margin="0" Padding="0" HeightRequest="40" WidthRequest="40"
-       OutlineColor="Black" BackgroundColor="White" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+       OutlineColor="Black" CornerRadius="0" HasShadow="False" BackgroundColor="White" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
 	<Frame.Triggers>
 		<MultiTrigger TargetType="Frame">
 			<MultiTrigger.Conditions>

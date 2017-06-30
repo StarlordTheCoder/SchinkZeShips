@@ -21,7 +21,7 @@ namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
 			LockInLayoutCommand = new Command(LockInLayoutAsync,
 				() => ConfiguringBoard.Cells.SelectMany(c => c).Count(c => c.Ship != null) ==
 				      BoardStateViewModel.AmountOfCellsWithShips);
-			ConfiguringBoard = new BoardStateViewModel(new BoardState(), true);
+			ConfiguringBoard = new BoardStateViewModel(new BoardState(), true, true);
 		}
 
 		public Command LockInLayoutCommand { get; }
