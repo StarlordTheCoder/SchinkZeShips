@@ -4,7 +4,6 @@ using System.ServiceModel;
 using SchinkZeShips.Core.ExtensionMethods;
 using SchinkZeShips.Core.GameLobby;
 using SchinkZeShips.Core.GameLogic.Board;
-using SchinkZeShips.Core.GameLogic.BoardConfiguration;
 using SchinkZeShips.Core.Infrastructure;
 using SchinkZeShips.Core.SchinkZeShipsReference;
 using Xamarin.Forms;
@@ -67,19 +66,35 @@ namespace SchinkZeShips.Core.GameLogic.InGame
 			}
 		}
 
+		private CellViewModel LastClickedCell
+		{
+			get => _lastClickedCell;
+			set
+			{
+				if (!Equals(_lastClickedCell, value))
+				{
+					if (_lastClickedCell != null)
+						_lastClickedCell.IsSelected = false;
+
+					_lastClickedCell = value;
+				}
+
+				FireShotCommand.ChangeCanExecute();
+			}
+		}
+
+		private CellViewModel SelectedCell => LastClickedCell?.IsSelected == true ? LastClickedCell : null;
+
 		private async void FireShotAsync()
 		{
-			_lastClickedCell.Model.WasShot = true;
+			LastClickedCell.Model.WasShot = true;
 
-			if (!_lastClickedCell.Model.HasShip)
+			if (!LastClickedCell.Model.HasShip)
 				CurrentGame.RunningGameState.CurrentPlayerIsGameCreator = !CurrentGame.RunningGameState.CurrentPlayerIsGameCreator;
 
 			await Service.UpdateGameState(CurrentGame.Id, CurrentGame.RunningGameState);
 
-			_lastClickedCell.IsSelected = false;
-			_lastClickedCell = null;
-
-			FireShotCommand.ChangeCanExecute();
+			LastClickedCell = null;
 
 			UpdateGamestateAsync();
 
@@ -115,7 +130,7 @@ namespace SchinkZeShips.Core.GameLogic.InGame
 
 		private bool CanFireShot()
 		{
-			return _lastClickedCell != null && _lastClickedCell.IsSelected && !_lastClickedCell.Model.WasShot &&
+			return SelectedCell?.Model.WasShot == false &&
 			       CurrentGame.ThisPlayerIsGameCreator() ==
 			       CurrentGame.RunningGameState.CurrentPlayerIsGameCreator;
 		}
@@ -147,12 +162,7 @@ namespace SchinkZeShips.Core.GameLogic.InGame
 
 		private void CellSelectedChanged(object sender, EventArgs e)
 		{
-			if (_lastClickedCell != null)
-				_lastClickedCell.IsSelected = false;
-
-			_lastClickedCell = (CellViewModel) sender;
-
-			FireShotCommand.ChangeCanExecute();
+			LastClickedCell = (CellViewModel) sender;
 		}
 	}
 }
