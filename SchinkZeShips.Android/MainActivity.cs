@@ -9,7 +9,7 @@ using Xamarin.Forms.Platform.Android;
 namespace SchinkZeShips.Android
 {
 	[Activity(Label = "SchinkZeShips", Icon = "@drawable/icon", Theme = "@style/MainTheme", MainLauncher = true,
-		ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+		ConfigurationChanges = ConfigChanges.ScreenSize, ScreenOrientation = ScreenOrientation.Portrait)]
 	public class MainActivity : FormsAppCompatActivity
 	{
 		protected override void OnCreate(Bundle bundle)

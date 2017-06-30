@@ -2,5 +2,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:installLocation="auto" package="ch.tbz.schinkzeships">
 	<uses-sdk android:minSdkVersion="23" />
 	<uses-permission android:name="android.permission.INTERNET" />
-	<application android:label="SchinkZeShips"></application>
+	<application android:label="SchinkZeShips" android:icon="@drawable/Icon"></application>
 </manifest>
