@@ -1,4 +1,5 @@
-﻿using System.ServiceModel;
+﻿using System;
+using System.ServiceModel;
 using SchinkZeShips.Core.ExtensionMethods;
 using SchinkZeShips.Core.GameLogic.BoardConfiguration;
 using SchinkZeShips.Core.Infrastructure;
@@ -82,7 +83,7 @@ namespace SchinkZeShips.Core.GameLobby
 			{
 				throw;
 			}
-			catch (CommunicationException)
+			catch (Exception e) when (e is TimeoutException || e is CommunicationException)
 			{
 				Dialogs.AlertNoConnection();
 			}
@@ -108,7 +109,7 @@ namespace SchinkZeShips.Core.GameLobby
 			{
 				throw;
 			}
-			catch (CommunicationException)
+			catch (Exception e) when (e is TimeoutException || e is CommunicationException)
 			{
 				Dialogs.AlertNoConnection();
 				_leftLobbyManually = false;
@@ -134,7 +135,7 @@ namespace SchinkZeShips.Core.GameLobby
 			{
 				throw;
 			}
-			catch (CommunicationException)
+			catch (Exception e) when (e is TimeoutException || e is CommunicationException)
 			{
 				Dialogs.AlertNoConnection();
 				_leftLobbyManually = false;

@@ -117,7 +117,7 @@ namespace SchinkZeShips.Core.GameLogic.InGame
 				{
 					throw;
 				}
-				catch (CommunicationException)
+				catch (Exception e) when (e is TimeoutException || e is CommunicationException)
 				{
 					Dialogs.AlertNoConnection();
 				}
@@ -150,7 +150,7 @@ namespace SchinkZeShips.Core.GameLogic.InGame
 			{
 				throw;
 			}
-			catch (CommunicationException)
+			catch (Exception e) when (e is TimeoutException || e is CommunicationException)
 			{
 				Dialogs.AlertNoConnection();
 			}
