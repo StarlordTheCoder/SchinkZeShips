@@ -98,6 +98,7 @@ namespace SchinkZeShips.Core.GameLogic.InGame
 			get => _statusText;
 			private set
 			{
+				if (_statusText == value) return;
 				_statusText = value;
 				OnPropertyChanged();
 			}
@@ -127,6 +128,7 @@ namespace SchinkZeShips.Core.GameLogic.InGame
 			get => _displayActivityIndicator;
 			private set
 			{
+				if (_displayActivityIndicator == value) return;
 				_displayActivityIndicator = value;
 				OnPropertyChanged();
 			}
@@ -184,8 +186,9 @@ namespace SchinkZeShips.Core.GameLogic.InGame
 
 		private bool CanFireShot()
 		{
-			return SelectedCell?.Model.WasShot == false &&
-			       CurrentGame.ThisPlayerIsGameCreator() ==
+			return SelectedCell?.Model?.WasShot == false &&
+				   CurrentGame.RunningGameState != null &&
+				   CurrentGame.ThisPlayerIsGameCreator() ==
 			       CurrentGame.RunningGameState.CurrentPlayerIsGameCreator;
 		}
 

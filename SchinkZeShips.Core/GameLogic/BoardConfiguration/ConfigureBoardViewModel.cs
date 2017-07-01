@@ -52,7 +52,7 @@ namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
 
 				var remove =
 					await Dialogs.ConfirmAsync(
-						$"Möchten Sie dieses {(clickedCell.Ship.ShipType.HasValue ? (int) clickedCell.Ship.ShipType.Value : 0)}er Schiff entfernen?");
+						$"Möchten Sie dieses {(clickedCell.Ship.ShipType.HasValue ? (int) clickedCell.Ship.ShipType.Value : 0)}er Schiff entfernen?", "Entfernen bestätigen", "Ja", "Nein");
 
 				if (remove)
 				{

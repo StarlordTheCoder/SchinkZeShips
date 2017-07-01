@@ -49,42 +49,7 @@
 		<board:CellView BindingContext="{Binding ShipParts[4]}" />
 	</StackLayout>
 
-	<Label Grid.Column="0" Grid.Row="1" Text="{Binding AllowedDestroyer}" BackgroundColor="LightGreen" LineBreakMode="NoWrap">
-		<Label.Triggers>
-			<MultiTrigger TargetType="Label">
-				<MultiTrigger.Conditions>
-					<BindingCondition Binding="{Binding AllowedDestroyer}" Value="0"/>
-				</MultiTrigger.Conditions>
-				<MultiTrigger.Setters>
-					<Setter Property="BackgroundColor" Value="Red" />
-				</MultiTrigger.Setters>
-			</MultiTrigger>
-		</Label.Triggers>
-	</Label>
-	<StackLayout Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="1" Orientation="Horizontal" x:Name="Destroyer" Spacing="0">
-		<board:CellView BindingContext="{Binding ShipParts[0]}" />
-		<board:CellView BindingContext="{Binding ShipParts[1]}" />
-		<board:CellView BindingContext="{Binding ShipParts[2]}" />
-	</StackLayout>
-
-	<Label Grid.Column="4" Grid.Row="1" Text="{Binding AllowedSubmarines}" BackgroundColor="LightGreen" LineBreakMode="NoWrap">
-		<Label.Triggers>
-			<MultiTrigger TargetType="Label">
-				<MultiTrigger.Conditions>
-					<BindingCondition Binding="{Binding AllowedSubmarines}" Value="0"/>
-				</MultiTrigger.Conditions>
-				<MultiTrigger.Setters>
-					<Setter Property="BackgroundColor" Value="Red" />
-				</MultiTrigger.Setters>
-			</MultiTrigger>
-		</Label.Triggers>
-	</Label>
-	<StackLayout Grid.Column="5" Grid.ColumnSpan="2" Grid.Row="1" Orientation="Horizontal" x:Name="Submarines" Spacing="0">
-		<board:CellView BindingContext="{Binding ShipParts[0]}" />
-		<board:CellView BindingContext="{Binding ShipParts[1]}" />
-	</StackLayout>
-
-	<Label Grid.Column="0" Grid.Row="2" Text="{Binding AllowedCruisers}" BackgroundColor="LightGreen" LineBreakMode="NoWrap">
+	<Label Grid.Column="0" Grid.Row="1" Text="{Binding AllowedCruisers}" BackgroundColor="LightGreen" LineBreakMode="NoWrap">
 		<Label.Triggers>
 			<MultiTrigger TargetType="Label">
 				<MultiTrigger.Conditions>
@@ -96,10 +61,45 @@
 			</MultiTrigger>
 		</Label.Triggers>
 	</Label>
-	<StackLayout Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="2" Orientation="Horizontal" x:Name="Cruisers" Spacing="0">
+	<StackLayout Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="1" Orientation="Horizontal" x:Name="Cruisers" Spacing="0">
 		<board:CellView BindingContext="{Binding ShipParts[0]}" />
 		<board:CellView BindingContext="{Binding ShipParts[1]}" />
 		<board:CellView BindingContext="{Binding ShipParts[2]}" />
 		<board:CellView BindingContext="{Binding ShipParts[3]}" />
+	</StackLayout>
+
+	<Label Grid.Column="0" Grid.Row="2" Text="{Binding AllowedDestroyer}" BackgroundColor="LightGreen" LineBreakMode="NoWrap">
+		<Label.Triggers>
+			<MultiTrigger TargetType="Label">
+				<MultiTrigger.Conditions>
+					<BindingCondition Binding="{Binding AllowedDestroyer}" Value="0"/>
+				</MultiTrigger.Conditions>
+				<MultiTrigger.Setters>
+					<Setter Property="BackgroundColor" Value="Red" />
+				</MultiTrigger.Setters>
+			</MultiTrigger>
+		</Label.Triggers>
+	</Label>
+	<StackLayout Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="2" Orientation="Horizontal" x:Name="Destroyer" Spacing="0">
+		<board:CellView BindingContext="{Binding ShipParts[0]}" />
+		<board:CellView BindingContext="{Binding ShipParts[1]}" />
+		<board:CellView BindingContext="{Binding ShipParts[2]}" />
+	</StackLayout>
+
+	<Label Grid.Column="4" Grid.Row="2" Text="{Binding AllowedSubmarines}" BackgroundColor="LightGreen" LineBreakMode="NoWrap">
+		<Label.Triggers>
+			<MultiTrigger TargetType="Label">
+				<MultiTrigger.Conditions>
+					<BindingCondition Binding="{Binding AllowedSubmarines}" Value="0"/>
+				</MultiTrigger.Conditions>
+				<MultiTrigger.Setters>
+					<Setter Property="BackgroundColor" Value="Red" />
+				</MultiTrigger.Setters>
+			</MultiTrigger>
+		</Label.Triggers>
+	</Label>
+	<StackLayout Grid.Column="5" Grid.ColumnSpan="2" Grid.Row="2" Orientation="Horizontal" x:Name="Submarines" Spacing="0">
+		<board:CellView BindingContext="{Binding ShipParts[0]}" />
+		<board:CellView BindingContext="{Binding ShipParts[1]}" />
 	</StackLayout>
 </Grid>
