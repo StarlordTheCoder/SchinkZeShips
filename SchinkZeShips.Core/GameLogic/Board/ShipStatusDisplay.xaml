@@ -29,7 +29,7 @@
 		<RowDefinition Height="*"/>
 		<RowDefinition Height="*"/>
 	</Grid.RowDefinitions>
-	<Label Grid.Column="0" Grid.Row="0" Text="{Binding AllowedBattleships}" BackgroundColor="LightGreen">
+	<Label Grid.Column="0" Grid.Row="0" Text="{Binding AllowedBattleships}" BackgroundColor="LightGreen" LineBreakMode="NoWrap">
 		<Label.Triggers>
 			<MultiTrigger TargetType="Label">
 				<MultiTrigger.Conditions>
@@ -49,7 +49,7 @@
 		<board:CellView BindingContext="{Binding ShipParts[4]}" />
 	</StackLayout>
 
-	<Label Grid.Column="0" Grid.Row="1" Text="{Binding AllowedDestroyer}" BackgroundColor="LightGreen">
+	<Label Grid.Column="0" Grid.Row="1" Text="{Binding AllowedDestroyer}" BackgroundColor="LightGreen" LineBreakMode="NoWrap">
 		<Label.Triggers>
 			<MultiTrigger TargetType="Label">
 				<MultiTrigger.Conditions>
@@ -67,7 +67,7 @@
 		<board:CellView BindingContext="{Binding ShipParts[2]}" />
 	</StackLayout>
 
-	<Label Grid.Column="4" Grid.Row="1" Text="{Binding AllowedSubmarines}" BackgroundColor="LightGreen">
+	<Label Grid.Column="4" Grid.Row="1" Text="{Binding AllowedSubmarines}" BackgroundColor="LightGreen" LineBreakMode="NoWrap">
 		<Label.Triggers>
 			<MultiTrigger TargetType="Label">
 				<MultiTrigger.Conditions>
@@ -84,7 +84,7 @@
 		<board:CellView BindingContext="{Binding ShipParts[1]}" />
 	</StackLayout>
 
-	<Label Grid.Column="0" Grid.Row="2" Text="{Binding AllowedCruisers}" BackgroundColor="LightGreen">
+	<Label Grid.Column="0" Grid.Row="2" Text="{Binding AllowedCruisers}" BackgroundColor="LightGreen" LineBreakMode="NoWrap">
 		<Label.Triggers>
 			<MultiTrigger TargetType="Label">
 				<MultiTrigger.Conditions>

@@ -16,6 +16,7 @@ namespace SchinkZeShips.Core.GameLogic.InGame
 		private Game _currentGame;
 
 		private CellViewModel _lastClickedCell;
+		private string _statusText;
 
 		public InGameViewModel() : base(InGameRefreshTimeoutInMs)
 		{
@@ -40,11 +41,16 @@ namespace SchinkZeShips.Core.GameLogic.InGame
 						cell.SelectedChanged -= CellSelectedChanged;
 				}
 
-				if (value?.RunningGameState == null)
+				if (value == null)
 				{
-					_currentGame = null;
-
+					Dialogs.Alert("Das Spiel existiert nicht mehr");
 					PushViewModal(new StartView());
+					return;
+				}
+				if (value.RunningGameState == null)
+				{
+					Dialogs.Alert("Sie haben das Spiel verloren", "Verloren", "Zurück zur Lobby");
+					PushViewModal(new GameLobbyView(value));
 					return;
 				}
 
@@ -53,16 +59,30 @@ namespace SchinkZeShips.Core.GameLogic.InGame
 
 				_currentGame = value;
 
-
-				if (_currentGame.IsConfiguringBoard())
-					ShowLoading("Warte, bis der andere Spieler sein Feld konfiguriert");
-				else if (_currentGame.RunningGameState.CurrentPlayerIsGameCreator != _currentGame.ThisPlayerIsGameCreator())
-					ShowLoading("Warte, bis der andere Spieler seinen Zug beendet");
-				else
-					HideLoading();
+				UpdateStatusText();
 
 				OnPropertyChanged();
 				FireShotCommand.ChangeCanExecute();
+			}
+		}
+
+		private void UpdateStatusText()
+		{
+			if (_currentGame.IsConfiguringBoard())
+				StatusText = "Der andere Spieler konfiguriert sein Feld…";
+			else if (_currentGame.RunningGameState.CurrentPlayerIsGameCreator != _currentGame.ThisPlayerIsGameCreator())
+				StatusText = "Der andere Spieler ist am Zug…";
+			else
+				StatusText = "Sie sind am Zug!";
+		}
+
+		public string StatusText
+		{
+			get => _statusText;
+			private set
+			{
+				_statusText = value;
+				OnPropertyChanged();
 			}
 		}
 
@@ -87,24 +107,31 @@ namespace SchinkZeShips.Core.GameLogic.InGame
 
 		private async void FireShotAsync()
 		{
-			LastClickedCell.Model.WasShot = true;
+			ShowLoading("Richte Kanonen aus");
 
 			if (!LastClickedCell.Model.HasShip)
 				CurrentGame.RunningGameState.CurrentPlayerIsGameCreator = !CurrentGame.RunningGameState.CurrentPlayerIsGameCreator;
 
+			LastClickedCell.Model.WasShot = true;
+
 			await Service.UpdateGameState(CurrentGame.Id, CurrentGame.RunningGameState);
+
+			HideLoading();
 
 			LastClickedCell = null;
 
-			UpdateGamestateAsync();
+			UpdateStatusText();
 
-			var shotShips = CurrentGame.OtherPlayerBoard().Cells.SelectMany(c => c)
+			var shotShips = CurrentGame
+				.OtherPlayerBoard()
+				.Cells
+				.SelectMany(c => c)
 				.Count(c => c.Model.WasShot && c.Model.HasShip);
 
 			if (shotShips == BoardStateViewModel.AmountOfCellsWithShips)
 			{
-				Dialogs.Alert("Spiel Gewonnen");
-				ShowLoading("Verlasse Spiel");
+				await Dialogs.AlertAsync("Sie haben das Spiel gewonnen!", "Gewonnen!", "Zurück zur Lobby");
+				ShowLoading("Beende Spiel");
 
 				try
 				{
