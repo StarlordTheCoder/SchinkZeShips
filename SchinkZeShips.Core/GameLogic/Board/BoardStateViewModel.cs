@@ -126,6 +126,8 @@ namespace SchinkZeShips.Core.GameLogic.Board
 		{
 			_ships[shipToRemove.ShipType.Value]++;
 
+			UpdateShipCounts();
+
 			foreach (var shipPart in shipToRemove.ShipParts)
 				shipPart.Ship = null;
 		}
