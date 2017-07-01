@@ -12,16 +12,17 @@ namespace SchinkZeShips.Core.GameLogic.InGame
 {
 	public class InGameViewModel : ViewModelWithCurrentGameBase
 	{
-		private const int InGameRefreshTimeoutInMs = 3000;
+		private const int InGameRefreshTimeoutInMs = 2500;
 		private Game _currentGame;
 
 		private CellViewModel _lastClickedCell;
 		private string _statusText;
+		private bool _displayActivityIndicator;
 
 		public InGameViewModel() : base(InGameRefreshTimeoutInMs)
 		{
 			FireShotCommand = new Command(FireShotAsync, CanFireShot);
-			SurrenderGameCommand = new Command(SurrenderGame);
+			SurrenderGameCommand = new Command(SurrenderGameAsync);
 		}
 
 		public Command FireShotCommand { get; }
@@ -49,7 +50,14 @@ namespace SchinkZeShips.Core.GameLogic.InGame
 				}
 				if (value.RunningGameState == null)
 				{
-					Dialogs.Alert("Sie haben das Spiel verloren", "Verloren", "Zurück zur Lobby");
+					if (value.GameParticipant == null)
+					{
+						Dialogs.Alert("Der andere Spieler hat aufgegeben", "Gewonnen");
+					}
+					else
+					{
+						Dialogs.Alert("Sie haben das Spiel verloren", "Verloren");
+					}
 					PushViewModal(new GameLobbyView(value));
 					return;
 				}
@@ -69,11 +77,20 @@ namespace SchinkZeShips.Core.GameLogic.InGame
 		private void UpdateStatusText()
 		{
 			if (_currentGame.IsConfiguringBoard())
+			{
 				StatusText = "Der andere Spieler konfiguriert sein Feld…";
+				DisplayActivityIndicator = true;
+			}
 			else if (_currentGame.RunningGameState.CurrentPlayerIsGameCreator != _currentGame.ThisPlayerIsGameCreator())
+			{
 				StatusText = "Der andere Spieler ist am Zug…";
+				DisplayActivityIndicator = true;
+			}
 			else
+			{
 				StatusText = "Sie sind am Zug!";
+				DisplayActivityIndicator = false;
+			}
 		}
 
 		public string StatusText
@@ -104,6 +121,16 @@ namespace SchinkZeShips.Core.GameLogic.InGame
 		}
 
 		private CellViewModel SelectedCell => LastClickedCell?.IsSelected == true ? LastClickedCell : null;
+
+		public bool DisplayActivityIndicator
+		{
+			get => _displayActivityIndicator;
+			private set
+			{
+				_displayActivityIndicator = value;
+				OnPropertyChanged();
+			}
+		}
 
 		private async void FireShotAsync()
 		{
@@ -162,8 +189,16 @@ namespace SchinkZeShips.Core.GameLogic.InGame
 			       CurrentGame.RunningGameState.CurrentPlayerIsGameCreator;
 		}
 
-		public async void SurrenderGame()
+		private async void SurrenderGameAsync()
 		{
+			var reallySurrender = await Dialogs.ConfirmAsync(
+				"Möchten Sie wirklich aufgeben?", "Wirklich aufgeben?", "Aufgeben","Weiterspielen");
+
+			if (!reallySurrender)
+			{
+				return;
+			}
+
 			ShowLoading("Verlasse Spiel");
 
 			try

@@ -1,14 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
-<Frame xmlns="http://xamarin.com/schemas/2014/forms"
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        x:Class="SchinkZeShips.Core.GameLogic.Board.CellView" Margin="0" Padding="1" HeightRequest="40" WidthRequest="40"
-       OutlineColor="Transparent" CornerRadius="0" HasShadow="False" BackgroundColor="Black" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+       BackgroundColor="Black" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
 	<Frame Margin="0" Padding="0" HeightRequest="40" WidthRequest="40"
 	                 OutlineColor="Transparent" CornerRadius="0" HasShadow="False" BackgroundColor="White" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
 		<Frame.Triggers>
 			<MultiTrigger TargetType="Frame">
 				<MultiTrigger.Conditions>
+					<BindingCondition Binding="{Binding Model.WasShot}" Value="False" />
 					<BindingCondition Binding="{Binding IsSelected}" Value="True" />
 				</MultiTrigger.Conditions>
 				<MultiTrigger.Setters>
@@ -39,4 +40,4 @@
 		</Frame.GestureRecognizers>
 		<Image IsVisible="{Binding Ship.ShipVisible}" Source="{Binding ShipImage}" Aspect="Fill" />
 	</Frame>
-</Frame>
+</ContentView>

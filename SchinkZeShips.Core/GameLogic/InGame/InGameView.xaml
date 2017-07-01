@@ -19,7 +19,6 @@
 	</ContentPage.Resources>
 	<Grid Padding="20">
 		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="*"/>
 			<RowDefinition Height="2*"/>
 			<RowDefinition Height="Auto"/>
@@ -28,10 +27,21 @@
 			<ColumnDefinition Width="*"/>
 			<ColumnDefinition Width="*"/>
 		</Grid.ColumnDefinitions>
-		<Label Text="{Binding StatusText}" Grid.Row="0" FontSize="25" LineBreakMode="WordWrap"/>
-		<board:BoardView Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" BindingContext="{Binding CurrentGame, Converter={StaticResource OwnerBoardConverter}}" />
-		<board:BoardView Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" BindingContext="{Binding CurrentGame, Converter={StaticResource OpponentBoardConverter}}" />
-		<Button Grid.Column="1" Grid.Row="3" Command="{Binding FireShotCommand}" Text="Feuern!" />
-		<Button Grid.Column="0" Grid.Row="3" Command="{Binding SurrenderGameCommand}" Text="Aufgeben" />
+		<StackLayout Grid.Row="0">
+			<Label Text="{Binding StatusText}" FontSize="25" LineBreakMode="WordWrap"/>
+			<ActivityIndicator IsRunning="{Binding DisplayActivityIndicator}" IsVisible="{Binding DisplayActivityIndicator}">
+				<ActivityIndicator.HorizontalOptions>
+					<OnPlatform x:TypeArguments="LayoutOptions">
+						<On Platform="Windows" Value="FillAndExpand" />
+						<On Platform="Android" Value="CenterAndExpand" />
+						<On Platform="iOS" Value="CenterAndExpand" />
+					</OnPlatform>
+				</ActivityIndicator.HorizontalOptions>
+			</ActivityIndicator>
+		</StackLayout>
+		<board:BoardView Grid.Column="1" Grid.Row="0" BindingContext="{Binding CurrentGame, Converter={StaticResource OwnerBoardConverter}}" />
+		<board:BoardView Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" BindingContext="{Binding CurrentGame, Converter={StaticResource OpponentBoardConverter}}" />
+		<Button Grid.Column="1" Grid.Row="2" Command="{Binding FireShotCommand}" Text="Feuern!" />
+		<Button Grid.Column="0" Grid.Row="2" Command="{Binding SurrenderGameCommand}" Text="Aufgeben" />
 	</Grid>
 </ContentPage>
