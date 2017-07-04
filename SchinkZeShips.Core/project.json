@@ -4,7 +4,7 @@
     "Acr.UserDialogs": "6.5.1",
     "Microsoft.Azure.Mobile.Analytics": "0.13.1",
     "Microsoft.Azure.Mobile.Crashes": "0.13.1",
-    "Xam.Plugins.Settings": "2.5.8",
+    "Xam.Plugins.Settings": "3.0.1",
     "Xamarin.Forms": "2.3.4.247"
   },
   "frameworks": {

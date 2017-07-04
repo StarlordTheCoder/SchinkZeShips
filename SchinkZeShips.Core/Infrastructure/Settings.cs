@@ -52,7 +52,7 @@ namespace SchinkZeShips.Core.Infrastructure
 #else
 		public Guid Guid
 		{
-			get => AppSettings.GetValueOrDefault<Guid>(GuidKey);
+			get => AppSettings.GetValueOrDefault(GuidKey, default(Guid));
 			set
 			{
 				AppSettings.AddOrUpdateValue(GuidKey, value);
