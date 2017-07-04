@@ -4,10 +4,9 @@
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        x:Class="SchinkZeShips.Core.GameLogic.Board.CellView" Margin="0" Padding="1" HeightRequest="40" WidthRequest="40"
        BackgroundColor="Black" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-	<Frame Margin="0" Padding="0" HeightRequest="40" WidthRequest="40"
-	                 OutlineColor="Transparent" CornerRadius="0" HasShadow="False" BackgroundColor="White" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-		<Frame.Triggers>
-			<MultiTrigger TargetType="Frame">
+	<ContentView Margin="0" Padding="0" HeightRequest="40" WidthRequest="40" BackgroundColor="White">
+		<ContentView.Triggers>
+			<MultiTrigger TargetType="ContentView">
 				<MultiTrigger.Conditions>
 					<BindingCondition Binding="{Binding Model.WasShot}" Value="False" />
 					<BindingCondition Binding="{Binding IsSelected}" Value="True" />
@@ -16,7 +15,7 @@
 					<Setter Property="BackgroundColor" Value="LightBlue" />
 				</MultiTrigger.Setters>
 			</MultiTrigger>
-			<MultiTrigger TargetType="Frame">
+			<MultiTrigger TargetType="ContentView">
 				<MultiTrigger.Conditions>
 					<BindingCondition Binding="{Binding Model.HasShip}" Value="True" />
 					<BindingCondition Binding="{Binding Model.WasShot}" Value="True" />
@@ -25,7 +24,7 @@
 					<Setter Property="BackgroundColor" Value="Coral" />
 				</MultiTrigger.Setters>
 			</MultiTrigger>
-			<MultiTrigger TargetType="Frame">
+			<MultiTrigger TargetType="ContentView">
 				<MultiTrigger.Conditions>
 					<BindingCondition Binding="{Binding Model.HasShip}" Value="False" />
 					<BindingCondition Binding="{Binding Model.WasShot}" Value="True" />
@@ -34,10 +33,10 @@
 					<Setter Property="BackgroundColor" Value="Gray" />
 				</MultiTrigger.Setters>
 			</MultiTrigger>
-		</Frame.Triggers>
-		<Frame.GestureRecognizers>
+		</ContentView.Triggers>
+		<ContentView.GestureRecognizers>
 			<TapGestureRecognizer Tapped="Cell_Tapped" NumberOfTapsRequired="1" />
-		</Frame.GestureRecognizers>
+		</ContentView.GestureRecognizers>
 		<Image IsVisible="{Binding Ship.ShipVisible}" Source="{Binding ShipImage}" Aspect="Fill" />
-	</Frame>
+	</ContentView>
 </ContentView>
