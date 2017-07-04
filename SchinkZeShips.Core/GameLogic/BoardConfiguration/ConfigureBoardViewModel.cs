@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using SchinkZeShips.Core.ExtensionMethods;
+using SchinkZeShips.Core.GameLobby;
 using SchinkZeShips.Core.GameLogic.Board;
 using SchinkZeShips.Core.GameLogic.InGame;
 using SchinkZeShips.Core.Infrastructure;
@@ -164,6 +165,17 @@ namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
 			ShowLoading("Bestätige Layout");
 
 			var latestGameState = await Service.GetCurrentGame();
+
+			if (latestGameState == null)
+			{
+				PushViewModal(new StartView());
+				return;
+			}
+			if (latestGameState.RunningGameState == null)
+			{
+				PushViewModal(new GameLobbyView(latestGameState));
+				return;
+			}
 
 			if (latestGameState.ThisPlayerIsGameCreator())
 				latestGameState.RunningGameState.BoardCreator = ConfiguringBoard.Model;

@@ -144,6 +144,7 @@ namespace SchinkZeShips.Core.GameLogic.InGame
 			LastClickedCell.Model.WasShot = true;
 
 			await Service.UpdateGameState(CurrentGame.Id, CurrentGame.RunningGameState);
+			CurrentGame = await Service.GetCurrentGame();
 
 			HideLoading();
 
