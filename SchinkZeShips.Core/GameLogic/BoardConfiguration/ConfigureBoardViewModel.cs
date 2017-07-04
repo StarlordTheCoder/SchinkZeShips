@@ -161,6 +161,8 @@ namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
 
 		private async void LockInLayoutAsync()
 		{
+			ShowLoading("Bestätige Layout");
+
 			var latestGameState = await Service.GetCurrentGame();
 
 			if (latestGameState.ThisPlayerIsGameCreator())
@@ -169,6 +171,8 @@ namespace SchinkZeShips.Core.GameLogic.BoardConfiguration
 				latestGameState.RunningGameState.BoardParticipant = ConfiguringBoard.Model;
 
 			await Service.UpdateGameState(latestGameState.Id, latestGameState.RunningGameState);
+
+			HideLoading();
 
 			//TODO Use Service / better class
 			GameExtensions.ResetBoards();
